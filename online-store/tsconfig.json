@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "ES2016",
+    "allowJs": true
+  },
+  "files": ["./src/index.ts"],
+  "exclude": ["node_modules"]
+}
