@@ -1,10 +1,10 @@
 "use strict";
 
 import Home         from './views/pages/Home.js'
-import About        from './views/pages/About.js'
+import Cart        from './views/pages/cart.js'
 import Error404     from './views/pages/Error404.js'
-import PostShow     from './views/pages/PostShow.js'
-import Register     from './views/pages/Register.js'
+import Product     from './views/pages/product.js'
+
 
 import Navbar       from './views/components/Navbar.js'
 import Bottombar    from './views/components/Bottombar.js' 
