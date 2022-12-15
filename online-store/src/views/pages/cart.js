@@ -1,4 +1,4 @@
-let Register = {
+let Cart = {
 
     render: async () => {
         return /*html*/ `
@@ -13,4 +13,4 @@ let Register = {
     }
 }
 
-export default Register;
+export default Cart;

@@ -10,13 +10,14 @@ import Navbar       from './views/components/Navbar.js'
 import Bottombar    from './views/components/Bottombar.js' 
 
 import Utils        from './services/Utils.js'
+import Product from './views/pages/product.js';
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
     '/'             : Home
-    , '/about'      : About
-    , '/p/:id'      : PostShow
-    , '/register'   : Register
+    , '/cart'      : Cart
+    , '/p/:id'      : Product
+    
 };
 
 

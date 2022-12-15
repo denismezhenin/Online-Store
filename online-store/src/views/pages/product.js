@@ -1,4 +1,4 @@
-let About = {
+let Product = {
     render : async () => {
         let view =  /*html*/`
             <section class="section">
@@ -11,4 +11,4 @@ let About = {
         
 }
 
-export default About;
+export default Product;
