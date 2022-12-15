@@ -1,4 +1,5 @@
 "use strict";
+import './styles/style.scss';
 
 import Home         from './views/pages/Home.js'
 import Cart        from './views/pages/cart.js'
