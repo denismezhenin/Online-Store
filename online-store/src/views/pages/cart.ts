@@ -1,4 +1,4 @@
-import { getCartHtml } from "./cartPage.js";
+import { getCartHtml } from "./cartPage";
 
 let Cart = {
     render: async () => {

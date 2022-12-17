@@ -2,7 +2,7 @@
 import './styles/style.scss';
 
 import Home         from './views/pages/Home.js'
-import Cart        from './views/pages/cart.js'
+import Cart        from './views/pages/cart'
 import Error404     from './views/pages/Error404.js'
 import Product     from './views/pages/product.js'
 
