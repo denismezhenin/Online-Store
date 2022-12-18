@@ -1,8 +1,9 @@
 
  body {
-   position: relative;
-	  min-height: 100vh;
+    position: relative;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     // background-image: url('../images/base.jpg');
     // background-repeat: no-repeat;
