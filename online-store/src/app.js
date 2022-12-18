@@ -4,7 +4,7 @@ import './styles/style.scss';
 import Home         from './views/pages/Home.js'
 import Cart        from './views/pages/cart'
 import Error404     from './views/pages/Error404.js'
-import Product     from './views/pages/product.js'
+import Product     from './views/pages/product.ts'
 
 
 import Navbar       from './views/components/Navbar.js'
@@ -17,7 +17,7 @@ import Utils        from './services/Utils.js'
 const routes = {
     '/'             : Home
     , '/cart'      : Cart
-    , '/p/:id'      : Product
+    , '/product'      : Product
     
 };
 
