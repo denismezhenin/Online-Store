@@ -23,8 +23,8 @@ const homePageHtml = `
     <span class="range-values__max"></span>
   </div>
   <div class="range-sliders">
-    <input class="min-value range-sliders__input" type="range" min="0" max="100">
-    <input class="max-value range-sliders__input" type="range" min="0" max="100">
+    <input class="min-value range-sliders__input" value="10" step="1" type="range" min="10" max="1749">
+    <input class="max-value range-sliders__input" value="1749" step="1" type="range" min="10" max="1749">
   </div>
 </div>
 <div class="filters-range range stock">
@@ -36,8 +36,8 @@ const homePageHtml = `
     <span class="range-values__max"></span>
   </div>
   <div class="range-sliders">
-    <input class="min-value range-sliders__input" type="range" min="0" max="100">
-    <input class="max-value range-sliders__input" type="range" min="0" max="100">
+    <input class="min-value range-sliders__input" value="2" step="1" type="range" min="2" max="150">
+    <input class="max-value range-sliders__input" value="150" step="1" type="range" min="2" max="150">
   </div>
 </div>
 </aside>
