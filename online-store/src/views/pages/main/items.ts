@@ -1,12 +1,13 @@
 import { tsQuerySelector, tsQuerySelectorAll } from "../../components/helpers";
 
-export let priceMax: number = 0;
-export let priceMin: number = Infinity;
-export let quantityMin: number = Infinity;
-export let quantityMax: number = 0;
+let priceMax: number = 0;
+let priceMin: number = Infinity;
+let quantityMin: number = Infinity;
+let quantityMax: number = 0;
 
 export const addItems = async (parent: string, data: any) => {
-  // const rangePriceMin = tsQuerySelectorAll(document, '.range-values__min')[0]
+  const mins = tsQuerySelectorAll(document, '.range-values__min')
+  const max = tsQuerySelectorAll(document, '.range-values__max');
   const array = data.products;
   const el = document.querySelector(`.${parent}`)!
   for (let item of array) {
@@ -27,11 +28,14 @@ export const addItems = async (parent: string, data: any) => {
     li.append(cartButton)
     li.append(detailsButton)
     el.append(li)
-    // rangePriceMin.textContent = (Math.min(Number(rangePriceMin.textContent), item.price )).toString()
-    priceMin = Math.max(priceMin, item.price)
+    priceMin = Math.min(priceMin, item.price)
     priceMax = Math.max(priceMax, item.price)
     quantityMin = Math.min(quantityMin, item.stock)
     quantityMax = Math.max(quantityMax, item.stock)
+    mins[0].textContent = `${priceMin}`
+    mins[1].textContent = `${quantityMin}`
+    max[0].textContent = `${priceMax}`
+    max[1].textContent = `${quantityMax}`
   }
 }
 
