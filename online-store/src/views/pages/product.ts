@@ -1,10 +1,9 @@
+import { getProductHtml } from "./productPage";
+
 let Product = {
     render : async () => {
-        let view =  /*html*/`
-            <section class="section">
-                <h1> About </h1>
-            </section>
-        `
+        let view = getProductHtml() 
+        
         return view
     },
     after_render: async () => {}

@@ -1,23 +1,25 @@
 "use strict";
 import './styles/style.scss';
 
+
 import Home         from './views/pages/main/Home'
-import Cart        from './views/pages/cart.js'
+import Cart        from './views/pages/cart'
+
 import Error404     from './views/pages/Error404.js'
-import Product     from './views/pages/product.js'
+import Product     from './views/pages/product.ts'
 
 
 import Navbar       from './views/components/Navbar.js'
 import Bottombar    from './views/components/Bottombar.js' 
 
 import Utils        from './services/Utils.js'
-// import Product from './views/pages/product.js';
+
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
     '/'             : Home
     , '/cart'      : Cart
-    , '/p/:id'      : Product
+    , '/product'      : Product
     
 };
 
