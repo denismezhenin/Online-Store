@@ -1,8 +1,10 @@
 "use strict";
 import './styles/style.scss';
 
-import Home         from './views/pages/Home.js'
+
+import Home         from './views/pages/main/Home'
 import Cart        from './views/pages/cart'
+
 import Error404     from './views/pages/Error404.js'
 import Product     from './views/pages/product.ts'
 
@@ -56,3 +58,4 @@ window.addEventListener('hashchange', router);
 
 // Listen on page load:
 window.addEventListener('load', router);
+
