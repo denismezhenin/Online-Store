@@ -12,7 +12,7 @@ export const addItems = async (parent: string, data: any) => {
   const el = document.querySelector(`.${parent}`)!
   for (let item of array) {
     const li: any = document.createElement('li');
-    // const img = document.createElement('img');
+    li.id = item.id;
     const name = document.createElement('span');
     const cartButton = document.createElement('button');
     const detailsButton = document.createElement('button');
@@ -21,21 +21,21 @@ export const addItems = async (parent: string, data: any) => {
     detailsButton.textContent = 'Details';
     price.textContent = `${item.price}$`;
     name.textContent = item.title;
-    li.style.backgroundImage = `url('${item.images[0]}')`
-    li.classList.add('list-item')
-    li.append(name)
-    li.append(price)
-    li.append(cartButton)
-    li.append(detailsButton)
-    el.append(li)
-    priceMin = Math.min(priceMin, item.price)
-    priceMax = Math.max(priceMax, item.price)
-    quantityMin = Math.min(quantityMin, item.stock)
-    quantityMax = Math.max(quantityMax, item.stock)
-    mins[0].textContent = `${priceMin}`
-    mins[1].textContent = `${quantityMin}`
-    max[0].textContent = `${priceMax}`
-    max[1].textContent = `${quantityMax}`
+    li.style.backgroundImage = `url('${item.images[0]}')`;
+    li.classList.add('list-item');
+    li.append(name);
+    li.append(price);
+    li.append(cartButton);
+    li.append(detailsButton);
+    el.append(li);
+    priceMin = Math.min(priceMin, item.price);
+    priceMax = Math.max(priceMax, item.price);
+    quantityMin = Math.min(quantityMin, item.stock);
+    quantityMax = Math.max(quantityMax, item.stock);
+    mins[0].textContent = `${priceMin}`;
+    mins[1].textContent = `${quantityMin}`;
+    max[0].textContent = `${priceMax}`;
+    max[1].textContent = `${quantityMax}`;
   }
 }
 
