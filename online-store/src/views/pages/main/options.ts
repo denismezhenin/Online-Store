@@ -1,3 +1,5 @@
+import { tsQuerySelector, tsQuerySelectorAll } from '../../components/helpers'
+
 export const setOptions = (parent: string, option: string, data: any) => {
   const optionsSet = new Set();
   const array = data.products;
@@ -12,10 +14,19 @@ export const setOptions = (parent: string, option: string, data: any) => {
     const label: any = document.createElement('label');
     input.id = value;
     input.type = 'checkbox';
-    label.for = value
+    // label.for = value
+    label.setAttribute('for', `${value}`);
     label.textContent = value
     li.append(input)
     li.append(label)
     el.append(li)
   }
 }
+
+// category.addEventListener('clock', () => {
+//   tsQuerySelectorAll(category, 'input').forEach(item => {
+//     if(item.checked) {
+//       console.log(item.id)
+//     }
+//   })
+// })
