@@ -8,10 +8,12 @@ import { setOptions } from "./options";
 import productItems from "../../components/productJSON";
 import { addItems } from "./items";
 
+
 import { tsQuerySelectorAll, tsQuerySelector  } from "../../components/helpers";
 import Utils from "../../../services/Utils";
 import { setSearch } from "./searchElement";
 import { setListeners } from "./queryParams";
+
 
 let Home = {
   render: async () => {
@@ -38,14 +40,11 @@ let Home = {
 
     productsList.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
-
       console.log(target.parentNode);
       if (target.classList.contains("list-item")) {
         let link = `/#/product/${target.id}`;
         location.href = link;
       }
-
-
       if (
         (target.parentNode as HTMLElement).classList.contains("list-item") &&
         target.classList.contains("details__button")
