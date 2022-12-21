@@ -1,26 +1,20 @@
 "use strict";
 import './styles/style.scss';
-
-
-import Home         from './views/pages/main/Home'
-import Cart        from './views/pages/cart'
-
-import Error404     from './views/pages/Error404.js'
-import Product     from './views/pages/product.ts'
-
-
-import Navbar       from './views/components/Navbar.js'
-import Bottombar    from './views/components/Bottombar.js' 
-
-import Utils        from './services/Utils.js'
+import Home from './views/pages/main/home'
+import Cart from './views/pages/cart'
+import Error404 from './views/pages/error404.js'
+import Product from './views/pages/product.ts'
+import Navbar from './views/components/Navbar.js'
+import Bottombar from './views/components/Bottombar.js'
+import Utils from './services/Utils.ts'
 
 
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
-    '/'             : Home
-    , '/cart'      : Cart
-    , '/product'      : Product
-    
+    '/': Home
+    , '/cart': Cart
+    , '/product/:id': Product
+
 };
 
 
@@ -31,7 +25,7 @@ const router = async () => {
     const header = null || document.getElementById('header_container');
     const content = null || document.getElementById('page_container');
     const footer = null || document.getElementById('footer_container');
-    
+
     // Render the Header and footer of the page
     header.innerHTML = await Navbar.render();
     await Navbar.after_render();
@@ -44,13 +38,20 @@ const router = async () => {
 
     // Parse the URL and if it has an id part, change it with the string ":id"
     let parsedURL = (request.resource ? '/' + request.resource : '/') + (request.id ? '/:id' : '') + (request.verb ? '/' + request.verb : '')
-    
+
     // Get the page from our hash of supported routes.
     // If the parsed URL is not in our list of supported routes, select the 404 page instead
+    // console.log(request)
+    // if((request.resource).startsWith('?')) {
+    //     return
+    // }
+        if((request.resource === undefined)) {
+        return
+    }
     let page = routes[parsedURL] ? routes[parsedURL] : Error404
     content.innerHTML = await page.render();
     await page.after_render();
-  
+
 }
 
 // Listen on hash change:
