@@ -21,9 +21,10 @@ let Home = {
     })
     await addItems('products-list', productItems);
     // console.log(location.pathname)
-    // location.href = `${location.href}#/cart`
+
     // console.log(location.href)
     const category = tsQuerySelector(document, '.category')
+    
 console.log(category)
 category.addEventListener('click', () => {
   tsQuerySelectorAll(category, 'input').forEach((item: any)=> {
