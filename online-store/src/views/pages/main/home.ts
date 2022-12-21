@@ -30,7 +30,8 @@ let Home = {
         );
       });
     await addItems("products-list", productItems);
-    setListeners()
+    setListeners('category')
+    setListeners('brand')
     const productsList = document.querySelector(
       ".products-list"
     ) as HTMLElement;
