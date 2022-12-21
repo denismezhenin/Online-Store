@@ -1,5 +1,5 @@
 export function getCartHtml() {
-    return `
+  return `
     <div class="cart__container">
     <div class="product-in-cart__container">
       <div class="product-title">
@@ -131,5 +131,17 @@ export function getCartHtml() {
         </div>
       </div>
   </div>
-    `
+    `;
+}
+
+export function getModal(): void {
+  const modal = document.querySelector(".modal") as HTMLElement;
+  modal.classList.remove("closed-modal");
+}
+export function removeModal(event: Event): void {
+  const modal = document.querySelector(".modal") as HTMLElement;
+  let target = event.target as HTMLElement;
+    if (target.classList.contains("modal")) {
+    modal.classList.add("closed-modal");
+  }
 }
