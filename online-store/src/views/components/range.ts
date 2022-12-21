@@ -16,6 +16,7 @@ export const setRange = (parent: any) => {
     const element = item.querySelector(".range-sliders");
     rangeAbs([...parent][index], element)
   })
+  // console.log('com')
 };
 
 const rangeAbs = (parent: any, item: any) => {
