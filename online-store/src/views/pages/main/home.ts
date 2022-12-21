@@ -9,6 +9,7 @@ import productItems from "../../components/productJSON";
 import { addItems } from "./items";
 import { tsQuerySelectorAll } from "../../components/helpers";
 import Utils from "../../../services/Utils";
+import { setSearch } from "./searchElement";
 
 let Home = {
   render: async () => {
@@ -34,12 +35,29 @@ let Home = {
 
     productsList.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
-
+      console.log(target.parentNode);
       if (target.classList.contains("list-item")) {
         let link = `/#/product/${target.id}`;
         location.href = link;
       }
+      if (
+        (target.parentNode as HTMLElement).classList.contains("list-item") &&
+        target.classList.contains("details__button")
+      ) {
+        let link = `/#/product/${(target.parentNode as HTMLElement).id}`;
+        location.href = link;
+      }
     });
+
+    setSearch();
+
+    const inputSearch = document.querySelector(
+      ".products-search__input"
+    ) as HTMLInputElement;
+
+    if (window.location.search && inputSearch.value.length === 0) {
+      inputSearch.value = window.location.search.split("=").slice(1).join();
+    }
   },
 };
 
