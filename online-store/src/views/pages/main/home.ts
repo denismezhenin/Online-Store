@@ -7,9 +7,13 @@ import { rangeContainer, setRange } from "../../components/range";
 import { setOptions } from "./options";
 import productItems from "../../components/productJSON";
 import { addItems } from "./items";
-import { tsQuerySelectorAll } from "../../components/helpers";
+
+
+import { tsQuerySelectorAll, tsQuerySelector  } from "../../components/helpers";
 import Utils from "../../../services/Utils";
 import { setSearch } from "./searchElement";
+import { setListeners } from "./queryParams";
+
 
 let Home = {
   render: async () => {
@@ -28,7 +32,8 @@ let Home = {
         );
       });
     await addItems("products-list", productItems);
-
+    setListeners('category')
+    setListeners('brand')
     const productsList = document.querySelector(
       ".products-list"
     ) as HTMLElement;
