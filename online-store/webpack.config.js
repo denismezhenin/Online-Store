@@ -4,7 +4,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
-
+const {CleanWebpackPlugin}=require("clean-webpack-plugin")
 const isProduction = process.env.NODE_ENV == "production";
 
 
@@ -15,6 +15,7 @@ const isProduction = process.env.NODE_ENV == "production";
 const config = {
   entry: "./src/app.js",
   output: {
+    filename:'[name].[contenthash].js',
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
@@ -25,6 +26,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
+    new CleanWebpackPlugin()
 
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
