@@ -18,7 +18,9 @@ export const addItems = async (parent: string, data: any) => {
     const detailsButton = document.createElement('button');
     const price = document.createElement('span');
     cartButton.textContent = 'Add to card';
+    cartButton.classList.add('cart__button')
     detailsButton.textContent = 'Details';
+    detailsButton.classList.add('details__button')
     price.textContent = `${item.price}$`;
     name.textContent = item.title;
     li.style.backgroundImage = `url('${item.images[0]}')`;
