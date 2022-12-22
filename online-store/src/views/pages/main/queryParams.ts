@@ -8,7 +8,7 @@ export const setListeners = (category: string) => {
     deleteQueryParams(category)
     tsQuerySelectorAll(list, 'input').forEach((item: any)=> {
       if(item.checked) {
-        setQueryParams(`${category}`, item.id)
+        setQueryParams(`${category}`, (item.id).toLowerCase())
       }
     })
     searchItems(productItems.products)

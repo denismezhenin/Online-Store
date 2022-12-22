@@ -1,14 +1,14 @@
 import { tsQuerySelector, tsQuerySelectorAll } from "../../components/helpers";
 
-let priceMax: number = 0;
+
+
+export const addItems = async (parent: string, data: any) => {
+  let priceMax: number = 0;
 let priceMin: number = Infinity;
 let quantityMin: number = Infinity;
 let quantityMax: number = 0;
-
-export const addItems = async (parent: string, data: any) => {
   const mins = tsQuerySelectorAll(document, '.range-values__min')
   const max = tsQuerySelectorAll(document, '.range-values__max');
-  // const array = data.products;
   const el = tsQuerySelector(document, `.${parent}`)
   el.innerHTML = ''
   for (let item of data) {
@@ -24,7 +24,7 @@ export const addItems = async (parent: string, data: any) => {
     detailsButton.classList.add('details__button')
     price.textContent = `${item.price}$`;
     name.textContent = item.title;
-    li.style.backgroundImage = `url('${item.images[0]}')`;
+    li.style.background = `url('${item.thumbnail}') 0% 0% / contain no-repeat`;
     li.classList.add('list-item');
     li.append(name);
     li.append(price);

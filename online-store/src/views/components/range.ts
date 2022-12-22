@@ -1,5 +1,7 @@
 import { tsQuerySelector, tsQuerySelectorAll } from "./helpers";
-import { setQueryRangeParams } from '../pages/main/queryParams'
+import { setQueryRangeParams } from '../pages/main/queryParams';
+import productItems from "./productJSON";
+import { searchItems } from "../pages/main/search";
 
 export const rangeContainer = document.getElementsByClassName('range');
 const rangeAttribute = ['price', 'stock']
@@ -31,7 +33,7 @@ const rangeAbs = (parent: any, item: any, rangeAtt: string) => {
     } else {
       right.value = Math.max(+left.value +1, +right.value);
     }
-
+    searchItems(productItems.products)
   });
 
 };
