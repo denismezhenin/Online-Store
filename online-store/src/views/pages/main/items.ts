@@ -8,9 +8,10 @@ let quantityMax: number = 0;
 export const addItems = async (parent: string, data: any) => {
   const mins = tsQuerySelectorAll(document, '.range-values__min')
   const max = tsQuerySelectorAll(document, '.range-values__max');
-  const array = data.products;
-  const el = document.querySelector(`.${parent}`)!
-  for (let item of array) {
+  // const array = data.products;
+  const el = tsQuerySelector(document, `.${parent}`)
+  el.innerHTML = ''
+  for (let item of data) {
     const li: any = document.createElement('li');
     li.id = item.id;
     const name = document.createElement('span');

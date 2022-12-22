@@ -1,4 +1,6 @@
-import { tsQuerySelectorAll, tsQuerySelector } from '../../components/helpers'
+import { tsQuerySelectorAll, tsQuerySelector } from '../../components/helpers';
+import { searchItems } from './search';
+import productItems from "../../components/productJSON";
 
 export const setListeners = (category: string) => {
   const list = tsQuerySelector(document, `.${category}`)
@@ -9,6 +11,7 @@ export const setListeners = (category: string) => {
         setQueryParams(`${category}`, item.id)
       }
     })
+    searchItems(productItems.products)
   })
 }
 
