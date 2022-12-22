@@ -1,4 +1,6 @@
-import { tsQuerySelectorAll, tsQuerySelector } from '../../components/helpers'
+import { tsQuerySelectorAll, tsQuerySelector } from '../../components/helpers';
+import { searchItems } from './search';
+import productItems from "../../components/productJSON";
 
 export const setListeners = (category: string) => {
   const list = tsQuerySelector(document, `.${category}`)
@@ -6,9 +8,10 @@ export const setListeners = (category: string) => {
     deleteQueryParams(category)
     tsQuerySelectorAll(list, 'input').forEach((item: any)=> {
       if(item.checked) {
-        setQueryParams(`${category}`, item.id)
+        setQueryParams(`${category}`, (item.id).toLowerCase())
       }
     })
+    searchItems(productItems.products)
   })
 }
 

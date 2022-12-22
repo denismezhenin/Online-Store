@@ -31,7 +31,7 @@ let Home = {
           productItems
         );
       });
-    await addItems("products-list", productItems);
+    await addItems("products-list", productItems.products);
     setListeners('category')
     setListeners('brand')
     const productsList = document.querySelector(
