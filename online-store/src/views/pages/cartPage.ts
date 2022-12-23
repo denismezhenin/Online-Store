@@ -1,4 +1,12 @@
+import productItems from "../components/productJSON";
+import Utils from "../../services/Utils";
+import { state } from "../components/state";
+
 export function getCartHtml() {
+  const array = productItems.products;
+  let target = Utils.parseRequestURL();
+
+  const targetObject = array.find((item) => item.id === Number(target.id));
   return `
     <div class="cart__container">
     <div class="product-in-cart__container">
@@ -17,30 +25,7 @@ export function getCartHtml() {
           </div>
         </div>
       </div>
-      <div class="cart-product-description">
-        <p class="product-number-items">1</p>
-        <div class="cart-product__image">
-          <img class="product__image" src="https://i.dummyjson.com/data/products/3/thumbnail.jpg" alt="img">
-        </div>
-        <div class="product-description__container">
-          <h3 class="product-description-title">Samsung Universe 9</h3>
-          <span class="line-span"></span>
-          <p class="product-decription-content"> Samsung's new variant which goes beyond Galaxy to the Universe </p>
-          <div class="product-description-other">
-              <p class="product-rating">Rating:4.09</p>
-              <p class="product-discount">Discount: 15.46%</p>
-          </div>
-        </div>
-        <div class="product-control-container">
-          <p class="stock-control">Stock</p>
-          <div class="amount-control">
-            <button class="product-amount__button">-</button>
-            <p class="product-amount">1</p>
-            <button class="product-amount__button">+</button>
-          </div>
-          <p class="amount-price-control">$1000</p>
-        </div>
-      </div>
+      <ul class="cart__ul"></ul>
     </div>
     <div class="summary__container">
       <h2 class="summary-title">Summary</h2>
@@ -141,7 +126,38 @@ export function getModal(): void {
 export function removeModal(event: Event): void {
   const modal = document.querySelector(".modal") as HTMLElement;
   let target = event.target as HTMLElement;
-    if (target.classList.contains("modal")) {
+  if (target.classList.contains("modal")) {
     modal.classList.add("closed-modal");
   }
+}
+export function getProductList(){
+
+  return  state.cartArray.map((item,index)=>{
+    return`
+    <li class="cart-product-description">
+    <p class="product-number-items">${index+1}</p>
+    <div class="cart-product__image">
+      <img class="product__image" src=${item?.thumbnail} alt="img">
+    </div>
+    <div class="product-description__container">
+      <h3 class="product-description-title">${item?.title}</h3>
+      <span class="line-span"></span>
+      <p class="product-decription-content">${item?.description}</p>
+      <div class="product-description-other">
+          <p class="product-rating">Rating: ${item?.rating}</p>
+          <p class="product-discount">Discount: ${item?.discountPercentage}</p>
+      </div>
+    </div>
+    <div class="product-control-container">
+      <p class="stock-control">Stock</p>
+      <div class="amount-control">
+        <button class="product-amount__button">-</button>
+        <p class="product-amount">1</p>
+        <button class="product-amount__button">+</button>
+      </div>
+      <p class="amount-price-control">$${item?.price}</p>
+    </div>
+  </li>
+    `
+  }).join()
 }
