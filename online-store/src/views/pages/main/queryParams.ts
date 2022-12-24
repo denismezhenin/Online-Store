@@ -11,7 +11,7 @@ export const setListeners = (category: string) => {
         setQueryParams(`${category}`, (item.id).toLowerCase())
       }
     })
-    searchItems(productItems.products)
+    // searchItems(productItems.products)
   })
 }
 
@@ -35,4 +35,27 @@ export const deleteQueryParams = (category: string) => {
   const searchParams = new URLSearchParams((`${location.hash}`).slice(1));
   searchParams.delete(category)
   location.hash = '' + searchParams.toString();
+}
+
+export const setParamsFromHash = () => {
+  const searchParams = new URLSearchParams((`${location.hash}`).slice(1))
+  // console.log(searchParams.toString())
+  if (searchParams.has('category') || searchParams.has('brand')) {
+    const paramsArr = [...searchParams.getAll('category'), ...searchParams.getAll('brand')]
+    tsQuerySelectorAll(document, 'input[type="checkbox"]').forEach(item => {
+      if (paramsArr.includes(((item).id).toLocaleLowerCase())) {
+        (item as HTMLInputElement).checked = true
+      }
+    })
+    // console.log(document.querySelectorAll("input"))
+  } if (searchParams.has('stock-min') && searchParams.has('stock-max')) {
+    (tsQuerySelector(document, '.stock__min-value') as HTMLInputElement).value = searchParams.get('stock-min')!;
+    (tsQuerySelector(document, '.stock__max-value') as HTMLInputElement).value = searchParams.get('stock-max')!;
+  } if (searchParams.has('price-min') && searchParams.has('price-max')) {
+    (tsQuerySelector(document, '.price__min-value') as HTMLInputElement).value = searchParams.get('price-min')!;
+    (tsQuerySelector(document, '.price__max-value') as HTMLInputElement).value = searchParams.get('price-max')!;
+  }
+  if (searchParams.has('search')) {
+    (tsQuerySelector(document, '.products-search__input') as HTMLInputElement).value = searchParams.get('search')!;
+  }
 }

@@ -7,8 +7,10 @@ import Product from './views/pages/product.ts'
 import Navbar from './views/components/Navbar.js'
 import Bottombar from './views/components/Bottombar.js'
 import Utils from './services/Utils.ts'
+import { searchItems } from './views/pages/main/search';
+import productItems from './views/components/productJSON'
 
-
+let isLoaded = false
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
     '/': Home
@@ -45,13 +47,27 @@ const router = async () => {
     // if((request.resource).startsWith('?')) {
     //     return
     // }
-        if((request.resource === undefined)) {
-        return
+    
+    if ((request.resource === undefined) && isLoaded) {
+        // content.innerHTML = await Home.render()
+        // await Home.after_render()
+        searchItems(productItems.products)
+        return isLoaded = true
+    } 
+    else if ((request.resource === undefined) && !isLoaded) {
+        content.innerHTML = await Home.render()
+        await Home.after_render()
+        return isLoaded = true
     }
     let page = routes[parsedURL] ? routes[parsedURL] : Error404
+    // console.log(page)
+    // if ()
     content.innerHTML = await page.render();
     await page.after_render();
-
+    if(request.resource === 'cart' || request.resource === 'product') {
+        return isLoaded = false
+    }
+    isLoaded = true
 }
 
 // Listen on hash change:

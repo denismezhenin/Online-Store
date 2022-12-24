@@ -12,7 +12,9 @@ export const setOptions = (parent: string, option: string, data: any) => {
     const li: any = document.createElement('li');
     const input: any = document.createElement('input');
     const label: any = document.createElement('label');
-    input.id = value;
+    if (typeof value === 'string') {
+      input.id = value.toLocaleLowerCase();
+    }
     input.type = 'checkbox';
     // label.for = value
     label.setAttribute('for', `${value}`);

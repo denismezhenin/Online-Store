@@ -33,7 +33,7 @@ const rangeAbs = (parent: any, item: any, rangeAtt: string) => {
     } else {
       right.value = Math.max(+left.value +1, +right.value);
     }
-    searchItems(productItems.products)
+    // searchItems(productItems.products)
   });
 
 };

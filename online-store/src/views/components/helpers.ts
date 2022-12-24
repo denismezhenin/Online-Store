@@ -6,7 +6,7 @@ export function tsQuerySelector(parent: Element | Document, selector: string): E
   return element;
 }
 
-export function tsQuerySelectorAll(parent: Element | Document, selector: string): NodeList {
+export function tsQuerySelectorAll(parent: Element | Document, selector: string) {
   const element = parent.querySelectorAll(selector);
   if (!element) {
       throw new Error('No such element');

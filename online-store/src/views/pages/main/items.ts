@@ -10,6 +10,9 @@ let quantityMax: number = 0;
   const mins = tsQuerySelectorAll(document, '.range-values__min')
   const max = tsQuerySelectorAll(document, '.range-values__max');
   const el = tsQuerySelector(document, `.${parent}`)
+  if (data.length === 0) {
+    return el.innerHTML = 'No products found'
+  }
   el.innerHTML = ''
   for (let item of data) {
     const li: any = document.createElement('li');
@@ -24,7 +27,7 @@ let quantityMax: number = 0;
     detailsButton.classList.add('details__button')
     price.textContent = `${item.price}$`;
     name.textContent = item.title;
-    li.style.background = `url('${item.thumbnail}') 0% 0% / contain no-repeat`;
+    li.style.background = `url('${item.thumbnail}') center / cover no-repeat`;
     li.classList.add('list-item');
     li.append(name);
     li.append(price);
@@ -35,11 +38,11 @@ let quantityMax: number = 0;
     priceMax = Math.max(priceMax, item.price);
     quantityMin = Math.min(quantityMin, item.stock);
     quantityMax = Math.max(quantityMax, item.stock);
-    mins[0].textContent = `${priceMin}`;
-    mins[1].textContent = `${quantityMin}`;
-    max[0].textContent = `${priceMax}`;
-    max[1].textContent = `${quantityMax}`;
   }
+  mins[0].textContent = `${priceMin}`;
+  mins[1].textContent = `${quantityMin}`;
+  max[0].textContent = `${priceMax}`;
+  max[1].textContent = `${quantityMax}`;
 }
 
 

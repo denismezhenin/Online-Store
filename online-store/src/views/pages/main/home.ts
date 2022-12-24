@@ -7,12 +7,12 @@ import { rangeContainer, setRange } from "../../components/range";
 import { setOptions } from "./options";
 import productItems from "../../components/productJSON";
 import { addItems } from "./items";
-
-
 import { tsQuerySelectorAll, tsQuerySelector  } from "../../components/helpers";
 import Utils from "../../../services/Utils";
 import { setSearch } from "./searchElement";
-import { setListeners } from "./queryParams";
+import { setListeners, setParamsFromHash } from "./queryParams";
+import { searchItems } from './search'
+
 
 
 let Home = {
@@ -31,9 +31,11 @@ let Home = {
           productItems
         );
       });
-    await addItems("products-list", productItems.products);
+
+    await searchItems(productItems.products);
     setListeners('category')
     setListeners('brand')
+    setParamsFromHash()
     const productsList = document.querySelector(
       ".products-list"
     ) as HTMLElement;
