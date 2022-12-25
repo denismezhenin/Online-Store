@@ -3,13 +3,16 @@ import { rangeContainer, fillSlider } from "../../components/range";
 
 export const addItems = async (parent: string, data: any) => {
   const el = tsQuerySelector(document, `.${parent}`)
+  const arrCount = tsQuerySelector(document, `.products-found__count`)
   if (data.length === 0) {
+    arrCount.textContent = '0'
     return el.innerHTML = 'No products found'
   }
-let priceMax: number = data[0].price;
-let priceMin: number = data[0].price;
-let quantityMin: number = data[0].stock;
-let quantityMax: number = data[0].stock;
+  arrCount.textContent = data.length
+  let priceMax: number = data[0].price;
+  let priceMin: number = data[0].price;
+  let quantityMin: number = data[0].stock;
+  let quantityMax: number = data[0].stock;
   el.innerHTML = ''
   for (let item of data) {
     const li: any = document.createElement('li');
