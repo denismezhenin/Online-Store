@@ -39,7 +39,10 @@ const filterByRange = (category: string, arrValues: string[], arr: any[]): any =
 const filterBySearch = (category: string, str: string, arr: any[]): any => {
     return arr.filter(item => {
         for (let value of Object.values(item)) {
-            if (typeof value === 'string' &&(value).toLowerCase().startsWith(str)) {
+            if (typeof value === 'string' && (value).toLowerCase().startsWith(str)) {
+                return true
+            }
+            if (typeof value === 'number' && String(value).startsWith(str)) {
                 return true
             }
         }
