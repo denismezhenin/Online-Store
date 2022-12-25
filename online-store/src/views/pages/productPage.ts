@@ -1,10 +1,11 @@
+import { IProduct } from "./../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
+import { state } from "../components/state";
 
 export function getProductHtml() {
   const array = productItems.products;
-  let require = Utils.parseRequestURL();
-  const target = require;
+  let target = Utils.parseRequestURL();
 
   const targetObject = array.find((item) => item.id === Number(target.id));
 
@@ -85,11 +86,51 @@ export function getProductHtml() {
           </div>
           <div class="product-price__container">
             <p class="product-price">$${targetObject?.price}</p>
-            <button class="product-price__button add-cart__button">ADD TO CART</button>
-            <button class="product-price__button buy-now__button">BUY NOW</button>
+            <button class="product-price__button product__button add-cart__button">ADD TO CART</button>
+            <button class="product-price__button product__button drop-cart__button hide">DROP FROM CART</button>
+            <button class="product-price__button buy-now__button" onclick=location.href="/#/cart">BUY NOW</button>
           </div>
         </div>
       </div>
     </div>
     `;
+}
+
+export function checkProduct() {
+  const array = productItems.products;
+  let product = Utils.parseRequestURL();
+  const addCartButton = document.querySelector(
+    ".add-cart__button"
+  ) as HTMLButtonElement;
+  const dropCartButton = document.querySelector(
+    ".drop-cart__button"
+  ) as HTMLButtonElement;
+
+  const productItem = array.find((item) => item.id === Number(product.id));
+
+  if (state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
+    addCartButton.classList.add("hide");
+    dropCartButton.classList.remove("hide");
+  } else {
+    addCartButton.classList.remove("hide");
+    dropCartButton.classList.add("hide");
+  }
+}
+
+export function toggleProduct(){
+  const array = productItems.products;
+        let product = Utils.parseRequestURL();
+        const productItem = array.find(
+          (item) => item.id === Number(product.id)
+        );
+        if (
+          !state.cartArray.find((el) => el.id === (productItem as IProduct).id)
+        ) {
+          state.cartArray.push(productItem as IProduct);
+        } else {
+          state.cartArray = state.cartArray.filter(
+            (item) => item.id !== (productItem as IProduct).id
+          );
+        }
+        checkProduct();
 }

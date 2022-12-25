@@ -16,12 +16,15 @@ let quantityMax: number = 0;
     li.id = item.id;
     const name = document.createElement('span');
     const cartButton = document.createElement('button');
+    const dropItemButton=document.createElement('button');
     const detailsButton = document.createElement('button');
     const price = document.createElement('span');
-    cartButton.textContent = 'Add to card';
-    cartButton.classList.add('cart__button')
+    cartButton.textContent = 'Add to cart';
+    cartButton.classList.add('cart__button', 'item__button')
+    dropItemButton.textContent = 'Drop to cart';
+    dropItemButton.classList.add('drop-item__button', 'item__button', 'hide')
     detailsButton.textContent = 'Details';
-    detailsButton.classList.add('details__button')
+    detailsButton.classList.add('details__button', 'item__button')
     price.textContent = `${item.price}$`;
     name.textContent = item.title;
     li.style.background = `url('${item.thumbnail}') 0% 0% / contain no-repeat`;
@@ -29,6 +32,7 @@ let quantityMax: number = 0;
     li.append(name);
     li.append(price);
     li.append(cartButton);
+    li.append(dropItemButton)
     li.append(detailsButton);
     el.append(li);
     priceMin = Math.min(priceMin, item.price);
