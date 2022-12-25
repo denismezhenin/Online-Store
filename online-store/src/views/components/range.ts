@@ -20,7 +20,6 @@ const rangeAbs = (parent: any, item: any, rangeAtt: string) => {
   const rangeInputs = parent.querySelectorAll('.range-sliders__input');
   const [ left, right ] = rangeInputs;
   // fillSlider(parent, '#C6C6C6', '#25daa5')
-  console.log(left.value)
   item.addEventListener('input', ({ target }: any) => {  
     tsQuerySelector(parent, '.range-values__min').textContent = left.value
     tsQuerySelector(parent, '.range-values__max').textContent = right.value

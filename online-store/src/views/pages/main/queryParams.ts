@@ -58,4 +58,7 @@ export const setParamsFromHash = () => {
   if (searchParams.has('search')) {
     (tsQuerySelector(document, '.products-search__input') as HTMLInputElement).value = searchParams.get('search')!;
   }
+    if (searchParams.has('sort')) {
+      (tsQuerySelector(document, '.product-select__options') as HTMLSelectElement).value = searchParams.get('sort')!
+    }
 }
