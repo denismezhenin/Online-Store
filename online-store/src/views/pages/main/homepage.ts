@@ -4,8 +4,10 @@ function OnSearch(input:HTMLInputElement) {
 }
 const homePageHtml = `
 <aside class="filters">
-<button>Reset Filters</button>
-<button>Copy Link</button>
+<div class="filters-buttons">
+<button class="button__reset">Reset Filters</button>
+<button class="button__copy">Copy Link</button>
+</div>
 <div class="filters-selections selections category">
   <div class="selections-name">
     <span class="">Category</span>

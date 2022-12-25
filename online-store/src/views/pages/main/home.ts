@@ -13,6 +13,7 @@ import { setSearch } from "./searchElement";
 import { setListeners, setParamsFromHash } from "./queryParams";
 import { searchItems } from './search'
 import { setSortParam } from "./sort";
+import { setFiltersButton } from "./resetAndCopy";
 
 
 
@@ -67,6 +68,7 @@ let Home = {
       inputSearch.value = window.location.search.split("=").slice(1).join();
     }
   setSortParam()
+  setFiltersButton()
   },
 };
 
