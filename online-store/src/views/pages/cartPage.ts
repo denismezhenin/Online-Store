@@ -30,8 +30,8 @@ export function getCartHtml() {
     <div class="summary__container">
       <h2 class="summary-title">Summary</h2>
       <div class="summary-description">
-          <p class="summary-products">Products: <span>1</span></p>
-          <p class="summary-total-price">Total: <span>$1000</span></p>
+          <p class="summary-products">Products: <span class="summary-products__span"></span></p>
+          <p class="summary-total-price">Total: $<span class="summary-total__span"></span></p>
           <input type="text" class="summary-discount__input" placeholder="Enter promo code">
           <p class="promo-code-example">Promo for test: 'RS', 'EPM'</p>
           <button class="summary-buy__button">BUY NOW</button>
@@ -130,12 +130,12 @@ export function removeModal(event: Event): void {
     modal.classList.add("closed-modal");
   }
 }
-export function getProductList(){
-
-  return  state.cartArray.map((item,index)=>{
-    return`
-    <li class="cart-product-description">
-    <p class="product-number-items">${index+1}</p>
+export function getProductList() {
+  return state.cartArray
+    .map((item, index) => {
+      return `
+    <li class="cart-product-description" id=${item.id} >
+    <p class="product-number-items">${index + 1}</p>
     <div class="cart-product__image">
       <img class="product__image" src=${item?.thumbnail} alt="img">
     </div>
@@ -151,13 +151,28 @@ export function getProductList(){
     <div class="product-control-container">
       <p class="stock-control">Stock</p>
       <div class="amount-control">
-        <button class="product-amount__button">-</button>
+        <button class="product-amount__button minus" id=${item.id}>-</button>
         <p class="product-amount">1</p>
-        <button class="product-amount__button">+</button>
+        <button class="product-amount__button plus" id=${item.id}>+</button>
       </div>
-      <p class="amount-price-control">$${item?.price}</p>
+      <p class="amount-price-control"><span>$</span><span class="amount-price__span">${
+        item?.price
+      }</span></p>
     </div>
   </li>
-    `
-  }).join()
+    `;
+    })
+    .join();
+}
+
+export function changeTotal(classElement: string, classResult: string) {
+  let counter: number = 0;
+  const classList = document.querySelectorAll(`.${classElement}`);
+  const result = document.querySelector(`.${classResult}`) as HTMLElement;
+
+  classList.forEach((item) => {
+    counter = Number(item.textContent) + Number(counter);
+    console.log(item.textContent);
+  });
+  result.innerHTML = `${counter}`;
 }
