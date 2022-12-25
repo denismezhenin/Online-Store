@@ -33,7 +33,7 @@ const homePageHtml = `
 </div>
 <div class="filters-range range stock">
   <div class="selections-name">
-    <span class="">Price</span>
+    <span class="">Stock</span>
   </div>
   <div class="range-values">
     <span class="range-values__min"></span>

@@ -3,6 +3,7 @@ import { setQueryRangeParams } from '../pages/main/queryParams';
 import productItems from "./productJSON";
 import { searchItems } from "../pages/main/search";
 
+
 export const rangeContainer = document.getElementsByClassName('range');
 const rangeAttribute = ['price', 'stock']
 
@@ -16,9 +17,11 @@ export const setRange = (parent: any) => {
 };
 
 const rangeAbs = (parent: any, item: any, rangeAtt: string) => {
-  const rangeInputs = item.querySelectorAll('.range-sliders__input');
-  item.addEventListener('input', ({ target }: any) => {
-    const [ left, right ] = rangeInputs;
+  const rangeInputs = parent.querySelectorAll('.range-sliders__input');
+  const [ left, right ] = rangeInputs;
+  // fillSlider(parent, '#C6C6C6', '#25daa5')
+  console.log(left.value)
+  item.addEventListener('input', ({ target }: any) => {  
     tsQuerySelector(parent, '.range-values__min').textContent = left.value
     tsQuerySelector(parent, '.range-values__max').textContent = right.value
     if (rangeAtt === 'price') {
@@ -33,9 +36,29 @@ const rangeAbs = (parent: any, item: any, rangeAtt: string) => {
     } else {
       right.value = Math.max(+left.value +1, +right.value);
     }
+    fillSlider(parent, '#C6C6C6', '#25daa5')
     // searchItems(productItems.products)
   });
+  // item.addEventListener('change', () => {
+  //   fillSlider(left, right, '#C6C6C6', '#25daa5', right)
+  // })
 
 };
+
+export const fillSlider = (parent: any, sliderColor: string, rangeColor: string) => {
+  const rangeInputs = parent.querySelectorAll('.range-sliders__input');
+  const [ left, right ] = rangeInputs;
+  const rangeDistance = right.max-right.min;
+  const fromPosition = left.value - right.min;
+  const toPosition = right.value - right.min;
+  right.style.background = `linear-gradient(
+    to right,
+    ${sliderColor} 0%,
+    ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
+    ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
+    ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
+    ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
+    ${sliderColor} 100%)`;
+}
 
 // init(rangeContainer)

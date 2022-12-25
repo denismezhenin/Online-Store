@@ -20,7 +20,6 @@ let Home = {
     return homePageHtml;
   },
   after_render: async () => {
-    setRange(rangeContainer);
     const filterCategories = ["category", "brand"];
     document
       .querySelectorAll(".filters-selections")
@@ -33,6 +32,7 @@ let Home = {
       });
 
     await searchItems(productItems.products);
+    setRange(rangeContainer);
     setListeners('category')
     setListeners('brand')
     setParamsFromHash()
