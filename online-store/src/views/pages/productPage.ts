@@ -1,4 +1,4 @@
-import { IProduct } from "./../components/state";
+import { IProduct, setCartTotal } from "./../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
@@ -126,11 +126,14 @@ export function toggleProduct(){
         if (
           !state.cartArray.find((el) => el.id === (productItem as IProduct).id)
         ) {
-          state.cartArray.push(productItem as IProduct);
+          const cartItem={...productItem, count:1}
+
+          state.cartArray.push(cartItem as IProduct);
         } else {
           state.cartArray = state.cartArray.filter(
             (item) => item.id !== (productItem as IProduct).id
           );
         }
         checkProduct();
+        setCartTotal()
 }

@@ -1,11 +1,11 @@
-import { state } from "../../components/state";
+import { setCartTotal, state } from "../../components/state";
 import productItems from "../../components/productJSON";
 import { IProduct } from "../../components/state";
 
 export function clickProductList(e:Event){
     const target = e.target as HTMLElement;
     const array = productItems.products;
-
+    
     if (target.classList.contains("list-item")) {
       let link = `/#/product/${target.id}`;
       location.href = link;
@@ -22,7 +22,8 @@ export function clickProductList(e:Event){
       const targetObject = array.find(
         (item) => item.id === Number((target.parentNode as HTMLElement).id)
       );
-      state.cartArray.push(targetObject as IProduct);
+      const cartItem={...targetObject, count:1}
+      state.cartArray.push(cartItem as IProduct);
       console.log(state.cartArray);
     }
     if (target.classList.contains("drop-item__button")) {
@@ -43,6 +44,7 @@ export function clickProductList(e:Event){
       );
     }
     checkProducts();
+    setCartTotal()
 }
 
 export  function checkProducts() {
@@ -64,4 +66,5 @@ export  function checkProducts() {
         }
       });
     });
+    setCartTotal()
   }

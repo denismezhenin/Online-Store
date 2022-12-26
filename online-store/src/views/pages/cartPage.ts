@@ -1,3 +1,4 @@
+import { IProduct, setCartTotal } from "./../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
@@ -152,11 +153,11 @@ export function getProductList() {
       <p class="stock-control">Stock</p>
       <div class="amount-control">
         <button class="product-amount__button minus" id=${item.id}>-</button>
-        <p class="product-amount">1</p>
+        <p class="product-amount">${item.count}</p></p>
         <button class="product-amount__button plus" id=${item.id}>+</button>
       </div>
       <p class="amount-price-control"><span>$</span><span class="amount-price__span">${
-        item?.price
+        (item.price as number)*(item.count as number)
       }</span></p>
     </div>
   </li>
@@ -172,7 +173,70 @@ export function changeTotal(classElement: string, classResult: string) {
 
   classList.forEach((item) => {
     counter = Number(item.textContent) + Number(counter);
-    console.log(item.textContent);
   });
+
   result.innerHTML = `${counter}`;
+}
+
+export function decrementProduct(e: Event) {
+  const target = e.target as HTMLElement;
+  const productAmount = target.parentNode?.childNodes[3] as HTMLElement;
+  const productPrice= target.parentNode?.parentNode?.childNodes[5].childNodes[1] as HTMLElement
+  const cartProductDescription = document.querySelectorAll(
+    ".cart-product-description"
+  );
+  let productCount = state.cartArray.find(
+    (item) => item.id === Number(target.id)
+  );
+    let findProductId = Number(
+    state.cartArray.find((item) => item.id === Number(target.id))?.price
+  );
+
+  if ((productCount?.count as number) >= 1) {
+    if (productCount?.count) {
+      productCount.count -= 1;
+    }
+    productAmount.textContent = String(productCount?.count);
+    productPrice.textContent = `${findProductId * Number(productCount?.count)}`;
+  }
+
+  if (productCount?.count === 0) {
+       state.cartArray = state.cartArray.filter(
+      (item) => item.id !== Number(target.id)
+    );
+
+    cartProductDescription.forEach((el) => {
+      if (el.id === target.id) {
+        el.remove();
+      }
+    });
+  }
+  changeTotal("product-amount", "summary-products__span");
+  changeTotal("amount-price__span", "summary-total__span");
+  setCartTotal()
+}
+
+export function incrementProduct(e: Event) {
+  const target = e.target as HTMLElement;
+  const productAmount = target.parentNode
+    ?.childNodes[3] as HTMLParagraphElement;
+    const productPrice= target.parentNode?.parentNode?.childNodes[5].childNodes[1] as HTMLElement
+
+  let productCount = state.cartArray.find(
+    (item) => item.id === Number(target.id)
+  );
+  let findProductId = Number(
+    state.cartArray.find((item) => item.id === Number(target.id))?.price
+  );
+
+  if (productCount?.count) {
+    productCount.count += 1;
+  }
+
+  productAmount.textContent = String(productCount?.count);
+  productPrice.innerHTML = `${findProductId * Number(productCount?.count)}`;
+
+  changeTotal("product-amount", "summary-products__span");
+  changeTotal("amount-price__span", "summary-total__span");
+  setCartTotal()
 }

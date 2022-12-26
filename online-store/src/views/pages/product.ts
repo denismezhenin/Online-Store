@@ -1,4 +1,4 @@
-import { IProduct } from "./../components/state";
+import { IProduct, setCartTotal } from "./../components/state";
 import { getProductHtml, toggleProduct } from "./productPage";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
@@ -12,7 +12,7 @@ let Product = {
   },
   after_render: async () => {
     checkProduct();
-
+   setCartTotal()
     const productButton = document.querySelectorAll(".product__button");
     productButton.forEach((el) => el.addEventListener("click", toggleProduct));
   },
