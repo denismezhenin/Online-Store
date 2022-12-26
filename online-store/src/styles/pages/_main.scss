@@ -104,8 +104,23 @@ input[type="range"] {
 
 }
 
-
-
 //product ends
+
+//selections start
+.selections-variants {
+
+  // display: flex;
+  list-style: none;
+  // flex-direction: column;
+
+  &__count {
+    display: inline-block
+  }
+
+  &__item {
+    // display: flex;
+    // justify-content: space-between;
+  }
+}
 
 

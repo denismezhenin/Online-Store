@@ -5,6 +5,10 @@ const searchOptions = ['category', 'brand']
 
 export const searchItems = async (data: any) => {
     let filteredArr = data.slice()
+    const totalOptionCategoryCount = createOptionObject(filteredArr, searchOptions[0], searchOptions[1])
+    // console.log(Object.keys(totalOptionCategoryCount))
+    // const totalOptionBrandCount = createOptionObject(filteredArr, searchOptions[1])
+    // console.log(totalOptionBrandCount)
     const searchParams = new URLSearchParams((`${location.hash}`).slice(1));
     if (searchParams.has('category')) {
         filteredArr = filterByValue('category', searchParams.getAll('category'), filteredArr)
@@ -26,6 +30,9 @@ export const searchItems = async (data: any) => {
     if (searchParams.has('sort')) {
         filteredArr = filterBySort(searchParams.get('sort')!, filteredArr)
     }
+    const viewOptionCategoryCount = createOptionObject(filteredArr, searchOptions[0], searchOptions[1])
+    // const viewOptionBrandCount = createOptionObject(filteredArr, searchOptions[1])
+    // const setOptionCounts
 
     addItems("products-list", filteredArr)
 };
@@ -68,4 +75,16 @@ const filterBySort = (type: string, arr: any[]) => {
             break;
     }
     // return arr.sort((item)
+}
+
+const createOptionObject = (array: any, option1: any, option2: any) => {
+    return array.reduce((acc: any, item: any) => {
+        acc[item[option1]] = acc[item[option1]] ? acc[item[option1]] + 1 : 1;
+        acc[item[option2]] = acc[item[option2]] ? acc[item[option2]] + 1 : 1
+        return acc
+      }, {})
+} 
+
+const setOptionCounts = () => {
+    // find li, then if second child textcontent = object.key, then li third child = ``
 }
