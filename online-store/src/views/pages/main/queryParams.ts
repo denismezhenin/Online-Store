@@ -48,13 +48,14 @@ export const setParamsFromHash = () => {
       }
     })
     // console.log(document.querySelectorAll("input"))
-  } if (searchParams.has('stock-min') && searchParams.has('stock-max')) {
-    (tsQuerySelector(document, '.stock__min-value') as HTMLInputElement).value = searchParams.get('stock-min')!;
-    (tsQuerySelector(document, '.stock__max-value') as HTMLInputElement).value = searchParams.get('stock-max')!;
-  } if (searchParams.has('price-min') && searchParams.has('price-max')) {
-    (tsQuerySelector(document, '.price__min-value') as HTMLInputElement).value = searchParams.get('price-min')!;
-    (tsQuerySelector(document, '.price__max-value') as HTMLInputElement).value = searchParams.get('price-max')!;
-  }
+  } 
+  // if (searchParams.has('stock-min') && searchParams.has('stock-max')) {
+  //   (tsQuerySelector(document, '.stock__min-value') as HTMLInputElement).value = searchParams.get('stock-min')!;
+  //   (tsQuerySelector(document, '.stock__max-value') as HTMLInputElement).value = searchParams.get('stock-max')!;
+  // } if (searchParams.has('price-min') && searchParams.has('price-max')) {
+  //   (tsQuerySelector(document, '.price__min-value') as HTMLInputElement).value = searchParams.get('price-min')!;
+  //   (tsQuerySelector(document, '.price__max-value') as HTMLInputElement).value = searchParams.get('price-max')!;
+  // }
   if (searchParams.has('search')) {
     (tsQuerySelector(document, '.products-search__input') as HTMLInputElement).value = searchParams.get('search')!;
   }

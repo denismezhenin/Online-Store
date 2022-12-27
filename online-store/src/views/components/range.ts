@@ -1,12 +1,25 @@
 import { tsQuerySelector, tsQuerySelectorAll } from "./helpers";
 import { setQueryRangeParams } from '../pages/main/queryParams';
 import productItems from "./productJSON";
-import { searchItems } from "../pages/main/search";
-
+// import { searchItems } from "../pages/main/search";
 
 export const rangeContainer = document.getElementsByClassName('range');
 const rangeAttribute = ['price', 'stock']
+// const map = new Map()
+const getRangeValues = (data: any, category: string) => {
+  const set = new Set();
+  const array = data.products;
+  for (let item of array) {
+    set.add(item[category])
+  }
+  let arr = Array.from(set)
+  // console.log(typeof arr[0])
+  let sortArr = arr.sort((a, b) => Number(a) - Number(b))
+  return sortArr
+}
 
+export const pricesArray = getRangeValues(productItems, 'price')
+export const stockArray = getRangeValues(productItems, 'stock')
 
 export const setRange = (parent: any) => {
   [...parent].forEach((item, index) => {
@@ -16,33 +29,35 @@ export const setRange = (parent: any) => {
 };
 
 const rangeAbs = (parent: any, item: any, rangeAtt: string, data: any) => {
-  const rangeArray = getRangeValues(data, rangeAtt)
-  console.log(rangeArray)
+  let arr: any;
+  if (rangeAtt == 'price') {
+    arr = pricesArray
+  } if (rangeAtt === 'stock') {
+    arr = stockArray
+  }
+  const rangeValuesArray = getRangeValues(data, rangeAtt)
+  // console.log(rangeValuesArray)
   const rangeInputs = parent.querySelectorAll('.range-sliders__input');
   const [ left, right ] = rangeInputs;
-  // fillSlider(parent, '#C6C6C6', '#25daa5')
+  [left.min, left.max] = [0, arr.length - 1];
+  [right.min, right.max] = [0, arr.length - 1];
+  // right.min
+  right.max = rangeValuesArray.length - 1;
+  fillSlider(parent, '#C6C6C6', '#25daa5')
   item.addEventListener('input', ({ target }: any) => {  
-    tsQuerySelector(parent, '.range-values__min').textContent = left.value
-    tsQuerySelector(parent, '.range-values__max').textContent = right.value
-    if (rangeAtt === 'price') {
-      setQueryRangeParams('price-min', left.value)
-      setQueryRangeParams('price-max', right.value)
-    } else if (rangeAtt === 'stock') {
-      setQueryRangeParams('stock-min', left.value)
-      setQueryRangeParams('stock-max', right.value)
-    }
+
+    console.log(arr)
+    // tsQuerySelector(parent, '.range-values__min').textContent = left.value
+    // tsQuerySelector(parent, '.range-values__max').textContent = right.value
+    setQueryRangeParams(`${rangeAtt}-min`, `${arr[(Number(left.value))]}`)
+    setQueryRangeParams(`${rangeAtt}-max`, `${arr[(Number(right.value))]}`)
     if (target == right) {
       left.value = Math.min(+right.value -1, +left.value);
     } else {
       right.value = Math.max(+left.value +1, +right.value);
     }
     fillSlider(parent, '#C6C6C6', '#25daa5')
-    // searchItems(productItems.products)
   });
-  // item.addEventListener('change', () => {
-  //   fillSlider(left, right, '#C6C6C6', '#25daa5', right)
-  // })
-
 };
 
 export const fillSlider = (parent: any, sliderColor: string, rangeColor: string) => {
@@ -61,13 +76,11 @@ export const fillSlider = (parent: any, sliderColor: string, rangeColor: string)
     ${sliderColor} 100%)`;
 }
 
-const getRangeValues = (data: any, category: string) => {
-  const set = new Set();
-  const array = data.products;
-  for (let item of array) {
-    set.add(item[category])
-  }
-  let arr = Array.from(set)
-  let sortArr = arr.sort((a: number, b: number) => a - b)
-  return sortArr
-}
+
+
+// rangeAttribute.forEach(item => {
+//   map.set(`${item}`, `${getRangeValues(productItems, item)}`)
+// })
+// const arr = map.get('stock')
+// const arr2 = arr.join('')
+// console.log(arr2)

@@ -1,5 +1,5 @@
 import { tsQuerySelector, tsQuerySelectorAll } from "../../components/helpers";
-import { rangeContainer, fillSlider } from "../../components/range";
+import { rangeContainer, fillSlider, pricesArray, stockArray } from "../../components/range";
 
 export const addItems = async (parent: string, data: any) => {
   const el = tsQuerySelector(document, `.${parent}`)
@@ -49,11 +49,11 @@ const setRangeValues = (priceMin: number, priceMax: number, quantityMin: number,
   const maxRange = tsQuerySelectorAll(document, '.max-value');
   if (minsText) {
     [minsText[0].textContent, minsText[1].textContent] = [`${priceMin}`, `${quantityMin}`];
-    [(minsRange[0] as HTMLInputElement).value, (minsRange[1] as HTMLInputElement).value] = [`${priceMin}`, `${quantityMin}`]
+    [(minsRange[0] as HTMLInputElement).value, (minsRange[1] as HTMLInputElement).value] = [`${pricesArray.indexOf(priceMin)}`, `${stockArray.indexOf(quantityMin)}`]
   }
   if (maxText) {
   [maxText[0].textContent, maxText[1].textContent] = [`${priceMax}`, `${quantityMax}`];
-  [(maxRange[0] as HTMLInputElement).value, (maxRange[1] as HTMLInputElement).value] = [`${priceMax}`, `${quantityMax}`]
+  [(maxRange[0] as HTMLInputElement).value, (maxRange[1] as HTMLInputElement).value] = [`${pricesArray.indexOf(priceMax)}`, `${stockArray.indexOf(quantityMax)}`]
   }
   fillSlider(rangeContainer[0], '#C6C6C6', '#25daa5')
   fillSlider(rangeContainer[1], '#C6C6C6', '#25daa5')
