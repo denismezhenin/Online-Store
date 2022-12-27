@@ -1,3 +1,4 @@
+import { tsQuerySelectorAll } from "../../components/helpers";
 import productItems from "../../components/productJSON";
 import { addItems } from "./items";
 
@@ -33,6 +34,8 @@ export const searchItems = async (data: any) => {
     const viewOptionCategoryCount = createOptionObject(filteredArr, searchOptions[0], searchOptions[1])
     // const viewOptionBrandCount = createOptionObject(filteredArr, searchOptions[1])
     // const setOptionCounts
+    setOptionCounts(totalOptionCategoryCount, viewOptionCategoryCount)
+    // console.log(viewOptionCategoryCount)
 
     addItems("products-list", filteredArr)
 };
@@ -79,12 +82,18 @@ const filterBySort = (type: string, arr: any[]) => {
 
 const createOptionObject = (array: any, option1: any, option2: any) => {
     return array.reduce((acc: any, item: any) => {
-        acc[item[option1]] = acc[item[option1]] ? acc[item[option1]] + 1 : 1;
-        acc[item[option2]] = acc[item[option2]] ? acc[item[option2]] + 1 : 1
+        acc[(item[option1]).toLocaleLowerCase()] = acc[(item[option1]).toLocaleLowerCase()] ? acc[(item[option1]).toLocaleLowerCase()] + 1 : 1;
+        acc[(item[option2]).toLocaleLowerCase()] = acc[(item[option2]).toLocaleLowerCase()] ? acc[(item[option2]).toLocaleLowerCase()] + 1 : 1
         return acc
       }, {})
 } 
 
-const setOptionCounts = () => {
-    // find li, then if second child textcontent = object.key, then li third child = ``
+const setOptionCounts = (totalObj: any, veiwObj: any) => {
+    const li = tsQuerySelectorAll(document, '.selections-variants__item')
+    li.forEach(item => {
+        const el = item.children[0]
+        const total = totalObj[el.id]
+        const view = veiwObj[el.id] ? veiwObj[el.id] : 0
+        item.children[2].textContent = `(${view}/${total})`
+    })
 }
