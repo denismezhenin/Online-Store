@@ -152,3 +152,13 @@ export function quickBuy() {
     modal.classList.remove("closed-modal");
   }, 200);
 }
+
+export function zoomImage(e:Event){
+  let target=e.target as HTMLImageElement
+  const productLargePhoto=document.querySelector('.product-large-photo') as HTMLElement
+  productLargePhoto.innerHTML=`<img
+  class="large-photo__img"
+  alt=""
+  src=${target.src}
+/>`
+}

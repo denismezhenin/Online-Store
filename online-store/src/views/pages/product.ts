@@ -4,6 +4,7 @@ import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
 import { checkProduct } from "./productPage";
+import { zoomImage } from "./productPage";
 let Product = {
   render: async () => {
     let view = getProductHtml();
@@ -18,6 +19,9 @@ let Product = {
 
     const buyNowButton=document.querySelector('.buy-now__button')
     buyNowButton?.addEventListener('click',quickBuy)
+
+    const smallPhotoImage=document.querySelectorAll('.small-photo__img')
+  smallPhotoImage.forEach((item)=>{item.addEventListener('click',zoomImage)})
   },
 };
 
