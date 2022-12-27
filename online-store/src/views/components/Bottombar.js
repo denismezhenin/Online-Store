@@ -4,10 +4,13 @@ let Bottombar = {
         <footer class="footer">
             footer
         </footer>
+        
         `
         return view
     },
-    after_render: async () => { }
+    after_render: async () => { 
+        
+    }
 
 }
 

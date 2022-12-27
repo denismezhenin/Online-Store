@@ -157,7 +157,7 @@ export function getProductList() {
         <button class="product-amount__button plus" id=${item.id}>+</button>
       </div>
       <p class="amount-price-control"><span>$</span><span class="amount-price__span">${
-        (item.price as number)*(item.count as number)
+        (item.price as number) * (item.count as number)
       }</span></p>
     </div>
   </li>
@@ -181,14 +181,15 @@ export function changeTotal(classElement: string, classResult: string) {
 export function decrementProduct(e: Event) {
   const target = e.target as HTMLElement;
   const productAmount = target.parentNode?.childNodes[3] as HTMLElement;
-  const productPrice= target.parentNode?.parentNode?.childNodes[5].childNodes[1] as HTMLElement
+  const productPrice = target.parentNode?.parentNode?.childNodes[5]
+    .childNodes[1] as HTMLElement;
   const cartProductDescription = document.querySelectorAll(
     ".cart-product-description"
   );
   let productCount = state.cartArray.find(
     (item) => item.id === Number(target.id)
   );
-    let findProductId = Number(
+  let findProductId = Number(
     state.cartArray.find((item) => item.id === Number(target.id))?.price
   );
 
@@ -201,7 +202,7 @@ export function decrementProduct(e: Event) {
   }
 
   if (productCount?.count === 0) {
-       state.cartArray = state.cartArray.filter(
+    state.cartArray = state.cartArray.filter(
       (item) => item.id !== Number(target.id)
     );
 
@@ -213,14 +214,15 @@ export function decrementProduct(e: Event) {
   }
   changeTotal("product-amount", "summary-products__span");
   changeTotal("amount-price__span", "summary-total__span");
-  setCartTotal()
+  setCartTotal();
 }
 
 export function incrementProduct(e: Event) {
   const target = e.target as HTMLElement;
   const productAmount = target.parentNode
     ?.childNodes[3] as HTMLParagraphElement;
-    const productPrice= target.parentNode?.parentNode?.childNodes[5].childNodes[1] as HTMLElement
+  const productPrice = target.parentNode?.parentNode?.childNodes[5]
+    .childNodes[1] as HTMLElement;
 
   let productCount = state.cartArray.find(
     (item) => item.id === Number(target.id)
@@ -238,5 +240,11 @@ export function incrementProduct(e: Event) {
 
   changeTotal("product-amount", "summary-products__span");
   changeTotal("amount-price__span", "summary-total__span");
-  setCartTotal()
+  setCartTotal();
+}
+export function getEmptyCart() {
+  const cartContainer = document.querySelector(
+    ".cart__container"
+  ) as HTMLElement;
+  cartContainer.innerHTML = "Cart is empty";
 }

@@ -1,5 +1,5 @@
 import { IProduct, setCartTotal } from "./../components/state";
-import { getProductHtml, toggleProduct } from "./productPage";
+import { getProductHtml, quickBuy, toggleProduct } from "./productPage";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
@@ -15,6 +15,9 @@ let Product = {
    setCartTotal()
     const productButton = document.querySelectorAll(".product__button");
     productButton.forEach((el) => el.addEventListener("click", toggleProduct));
+
+    const buyNowButton=document.querySelector('.buy-now__button')
+    buyNowButton?.addEventListener('click',quickBuy)
   },
 };
 

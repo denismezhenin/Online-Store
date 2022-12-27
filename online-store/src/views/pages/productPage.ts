@@ -2,6 +2,7 @@ import { IProduct, setCartTotal } from "./../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
+import { getModal } from "./cartPage";
 
 export function getProductHtml() {
   const array = productItems.products;
@@ -88,7 +89,7 @@ export function getProductHtml() {
             <p class="product-price">$${targetObject?.price}</p>
             <button class="product-price__button product__button add-cart__button">ADD TO CART</button>
             <button class="product-price__button product__button drop-cart__button hide">DROP FROM CART</button>
-            <button class="product-price__button buy-now__button" onclick=location.href="/#/cart">BUY NOW</button>
+            <button class="product-price__button  buy-now__button" >BUY NOW</button>
           </div>
         </div>
       </div>
@@ -117,23 +118,37 @@ export function checkProduct() {
   }
 }
 
-export function toggleProduct(){
+export function toggleProduct() {
   const array = productItems.products;
-        let product = Utils.parseRequestURL();
-        const productItem = array.find(
-          (item) => item.id === Number(product.id)
-        );
-        if (
-          !state.cartArray.find((el) => el.id === (productItem as IProduct).id)
-        ) {
-          const cartItem={...productItem, count:1}
+  let product = Utils.parseRequestURL();
+  const productItem = array.find((item) => item.id === Number(product.id));
+  if (!state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
+    const cartItem = { ...productItem, count: 1 };
 
-          state.cartArray.push(cartItem as IProduct);
-        } else {
-          state.cartArray = state.cartArray.filter(
-            (item) => item.id !== (productItem as IProduct).id
-          );
-        }
-        checkProduct();
-        setCartTotal()
+    state.cartArray.push(cartItem as IProduct);
+  } else {
+    state.cartArray = state.cartArray.filter(
+      (item) => item.id !== (productItem as IProduct).id
+    );
+  }
+  checkProduct();
+  setCartTotal();
+}
+
+export function quickBuy() {
+  const array = productItems.products;
+  let product = Utils.parseRequestURL();
+  const productItem = array.find((item) => item.id === Number(product.id));
+  if (!state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
+    const cartItem = { ...productItem, count: 1 };
+
+    state.cartArray.push(cartItem as IProduct);
+  }
+  checkProduct();
+  setCartTotal();
+  location.href = "/#/cart";
+  setTimeout(() => {
+    const modal = document.querySelector(".modal") as HTMLElement;
+    modal.classList.remove("closed-modal");
+  }, 200);
 }
