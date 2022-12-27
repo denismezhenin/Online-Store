@@ -3,11 +3,7 @@ import { tsQuerySelector, tsQuerySelectorAll } from '../../components/helpers'
 export const setOptions = (parent: string, option: string, data: any) => {
   const optionsSet = new Set();
   const array = data.products;
-  // const b = array.reduce((acc: any, item: any) => {
-  //   acc[item[option]] = acc[item[option]] ? acc[item[option]] + 1 : 1
-  //   return acc
-  // }, {})
-  // console.log(b)
+
   for (let item of array) {
     optionsSet.add(item[option])
   }

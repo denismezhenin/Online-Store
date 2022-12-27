@@ -11,12 +11,13 @@ const rangeAttribute = ['price', 'stock']
 export const setRange = (parent: any) => {
   [...parent].forEach((item, index) => {
     const element = item.querySelector(".range-sliders");
-    rangeAbs([...parent][index], element, rangeAttribute[index])
+    rangeAbs([...parent][index], element, rangeAttribute[index], productItems)
   })
-  // console.log('com')
 };
 
-const rangeAbs = (parent: any, item: any, rangeAtt: string) => {
+const rangeAbs = (parent: any, item: any, rangeAtt: string, data: any) => {
+  const rangeArray = getRangeValues(data, rangeAtt)
+  console.log(rangeArray)
   const rangeInputs = parent.querySelectorAll('.range-sliders__input');
   const [ left, right ] = rangeInputs;
   // fillSlider(parent, '#C6C6C6', '#25daa5')
@@ -60,4 +61,13 @@ export const fillSlider = (parent: any, sliderColor: string, rangeColor: string)
     ${sliderColor} 100%)`;
 }
 
-// init(rangeContainer)
+const getRangeValues = (data: any, category: string) => {
+  const set = new Set();
+  const array = data.products;
+  for (let item of array) {
+    set.add(item[category])
+  }
+  let arr = Array.from(set)
+  let sortArr = arr.sort((a: number, b: number) => a - b)
+  return sortArr
+}
