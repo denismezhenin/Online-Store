@@ -10,9 +10,9 @@ export const setOptions = (parent: string, option: string, data: any) => {
   const el = tsQuerySelector(document, `.${parent}`)
   const ul = tsQuerySelector(el, `.selections-variants`)
   for (let value of optionsSet) {
-    const li: any = document.createElement('li');
-    const input: any = document.createElement('input');
-    const label: any = document.createElement('label');
+    const li: HTMLElement = document.createElement('li');
+    const input: HTMLInputElement = document.createElement('input');
+    const label: HTMLLabelElement = document.createElement('label');
     const div: HTMLElement = document.createElement('div');
     const viewCount: HTMLElement = document.createElement('span');
     // const totalCount: HTMLElement = document.createElement('span');

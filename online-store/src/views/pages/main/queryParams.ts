@@ -8,14 +8,14 @@ export const setListeners = (category: string) => {
     deleteQueryParams(category)
     tsQuerySelectorAll(list, 'input').forEach((item: any)=> {
       if(item.checked) {
-        setQueryParams(`${category}`, (item.id).toLowerCase())
+        setQueryMultiParams(`${category}`, (item.id).toLowerCase())
       }
     })
     // searchItems(productItems.products)
   })
 }
 
-export const setQueryParams = (category: string, item: string) => {
+export const setQueryMultiParams = (category: string, item: string) => {
   const searchParams = new URLSearchParams((`${location.hash}`).slice(1));
   const paramsArr = searchParams.getAll(category)
   if (paramsArr.includes(`${item}`)) {
@@ -25,7 +25,7 @@ export const setQueryParams = (category: string, item: string) => {
   location.hash = '' + searchParams.toString();
 }
 
-export const setQueryRangeParams = (category: string, value: string) => {
+export const setQueryParam = (category: string, value: string) => {
   const searchParams = new URLSearchParams((`${location.hash}`).slice(1));
   searchParams.set(category, value)
   location.hash = '' + searchParams.toString();
@@ -57,9 +57,9 @@ export const setParamsFromHash = () => {
   //   (tsQuerySelector(document, '.price__max-value') as HTMLInputElement).value = searchParams.get('price-max')!;
   // }
   if (searchParams.has('search')) {
-    (tsQuerySelector(document, '.products-search__input') as HTMLInputElement).value = searchParams.get('search')!;
+    tsQuerySelector<HTMLInputElement>(document, '.products-search__input').value = searchParams.get('search')!;
   }
     if (searchParams.has('sort')) {
-      (tsQuerySelector(document, '.product-select__options') as HTMLSelectElement).value = searchParams.get('sort')!
+      tsQuerySelector<HTMLSelectElement>(document, '.product-select__options').value = searchParams.get('sort')!
     }
 }

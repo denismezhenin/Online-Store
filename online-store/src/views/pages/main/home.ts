@@ -14,6 +14,7 @@ import { setListeners, setParamsFromHash } from "./queryParams";
 import { searchItems } from './search'
 import { setSortParam } from "./sort";
 import { setFiltersButton } from "./resetAndCopy";
+import { setViewListeners } from "./viewmode";
 
 
 
@@ -44,6 +45,7 @@ let Home = {
 
     productsList.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
+      console.log(target)
       // console.log(target.parentNode);
       // console.log((target.parentNode!).classList!)
       if (target.classList.contains("list-item")) {
@@ -70,6 +72,7 @@ let Home = {
     // }
   setSortParam()
   setFiltersButton()
+  setViewListeners()
   },
 };
 

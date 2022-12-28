@@ -1,5 +1,5 @@
-export function tsQuerySelector(parent: Element | Document, selector: string): Element {
-  const element = parent.querySelector(selector);
+export function tsQuerySelector<T extends HTMLElement>(parent: Element | Document, selector: string): T {
+  const element = parent.querySelector<T>(selector);
   if (!element) {
       throw new Error('No such element');
   }

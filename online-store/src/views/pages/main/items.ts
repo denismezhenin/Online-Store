@@ -46,8 +46,8 @@ const createProductItem = (item: any) => {
   const li: HTMLElement = document.createElement('li');
   const itemName: HTMLElement = document.createElement('span');
   const price: HTMLElement = document.createElement('span');
-  const image: HTMLImageElement = document.createElement('img');
-  // const image: HTMLElement = document.createElement('img');
+  // const image: HTMLImageElement = document.createElement('img');
+  const image: HTMLElement = document.createElement('div');
   const informationWrapper: HTMLElement = document.createElement('div');
   const buttonWrapper: HTMLElement = document.createElement('div');
   const cartButton:HTMLButtonElement = document.createElement('button');
@@ -67,9 +67,9 @@ const createProductItem = (item: any) => {
   detailsButton.textContent = 'Details';
   detailsButton.classList.add('details__button');
   image.classList.add('item__image');
-  // image.style.background = `url('${item.thumbnail}')`;
+  image.style.background = `url('${item.thumbnail}')`;
   // image.style.background = `url('${item.thumbnail}') center / cover no-repeat`;
-  image.src = `${item.thumbnail}`;
+  // image.src = `${item.thumbnail}`;
   price.textContent = `${item.price}$`;
   itemName.textContent = item.title;
   itemName.classList.add('item__name');

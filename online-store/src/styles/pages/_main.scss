@@ -108,8 +108,9 @@ input[type="range"] {
       height: 100%;
       width: 100%;
       z-index: -2;
-      background-size: cover;
-      background-position: 0% 0%;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
     }
 
     &__information {
@@ -152,11 +153,12 @@ input[type="range"] {
       // position: absolute;
       // top: 0;
       // left: 0;
-      height: 200px;
-      width: 200px;
+      height: 100%;
+      width: 100%;
       z-index: -2;
-      background-size: contain;
-      background-repeat: no-repeat;
+      background-size: contain !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
     }
 
     &__information {

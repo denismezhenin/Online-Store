@@ -1,6 +1,7 @@
 import { tsQuerySelectorAll } from "../../components/helpers";
-import productItems from "../../components/productJSON";
+// import productItems from "../../components/productJSON";
 import { addItems } from "./items";
+import { setViewMode } from "./viewmode";
 
 const searchOptions = ['category', 'brand']
 
@@ -29,6 +30,9 @@ export const searchItems = async (data: any) => {
     if (searchParams.has('sort')) {
         filteredArr = filterBySort(searchParams.get('sort')!, filteredArr)
     }
+    if (searchParams.has('view')) {
+        setViewMode(searchParams.get('view')!)
+    }
 
     const viewOptionCategoryCount = createOptionObject(filteredArr, searchOptions[0], searchOptions[1])
     setOptionCounts(totalOptionCategoryCount, viewOptionCategoryCount)
@@ -44,11 +48,7 @@ const filterByRange = (category: string, arrValues: string[], arr: any[]): any =
 const filterBySearch = (category: string, str: string, arr: any[]): any => {
     return arr.filter(item => {
         for (let value of Object.values(item)) {
-            //rewrite without two if
-            if (typeof value === 'string' && (value).toLowerCase().startsWith(str)) {
-                return true
-            }
-            if (typeof value === 'number' && String(value).startsWith(str)) {
+            if (String(value).toLocaleLowerCase().startsWith(str)) {
                 return true
             }
         }
@@ -75,7 +75,7 @@ const filterBySort = (type: string, arr: any[]) => {
     }
 }
 
-const createOptionObject = (array: any, option1: any, option2: any) => {
+const createOptionObject = (array: any, option1: string, option2: string) => {
     return array.reduce((acc: any, item: any) => {
         acc[(item[option1]).toLocaleLowerCase()] = acc[(item[option1]).toLocaleLowerCase()] ? acc[(item[option1]).toLocaleLowerCase()] + 1 : 1;
         acc[(item[option2]).toLocaleLowerCase()] = acc[(item[option2]).toLocaleLowerCase()] ? acc[(item[option2]).toLocaleLowerCase()] + 1 : 1
@@ -83,12 +83,12 @@ const createOptionObject = (array: any, option1: any, option2: any) => {
       }, {})
 } 
 
-const setOptionCounts = (totalObj: any, veiwObj: any) => {
+const setOptionCounts = (totalObj: any, viewObj: any) => {
     const li = tsQuerySelectorAll(document, '.selections-variants__item')
     li.forEach(item => {
         const el = item.children[0]
         const total = totalObj[el.id]
-        const view = veiwObj[el.id] ? veiwObj[el.id] : 0
+        const view = viewObj[el.id] ? viewObj[el.id] : 0
         item.children[2].textContent = `(${view}/${total})`
     })
 }

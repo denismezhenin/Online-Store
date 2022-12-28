@@ -1,9 +1,9 @@
 import { tsQuerySelector } from "../../components/helpers"
-import { setQueryRangeParams } from "./queryParams"
+import { setQueryParam } from "./queryParams"
 
 export const setSortParam = () => {
-  const select = tsQuerySelector(document, '.product-select__options') as HTMLSelectElement
-select.addEventListener('change', () => {
-  setQueryRangeParams('sort', select.value)
+  const select = tsQuerySelector<HTMLSelectElement>(document, '.product-select__options')
+  select.addEventListener('change', () => {
+  setQueryParam('sort', select.value)
 })
 }

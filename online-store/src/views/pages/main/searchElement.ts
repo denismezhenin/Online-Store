@@ -1,5 +1,5 @@
 import { tsQuerySelector } from "../../components/helpers";
-import { setQueryRangeParams } from './queryParams';
+import { setQueryParam } from './queryParams';
 import productItems from "../../components/productJSON";
 import { searchItems } from "./search";
 
@@ -16,7 +16,7 @@ export const setSearch = () => {
       searchParams.delete('search')
       return location.hash = '' + searchParams.toString();
     }
-    setQueryRangeParams('search', (inputSearch.value).toLocaleLowerCase())
+    setQueryParam('search', (inputSearch.value).toLocaleLowerCase())
     // searchItems(productItems.products)
     // let baseUrl =
     //   window.location.protocol +

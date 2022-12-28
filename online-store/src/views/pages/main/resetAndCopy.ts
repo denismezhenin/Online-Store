@@ -2,8 +2,9 @@ import { tsQuerySelector } from "../../components/helpers"
 
 export const setFiltersButton = () => {
   const buttonContainer = tsQuerySelector(document, '.filters-buttons');
-  buttonContainer.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement
+  buttonContainer.addEventListener('click', (e: Event) => {
+    if (!(e.target instanceof HTMLElement)) return;
+    const target = e.target;
     if (target.classList.contains('button__reset')) {
       location.hash = ''
     }

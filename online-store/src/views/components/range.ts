@@ -1,5 +1,5 @@
 import { tsQuerySelector, tsQuerySelectorAll } from "./helpers";
-import { setQueryRangeParams } from '../pages/main/queryParams';
+import { setQueryParam } from '../pages/main/queryParams';
 import productItems from "./productJSON";
 // import { searchItems } from "../pages/main/search";
 
@@ -44,18 +44,20 @@ const rangeAbs = (parent: any, item: any, rangeAtt: string, data: any) => {
   // right.min
   right.max = rangeValuesArray.length - 1;
   fillSlider(parent, '#C6C6C6', '#25daa5')
-  item.addEventListener('input', ({ target }: any) => {  
-
-    console.log(arr)
+  item.addEventListener('input', (e: Event) => {  
+    if (!(e.target instanceof HTMLInputElement)) return;
+    const target = e.target;
+    // console.log(target)
     // tsQuerySelector(parent, '.range-values__min').textContent = left.value
     // tsQuerySelector(parent, '.range-values__max').textContent = right.value
-    setQueryRangeParams(`${rangeAtt}-min`, `${arr[(Number(left.value))]}`)
-    setQueryRangeParams(`${rangeAtt}-max`, `${arr[(Number(right.value))]}`)
+
     if (target == right) {
       left.value = Math.min(+right.value -1, +left.value);
     } else {
       right.value = Math.max(+left.value +1, +right.value);
     }
+    setQueryParam(`${rangeAtt}-min`, `${arr[(Number(left.value))]}`)
+    setQueryParam(`${rangeAtt}-max`, `${arr[(Number(right.value))]}`)
     fillSlider(parent, '#C6C6C6', '#25daa5')
   });
 };
