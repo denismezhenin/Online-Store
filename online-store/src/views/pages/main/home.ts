@@ -44,7 +44,8 @@ let Home = {
 
     productsList.addEventListener("click", (e) => {
       const target = e.target as HTMLElement;
-      console.log(target.parentNode);
+      // console.log(target.parentNode);
+      // console.log((target.parentNode!).classList!)
       if (target.classList.contains("list-item")) {
         let link = `/#/product/${target.id}`;
         location.href = link;
@@ -60,13 +61,13 @@ let Home = {
 
     setSearch();
 
-    const inputSearch = document.querySelector(
-      ".products-search__input"
-    ) as HTMLInputElement;
+    // const inputSearch = document.querySelector(
+    //   ".products-search__input"
+    // ) as HTMLInputElement;
 
-    if (window.location.search && inputSearch.value.length === 0) {
-      inputSearch.value = window.location.search.split("=").slice(1).join();
-    }
+    // if (window.location.search && inputSearch.value.length === 0) {
+    //   inputSearch.value = window.location.search.split("=").slice(1).join();
+    // }
   setSortParam()
   setFiltersButton()
   },

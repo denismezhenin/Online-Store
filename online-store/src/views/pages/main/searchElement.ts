@@ -17,7 +17,7 @@ export const setSearch = () => {
       return location.hash = '' + searchParams.toString();
     }
     setQueryRangeParams('search', (inputSearch.value).toLocaleLowerCase())
-    searchItems(productItems.products)
+    // searchItems(productItems.products)
     // let baseUrl =
     //   window.location.protocol +
     //   "//" +

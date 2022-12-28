@@ -88,21 +88,87 @@ input[type="range"] {
   justify-content: space-between;
 }
 
-.products-list {
+.card-mode {
   display: flex;
   flex-wrap: wrap;
+
+  .item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25%;
+    height: 200px;
+    overflow: hidden;
+
+    &__image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: -2;
+      background-size: cover;
+      background-position: 0% 0%;
+    }
+
+    &__information {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      transition: transform 0.3s ease 0s;
+      transform: translate(-100%, 0px);
+      color: #fff;
+      background: rgba($color: #000000, $alpha: 0.5);
+      z-index: -1;
+    }
+
+    &:hover {
+      .item__information {
+        transform-origin: 0 0;
+        transform: translate(0, 0px)
+      }
+    }
+  }
+
 }
 
-.list-item {
+.list-mode {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 25%;
-  height: 200px;
-  background-size: cover;
-  background-position: 0% 0%;
+  flex-wrap: wrap;
+  // justify-content: spa;
+
+  .item {
+    // position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 200px;
+    // overflow: hidden;
+
+    &__image {
+      // position: absolute;
+      // top: 0;
+      // left: 0;
+      height: 200px;
+      width: 200px;
+      z-index: -2;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    &__information {
+      display: flex;
+      flex-direction: column;
+    }
+
+  }
 
 }
+
+
 
 //product ends
 
@@ -117,10 +183,78 @@ input[type="range"] {
     display: inline-block
   }
 
-  &__item {
-    // display: flex;
-    // justify-content: space-between;
-  }
 }
 
+//selections end
+
+//view modes
+
+.products-view-mode {
+  display: flex;
+  // flex-wrap: nowrap;
+  align-items: center;
+}
+
+.view__list {
+  position: relative;
+  // display: none;
+  width: 18px;
+  height: 18px;
+
+  .view__list-line {
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #000;	
+    border-radius: 2px;
+  }
+
+  &:after {
+    content: "";
+    background-color: #000;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+  }
+
+  &:before {
+    background-color: #000;
+    position: absolute;
+    content: "";
+    top: calc(50% - 1px);
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+  }
+
+}
+
+.view__card {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  margin-left: 10px;
+  width: 18px;
+  height: 18px;
+  font-size: 16px;
+
+  &-dot {
+    display: inline-block;
+    white-space: nowrap;
+    width: 20%;
+    height: 20%;
+    margin: 6.65%;
+    font-size: 50%;
+    border-radius: 100%;
+    overflow: hidden;
+    color: #000;
+    background-color: #000;
+  }
+}
 

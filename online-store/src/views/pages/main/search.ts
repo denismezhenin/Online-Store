@@ -44,6 +44,7 @@ const filterByRange = (category: string, arrValues: string[], arr: any[]): any =
 const filterBySearch = (category: string, str: string, arr: any[]): any => {
     return arr.filter(item => {
         for (let value of Object.values(item)) {
+            //rewrite without two if
             if (typeof value === 'string' && (value).toLowerCase().startsWith(str)) {
                 return true
             }

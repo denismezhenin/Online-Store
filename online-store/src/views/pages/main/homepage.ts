@@ -12,7 +12,7 @@ const homePageHtml = `
   <div class="selections-name">
     <span class="">Category</span>
   </div>
-  <ul class="selections-variants"></г>
+  <ul class="selections-variants"></ul>
 </div>
 <div class="filters-selections selections brand">
   <div class="selections-name">
@@ -65,9 +65,21 @@ const homePageHtml = `
     <form class="product-search">
       <input type="search" class="products-search__input" placeholder="Search product" incremental="incremental"  >
     </form>
-    <div class="view-mode"></div>
+    <div class="products-view-mode view">
+      <div class="view__list">
+      <span class="view__list-line"></span>
+      </div>
+      <div class="view__card">
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+      </div>
+    </div>
   </div>
-  <ul class="products-list list"></ul>
+  <ul class="products-list list card-mode"></ul>
 </section>
 `;
 export default homePageHtml;

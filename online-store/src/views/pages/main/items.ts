@@ -15,24 +15,7 @@ export const addItems = async (parent: string, data: any) => {
   let quantityMax: number = data[0].stock;
   el.innerHTML = ''
   for (let item of data) {
-    const li: any = document.createElement('li');
-    li.id = item.id;
-    const name = document.createElement('span');
-    const cartButton = document.createElement('button');
-    const detailsButton = document.createElement('button');
-    const price = document.createElement('span');
-    cartButton.textContent = 'Add to card';
-    cartButton.classList.add('cart__button')
-    detailsButton.textContent = 'Details';
-    detailsButton.classList.add('details__button')
-    price.textContent = `${item.price}$`;
-    name.textContent = item.title;
-    li.style.background = `url('${item.thumbnail}') center / cover no-repeat`;
-    li.classList.add('list-item');
-    li.append(name);
-    li.append(price);
-    li.append(cartButton);
-    li.append(detailsButton);
+    const li = createProductItem(item)
     el.append(li);
     priceMin = Math.min(priceMin, item.price);
     priceMax = Math.max(priceMax, item.price);
@@ -57,6 +40,61 @@ const setRangeValues = (priceMin: number, priceMax: number, quantityMin: number,
   }
   fillSlider(rangeContainer[0], '#C6C6C6', '#25daa5')
   fillSlider(rangeContainer[1], '#C6C6C6', '#25daa5')
+}
+
+const createProductItem = (item: any) => {
+  const li: HTMLElement = document.createElement('li');
+  const itemName: HTMLElement = document.createElement('span');
+  const price: HTMLElement = document.createElement('span');
+  const image: HTMLImageElement = document.createElement('img');
+  // const image: HTMLElement = document.createElement('img');
+  const informationWrapper: HTMLElement = document.createElement('div');
+  const buttonWrapper: HTMLElement = document.createElement('div');
+  const cartButton:HTMLButtonElement = document.createElement('button');
+  const detailsButton:HTMLButtonElement = document.createElement('button');
+  const itemCategory: HTMLElement = document.createElement('span');
+  const itemBrand: HTMLElement = document.createElement('span');
+  const itemPrice: HTMLElement = document.createElement('span');
+  const itemDiscount: HTMLElement = document.createElement('span');
+  const itemRating: HTMLElement = document.createElement('span');
+  const itemStock: HTMLElement = document.createElement('span');
+  li.id = item.id;
+  // li.classList.add(`products-list__item`);
+  li.classList.add('list-item');
+  li.classList.add(`item`);
+  cartButton.textContent = 'Add to card';
+  cartButton.classList.add('cart__button');
+  detailsButton.textContent = 'Details';
+  detailsButton.classList.add('details__button');
+  image.classList.add('item__image');
+  // image.style.background = `url('${item.thumbnail}')`;
+  // image.style.background = `url('${item.thumbnail}') center / cover no-repeat`;
+  image.src = `${item.thumbnail}`;
+  price.textContent = `${item.price}$`;
+  itemName.textContent = item.title;
+  itemName.classList.add('item__name');
+  buttonWrapper.classList.add('item__buttons-wrapper');
+  buttonWrapper.append(cartButton);
+  buttonWrapper.append(detailsButton);
+  informationWrapper.classList.add('item__information')
+  itemCategory.textContent = `Category: ${item.category}`
+  itemBrand.textContent = `Brand: ${item.brand}`
+  itemPrice.textContent = `Price: ${item.price}$`
+  itemDiscount.textContent = `Discount: ${item.discountPercentage}%`
+  itemRating.textContent = `Rating: ${item.rating}`
+  itemStock.textContent = `Stock: ${item.stock}`
+  informationWrapper.append(itemCategory)
+  informationWrapper.append(itemBrand)
+  informationWrapper.append(itemPrice)
+  informationWrapper.append(itemDiscount)
+  informationWrapper.append(itemRating)
+  informationWrapper.append(itemStock)
+  li.append(itemName);
+  li.append(price);
+  li.append(buttonWrapper);
+  li.append(image);
+  li.append(informationWrapper);
+  return li
 }
 
 
