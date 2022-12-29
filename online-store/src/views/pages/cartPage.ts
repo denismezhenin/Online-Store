@@ -34,7 +34,8 @@ export function getCartHtml() {
           <p class="summary-products">Products: <span class="summary-products__span"></span></p>
           <p class="summary-total-price">Total: $<span class="summary-total__span"></span></p>
           <input type="text" class="summary-discount__input" placeholder="Enter promo code">
-          <p class="promo-code-example">Promo for test: 'RS', 'EPM'</p>
+          <div class="promo-code__container"></div>
+          <p class="promo-code-example">Promo for test: 'RS', 'NY'</p>
           <button class="summary-buy__button">BUY NOW</button>
       </div>
     </div>
@@ -166,6 +167,15 @@ export function getProductList() {
     .join();
 }
 
+export enum AmountChangeTotal {
+  classElement = "product-amount",
+  classResult = "summary-products__span",
+}
+export enum PriceChangeTotal {
+  classElement = "amount-price__span",
+  classResult = "summary-total__span",
+}
+
 export function changeTotal(classElement: string, classResult: string) {
   let counter: number = 0;
   const classList = document.querySelectorAll(`.${classElement}`);
@@ -212,8 +222,8 @@ export function decrementProduct(e: Event) {
       }
     });
   }
-  changeTotal("product-amount", "summary-products__span");
-  changeTotal("amount-price__span", "summary-total__span");
+  changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
+  changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
   setCartTotal();
 }
 
@@ -238,10 +248,11 @@ export function incrementProduct(e: Event) {
   productAmount.textContent = String(productCount?.count);
   productPrice.innerHTML = `${findProductId * Number(productCount?.count)}`;
 
-  changeTotal("product-amount", "summary-products__span");
-  changeTotal("amount-price__span", "summary-total__span");
+  changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
+  changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
   setCartTotal();
 }
+
 export function getEmptyCart() {
   const cartContainer = document.querySelector(
     ".cart__container"
