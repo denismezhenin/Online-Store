@@ -2,14 +2,12 @@ import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
 import { tsQuerySelector } from "../components/helpers";
 import { setCartTotal, state } from "../components/state";
 import {
-  
   decrementProduct,
   getCartHtml,
   getEmptyCart,
   getModal,
   getProductList,
   incrementProduct,
- 
   removeModal,
 } from "./cartPage";
 import { changeTotal } from "./cartPage";

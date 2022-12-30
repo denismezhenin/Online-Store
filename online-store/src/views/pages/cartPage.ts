@@ -1,4 +1,3 @@
-
 import { setCartTotal } from "../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
@@ -162,7 +161,7 @@ export function getProductList() {
         <button class="product-amount__button plus" id=${item.id}>+</button>
       </div>
       <p class="amount-price-control"><span>$</span><span class="amount-price__span">${
-        (item.price as number) * (item.count as number)
+        item.price && item.count ? item.price * item.count : ""
       }</span></p>
     </div>
   </li>
@@ -170,8 +169,6 @@ export function getProductList() {
     })
     .join();
 }
-
-
 
 export function changeTotal(classElement: string, classResult: string) {
   let counter: number = 0;

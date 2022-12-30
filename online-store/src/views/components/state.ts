@@ -1,8 +1,6 @@
 import { IProduct, IState } from "./constants";
 import { tsQuerySelector } from "./helpers";
 
-
-
 export let state: IState = {
   cartArray: [],
   cartTotalPrice: 0,
@@ -19,18 +17,19 @@ export function getLocalStorage() {
 window.addEventListener("load", getLocalStorage);
 
 export function setCartTotal() {
-  let resultPrice = state.cartArray.reduce((acc: number, el) => {
-    acc = acc + (el.price as number) * (el.count as number);
+  let resultPrice = state.cartArray.reduce((acc: number, el: IProduct) => {
+    el.price && el.count ? (acc = acc + el.price * el.count) : "";
+
     return acc;
   }, 0);
 
   const headerCartTotal = tsQuerySelector(document, ".header-cart-total");
-  headerCartTotal.innerHTML = String(resultPrice);
+  headerCartTotal.textContent = String(resultPrice);
 
-  let resultCount = state.cartArray.reduce((acc: number, el) => {
+  let resultCount = state.cartArray.reduce((acc: number, el: IProduct) => {
     acc = acc + (el.count as number);
     return acc;
   }, 0);
   const headerCartCounter = tsQuerySelector(document, ".header-cart__counter");
-  headerCartCounter.innerHTML = String(resultCount);
+  headerCartCounter.textContent = String(resultCount);
 }

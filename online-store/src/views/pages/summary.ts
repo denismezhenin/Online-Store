@@ -27,7 +27,7 @@ export function checkPromoCode() {
     !(summaryDiscountInput.value.toLowerCase() === Promo.promoCodeNY) ||
     !(summaryDiscountInput.value.toLowerCase() === Promo.promoCodeRS)
   ) {
-    const promoCode = tsQuerySelector(document, ".promo-code");
+    const promoCode = document.querySelector(".promo-code");
     promoCode?.remove();
   }
   if (summaryDiscountInput.value.toLowerCase() === Promo.promoCodeRS) {
@@ -36,7 +36,7 @@ export function checkPromoCode() {
     div.innerHTML = Promo.rs;
     promoCodeContainer.append(div);
     const rsAddButton = tsQuerySelector(document, ".rs-add__button");
-    if (state.promoCodeRS === true) {
+    if (state.promoCodeRS) {
       rsAddButton.remove();
     }
   }
@@ -46,14 +46,14 @@ export function checkPromoCode() {
     div.innerHTML = Promo.newYear;
     promoCodeContainer.append(div);
     const nyAddButton = tsQuerySelector(document, ".ny-add__button");
-    if (state.promoCodeNY === true) {
+    if (state.promoCodeNY) {
       nyAddButton.remove();
     }
   }
 }
 
 export function addApplyCode() {
-  const applyCode = tsQuerySelector(document, ".apply-code");
+  const applyCode = document.querySelector(".apply-code");
   if (!applyCode && (state.promoCodeRS || state.promoCodeNY)) {
     let div = document.createElement("div");
     div.className = "apply-code";
@@ -64,13 +64,13 @@ export function addApplyCode() {
     );
     summaryDiscountInput.before(div);
   }
-  const rsPromoCode = tsQuerySelector(document,".rs-promo-code") ;
+  const rsPromoCode = document.querySelector(".rs-promo-code");
 
-  if (!rsPromoCode && state.promoCodeRS === true) {
+  if (!rsPromoCode && state.promoCodeRS) {
     addApplyPromoCode(markersForRS.promo, markersForRS.button);
   }
 
-  const nyPromoCode = tsQuerySelector(document, ".ny-promo-code");
+  const nyPromoCode = document.querySelector(".ny-promo-code");
 
   if (!nyPromoCode && state.promoCodeNY === true) {
     addApplyPromoCode(markersForNY.promo, markersForNY.button);
@@ -81,17 +81,15 @@ function addApplyPromoCode(promo: string, button: string) {
   let div = document.createElement("div");
   div.className = `apply-promo-code ${button}-promo-code`;
   div.innerHTML = `<h3 class="aplly-code__text">${promo} - 10%</h3><button class="${button}-drop__button">Drop</button>`;
-  const apllyCodeTitle = tsQuerySelector(document,
-    ".aplly-code__title"
-  ) 
+  const apllyCodeTitle = tsQuerySelector(document, ".aplly-code__title");
   apllyCodeTitle.after(div);
 }
 
 export function removePromoCode(button: string) {
-  const promoDiv = tsQuerySelector(document,button);
+  const promoDiv = document.querySelector(button);
   promoDiv?.remove();
-  if (state.promoCodeNY === false && state.promoCodeRS === false) {
-    const applyCode = tsQuerySelector(document,".apply-code");
+  if (!state.promoCodeNY && !state.promoCodeRS) {
+    const applyCode = tsQuerySelector(document, ".apply-code");
     applyCode?.remove();
   }
 }
