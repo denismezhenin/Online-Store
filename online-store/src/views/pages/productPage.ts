@@ -101,13 +101,14 @@ export function getProductHtml() {
 export function checkProduct() {
   const array = productItems.products;
   let product = Utils.parseRequestURL();
-  const addCartButton = document.querySelector(
+  const addCartButton = tsQuerySelector<HTMLButtonElement>(
+    document,
     ".add-cart__button"
-  ) as HTMLButtonElement;
-  const dropCartButton = document.querySelector(
+  );
+  const dropCartButton = tsQuerySelector<HTMLButtonElement>(
+    document,
     ".drop-cart__button"
-  ) as HTMLButtonElement;
-
+  );
   const productItem = array.find((item) => item.id === Number(product.id));
 
   if (state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
@@ -143,7 +144,7 @@ export function quickBuy() {
   if (!state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
     const cartItem = { ...productItem, count: 1 };
 
-    state.cartArray.push(cartItem as IProduct);
+    state.cartArray.push(cartItem);
   }
   checkProduct();
   setCartTotal();
@@ -155,7 +156,8 @@ export function quickBuy() {
 }
 
 export function zoomImage(e: Event) {
-  let target = e.target as HTMLImageElement;
+  if (!(e.target instanceof HTMLImageElement)) return;
+  let target = e.target;
   const productLargePhoto = tsQuerySelector(document, ".product-large-photo");
   productLargePhoto.innerHTML = `<img
   class="large-photo__img"

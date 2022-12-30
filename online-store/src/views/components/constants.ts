@@ -34,3 +34,15 @@ export enum markersForNY {
   promo = "Happy New Year",
   button = "ny",
 }
+
+export enum ProductButton {
+  add = 2,
+  drop = 3,
+}
+export enum ProductCartChilds {
+  amount = 3,
+  priceParent = 5,
+  price = 1,
+}
+
+export const counterChange = 1;

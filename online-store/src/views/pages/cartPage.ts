@@ -1,3 +1,4 @@
+import { ProductCartChilds, counterChange } from './../components/constants';
 import { setCartTotal } from "../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
@@ -187,9 +188,9 @@ export function decrementProduct(e: Event) {
   if (!(e.target instanceof HTMLElement)) return;
   const target = e.target;
 
-  const productAmount = target.parentNode?.childNodes[3] as HTMLElement;
-  const productPrice = target.parentNode?.parentNode?.childNodes[5]
-    .childNodes[1] as HTMLElement;
+  const productAmount = target.parentNode?.childNodes[ProductCartChilds.amount] as HTMLElement;
+  const productPrice = target.parentNode?.parentNode?.childNodes[ProductCartChilds.priceParent]
+    .childNodes[ProductCartChilds.price] as HTMLElement;
   const cartProductDescription = document.querySelectorAll(
     ".cart-product-description"
   );
@@ -200,9 +201,9 @@ export function decrementProduct(e: Event) {
     state.cartArray.find((item) => item.id === Number(target.id))?.price
   );
 
-  if ((productCount?.count as number) >= 1) {
+  if (Number(productCount?.count) >= counterChange) {
     if (productCount?.count) {
-      productCount.count -= 1;
+      productCount.count -= counterChange;
     }
     productAmount.textContent = String(productCount?.count);
     productPrice.textContent = `${findProductId * Number(productCount?.count)}`;
@@ -229,9 +230,9 @@ export function incrementProduct(e: Event) {
   const target = e.target;
 
   const productAmount = target.parentNode
-    ?.childNodes[3] as HTMLParagraphElement;
-  const productPrice = target.parentNode?.parentNode?.childNodes[5]
-    .childNodes[1] as HTMLElement;
+    ?.childNodes[ProductCartChilds.amount] as HTMLParagraphElement;
+  const productPrice = target.parentNode?.parentNode?.childNodes[ProductCartChilds.priceParent]
+    .childNodes[ProductCartChilds.price] as HTMLElement;
 
   let productCount = state.cartArray.find(
     (item) => item.id === Number(target.id)
@@ -241,7 +242,7 @@ export function incrementProduct(e: Event) {
   );
 
   if (productCount?.count) {
-    productCount.count += 1;
+    productCount.count += counterChange;
   }
 
   productAmount.textContent = String(productCount?.count);

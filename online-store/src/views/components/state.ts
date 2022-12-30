@@ -27,7 +27,7 @@ export function setCartTotal() {
   headerCartTotal.textContent = String(resultPrice);
 
   let resultCount = state.cartArray.reduce((acc: number, el: IProduct) => {
-    acc = acc + (el.count as number);
+    acc = acc + Number(el.count);
     return acc;
   }, 0);
   const headerCartCounter = tsQuerySelector(document, ".header-cart__counter");

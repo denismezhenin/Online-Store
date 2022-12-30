@@ -1,9 +1,10 @@
 import { setCartTotal, state } from "../../components/state";
 import productItems from "../../components/productJSON";
-import { IProduct } from "../../components/constants";
+import { IProduct, ProductButton } from "../../components/constants";
 
 export function clickProductList(e: Event) {
-  const target = e.target as HTMLElement;
+  if (!(e.target instanceof HTMLElement)) return;
+  const target = e.target 
   const array = productItems.products;
 
   if (target.classList.contains("list-item")) {
@@ -32,10 +33,10 @@ export function clickProductList(e: Event) {
     );
 
     (target.parentNode as HTMLElement).childNodes.forEach((child, index) => {
-      if (index === 2) {
+      if (index === ProductButton.add) {
         (child as HTMLElement).classList.remove("hide");
       }
-      if (index === 3) {
+      if (index === ProductButton.drop) {
         (child as HTMLElement).classList.add("hide");
       }
     });
@@ -53,10 +54,10 @@ export function checkProducts() {
         item.classList.add("red-border");
 
         item.childNodes.forEach((child, index) => {
-          if (index === 2) {
+          if (index === ProductButton.add) {
             (child as HTMLElement).classList.add("hide");
           }
-          if (index === 3) {
+          if (index === ProductButton.drop) {
             (child as HTMLElement).classList.remove("hide");
           }
         });
