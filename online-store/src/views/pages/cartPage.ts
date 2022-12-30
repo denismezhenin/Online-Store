@@ -1,7 +1,10 @@
-import { IProduct, setCartTotal } from "./../components/state";
+
+import { setCartTotal } from "../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
+import { tsQuerySelector, tsQuerySelectorAll } from "../components/helpers";
+import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
 
 export function getCartHtml() {
   const array = productItems.products;
@@ -122,12 +125,13 @@ export function getCartHtml() {
 }
 
 export function getModal(): void {
-  const modal = document.querySelector(".modal") as HTMLElement;
+  const modal = tsQuerySelector(document, ".modal");
   modal.classList.remove("closed-modal");
 }
 export function removeModal(event: Event): void {
-  const modal = document.querySelector(".modal") as HTMLElement;
-  let target = event.target as HTMLElement;
+  const modal = tsQuerySelector(document, ".modal");
+  if (!(event.target instanceof HTMLElement)) return;
+  let target = event.target;
   if (target.classList.contains("modal")) {
     modal.classList.add("closed-modal");
   }
@@ -167,19 +171,13 @@ export function getProductList() {
     .join();
 }
 
-export enum AmountChangeTotal {
-  classElement = "product-amount",
-  classResult = "summary-products__span",
-}
-export enum PriceChangeTotal {
-  classElement = "amount-price__span",
-  classResult = "summary-total__span",
-}
+
 
 export function changeTotal(classElement: string, classResult: string) {
   let counter: number = 0;
-  const classList = document.querySelectorAll(`.${classElement}`);
-  const result = document.querySelector(`.${classResult}`) as HTMLElement;
+
+  const classList = tsQuerySelectorAll(document, `.${classElement}`);
+  const result = tsQuerySelector(document, `.${classResult}`);
 
   classList.forEach((item) => {
     counter = Number(item.textContent) + Number(counter);
@@ -189,7 +187,9 @@ export function changeTotal(classElement: string, classResult: string) {
 }
 
 export function decrementProduct(e: Event) {
-  const target = e.target as HTMLElement;
+  if (!(e.target instanceof HTMLElement)) return;
+  const target = e.target;
+
   const productAmount = target.parentNode?.childNodes[3] as HTMLElement;
   const productPrice = target.parentNode?.parentNode?.childNodes[5]
     .childNodes[1] as HTMLElement;
@@ -228,7 +228,9 @@ export function decrementProduct(e: Event) {
 }
 
 export function incrementProduct(e: Event) {
-  const target = e.target as HTMLElement;
+  if (!(e.target instanceof HTMLElement)) return;
+  const target = e.target;
+
   const productAmount = target.parentNode
     ?.childNodes[3] as HTMLParagraphElement;
   const productPrice = target.parentNode?.parentNode?.childNodes[5]
@@ -254,8 +256,6 @@ export function incrementProduct(e: Event) {
 }
 
 export function getEmptyCart() {
-  const cartContainer = document.querySelector(
-    ".cart__container"
-  ) as HTMLElement;
+  const cartContainer = tsQuerySelector(document, ".cart__container");
   cartContainer.innerHTML = "Cart is empty";
 }

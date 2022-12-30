@@ -1,23 +1,8 @@
-export interface IProduct {
-  id?: number;
-  title?: string;
-  description?: string;
-  price?: number;
-  discountPercentage?: number;
-  rating?: number;
-  stock?: number;
-  brand?: string;
-  category?: string;
-  thumbnail?: string;
-  images?: string[];
-  count?: number;
-}
-export interface IState {
-  cartArray: Array<IProduct>;
-  cartTotalPrice: number;
-  promoCodeRS: boolean;
-  promoCodeNY: boolean;
-}
+import { IProduct, IState } from "./constants";
+import { tsQuerySelector } from "./helpers";
+
+
+
 export let state: IState = {
   cartArray: [],
   cartTotalPrice: 0,
@@ -38,17 +23,14 @@ export function setCartTotal() {
     acc = acc + (el.price as number) * (el.count as number);
     return acc;
   }, 0);
-  const headerCartTotal = document.querySelector(
-    ".header-cart-total"
-  ) as HTMLElement;
+
+  const headerCartTotal = tsQuerySelector(document, ".header-cart-total");
   headerCartTotal.innerHTML = String(resultPrice);
 
   let resultCount = state.cartArray.reduce((acc: number, el) => {
     acc = acc + (el.count as number);
     return acc;
   }, 0);
-  const headerCartCounter = document.querySelector(
-    ".header-cart__counter"
-  ) as HTMLElement;
+  const headerCartCounter = tsQuerySelector(document, ".header-cart__counter");
   headerCartCounter.innerHTML = String(resultCount);
 }

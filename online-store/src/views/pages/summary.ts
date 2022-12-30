@@ -1,13 +1,16 @@
+import { markersForNY, markersForRS } from "../components/constants";
+import { tsQuerySelector } from "../components/helpers";
 import { state } from "../components/state";
 
 export function checkPromoCode() {
-  const summaryDiscountInput = document.querySelector(
+  const summaryDiscountInput = tsQuerySelector<HTMLInputElement>(
+    document,
     ".summary-discount__input"
-  ) as HTMLInputElement;
-
-  const promoCodeContainer = document.querySelector(
+  );
+  const promoCodeContainer = tsQuerySelector(
+    document,
     ".promo-code__container"
-  ) as HTMLElement;
+  );
 
   enum Promo {
     rs = `
@@ -24,7 +27,7 @@ export function checkPromoCode() {
     !(summaryDiscountInput.value.toLowerCase() === Promo.promoCodeNY) ||
     !(summaryDiscountInput.value.toLowerCase() === Promo.promoCodeRS)
   ) {
-    const promoCode = document.querySelector(".promo-code");
+    const promoCode = tsQuerySelector(document, ".promo-code");
     promoCode?.remove();
   }
   if (summaryDiscountInput.value.toLowerCase() === Promo.promoCodeRS) {
@@ -32,9 +35,7 @@ export function checkPromoCode() {
     div.className = "promo-code";
     div.innerHTML = Promo.rs;
     promoCodeContainer.append(div);
-    const rsAddButton = document.querySelector(
-      ".rs-add__button"
-    ) as HTMLElement;
+    const rsAddButton = tsQuerySelector(document, ".rs-add__button");
     if (state.promoCodeRS === true) {
       rsAddButton.remove();
     }
@@ -44,40 +45,32 @@ export function checkPromoCode() {
     div.className = "promo-code";
     div.innerHTML = Promo.newYear;
     promoCodeContainer.append(div);
-    const nyAddButton = document.querySelector(
-      ".ny-add__button"
-    ) as HTMLElement;
+    const nyAddButton = tsQuerySelector(document, ".ny-add__button");
     if (state.promoCodeNY === true) {
       nyAddButton.remove();
     }
   }
 }
-enum markersForRS {
-  promo = "Rolling Scopes School",
-  button = "rs",
-}
-enum markersForNY {
-  promo = "Happy New Year",
-  button = "ny",
-}
+
 export function addApplyCode() {
-  const applyCode = document.querySelector(".apply-code") as HTMLElement;
+  const applyCode = tsQuerySelector(document, ".apply-code");
   if (!applyCode && (state.promoCodeRS || state.promoCodeNY)) {
     let div = document.createElement("div");
     div.className = "apply-code";
     div.innerHTML = '<h3 class="aplly-code__title">Applied codes</h3>';
-    const summaryDiscountInput = document.querySelector(
+    const summaryDiscountInput = tsQuerySelector<HTMLInputElement>(
+      document,
       ".summary-discount__input"
-    ) as HTMLInputElement;
+    );
     summaryDiscountInput.before(div);
   }
-  const rsPromoCode = document.querySelector(".rs-promo-code") as HTMLElement;
+  const rsPromoCode = tsQuerySelector(document,".rs-promo-code") ;
 
   if (!rsPromoCode && state.promoCodeRS === true) {
     addApplyPromoCode(markersForRS.promo, markersForRS.button);
   }
 
-  const nyPromoCode = document.querySelector(".ny-promo-code") as HTMLElement;
+  const nyPromoCode = tsQuerySelector(document, ".ny-promo-code");
 
   if (!nyPromoCode && state.promoCodeNY === true) {
     addApplyPromoCode(markersForNY.promo, markersForNY.button);
@@ -88,17 +81,17 @@ function addApplyPromoCode(promo: string, button: string) {
   let div = document.createElement("div");
   div.className = `apply-promo-code ${button}-promo-code`;
   div.innerHTML = `<h3 class="aplly-code__text">${promo} - 10%</h3><button class="${button}-drop__button">Drop</button>`;
-  const apllyCodeTitle = document.querySelector(
+  const apllyCodeTitle = tsQuerySelector(document,
     ".aplly-code__title"
-  ) as HTMLElement;
+  ) 
   apllyCodeTitle.after(div);
 }
 
 export function removePromoCode(button: string) {
-  const promoDiv = document.querySelector(button);
+  const promoDiv = tsQuerySelector(document,button);
   promoDiv?.remove();
   if (state.promoCodeNY === false && state.promoCodeRS === false) {
-    const applyCode = document.querySelector(".apply-code");
+    const applyCode = tsQuerySelector(document,".apply-code");
     applyCode?.remove();
   }
 }

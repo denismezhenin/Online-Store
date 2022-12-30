@@ -1,8 +1,9 @@
-import { IProduct, setCartTotal } from "./../components/state";
+import { setCartTotal } from "./../components/state";
+import { IProduct } from "../components/constants";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
-import { getModal } from "./cartPage";
+import { tsQuerySelector } from "../components/helpers";
 
 export function getProductHtml() {
   const array = productItems.products;
@@ -148,17 +149,17 @@ export function quickBuy() {
   setCartTotal();
   location.href = "/#/cart";
   setTimeout(() => {
-    const modal = document.querySelector(".modal") as HTMLElement;
+    const modal = tsQuerySelector(document, ".modal");
     modal.classList.remove("closed-modal");
   }, 200);
 }
 
-export function zoomImage(e:Event){
-  let target=e.target as HTMLImageElement
-  const productLargePhoto=document.querySelector('.product-large-photo') as HTMLElement
-  productLargePhoto.innerHTML=`<img
+export function zoomImage(e: Event) {
+  let target = e.target as HTMLImageElement;
+  const productLargePhoto = tsQuerySelector(document, ".product-large-photo");
+  productLargePhoto.innerHTML = `<img
   class="large-photo__img"
   alt=""
   src=${target.src}
-/>`
+/>`;
 }

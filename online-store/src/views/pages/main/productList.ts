@@ -1,6 +1,6 @@
 import { setCartTotal, state } from "../../components/state";
 import productItems from "../../components/productJSON";
-import { IProduct } from "../../components/state";
+import { IProduct } from "../../components/constants";
 
 export function clickProductList(e:Event){
     const target = e.target as HTMLElement;

@@ -1,13 +1,15 @@
+import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
+import { tsQuerySelector } from "../components/helpers";
 import { setCartTotal, state } from "../components/state";
 import {
-  AmountChangeTotal,
+  
   decrementProduct,
   getCartHtml,
   getEmptyCart,
   getModal,
   getProductList,
   incrementProduct,
-  PriceChangeTotal,
+ 
   removeModal,
 } from "./cartPage";
 import { changeTotal } from "./cartPage";
@@ -22,32 +24,32 @@ let Cart = {
   after_render: async () => {
     addApplyCode();
     setCartTotal();
-    const summaryBuyButton = document.querySelector(
-      ".summary-buy__button"
-    ) as HTMLElement;
+
+    const summaryBuyButton = tsQuerySelector(document, ".summary-buy__button");
     summaryBuyButton.addEventListener("click", getModal);
 
-    const modal = document.querySelector(".modal") as HTMLElement;
+    const modal = tsQuerySelector(document, ".modal");
     modal.addEventListener("click", removeModal);
 
-    const cartUl = document.querySelector(".cart__ul") as HTMLUListElement;
+    const cartUl = tsQuerySelector<HTMLUListElement>(document, ".cart__ul");
     let productList = getProductList();
     if (state.cartArray.length > 0) {
       cartUl.innerHTML = productList;
     } else {
       getEmptyCart();
     }
-    
+
     changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
     changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
 
     cartUl.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
+      if (!(e.target instanceof HTMLElement)) return;
+      const target = e.target;
 
-      if ((target as HTMLElement).classList.contains("minus")) {
+      if (target.classList.contains("minus")) {
         decrementProduct(e);
       }
-      if ((target as HTMLElement).classList.contains("plus")) {
+      if (target.classList.contains("plus")) {
         incrementProduct(e);
       }
       if (state.cartArray.length === 0) {
@@ -55,18 +57,21 @@ let Cart = {
       }
     });
 
-    const summaryDiscountInput = document.querySelector(
+    const summaryDiscountInput = tsQuerySelector<HTMLInputElement>(
+      document,
       ".summary-discount__input"
-    ) as HTMLInputElement;
+    );
 
     summaryDiscountInput.addEventListener("input", checkPromoCode);
 
-    const promoCodeContainer = document.querySelector(
+    const promoCodeContainer = tsQuerySelector(
+      document,
       ".promo-code__container"
-    ) as HTMLElement;
+    );
 
     promoCodeContainer?.addEventListener("click", (e) => {
-      let target = e.target as HTMLElement;
+      if (!(e.target instanceof HTMLElement)) return;
+      let target = e.target;
       if (target.classList.contains("rs-add__button")) {
         state.promoCodeRS = true;
       }
@@ -77,11 +82,11 @@ let Cart = {
       checkPromoCode();
     });
 
-    const apllyCode = document.querySelector(".summary__container");
+    const apllyCode = tsQuerySelector(document, ".summary__container");
 
     apllyCode?.addEventListener("click", (e) => {
-      let target = e.target as HTMLElement;
-      console.log(target);
+      if (!(e.target instanceof HTMLElement)) return;
+      let target = e.target;
 
       if (target.classList.contains("rs-drop__button")) {
         state.promoCodeRS = false;

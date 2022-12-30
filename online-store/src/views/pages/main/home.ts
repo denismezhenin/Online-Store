@@ -1,4 +1,4 @@
-import { IProduct } from "./../../components/state";
+import { IProduct } from "./../../components/constants";
 import homePageHtml from "./homepage";
 import { rangeContainer, setRange } from "../../components/range";
 import { setOptions } from "./options";
@@ -29,21 +29,19 @@ let Home = {
         );
       });
     await addItems("products-list", productItems.products);
-    setListeners('category')
-    setListeners('brand')
-    const productsList = document.querySelector(
-      ".products-list"
-    ) as HTMLElement;
+    setListeners("category");
+    setListeners("brand");
+    const productsList = tsQuerySelector(document, ".products-list");
 
     productsList.addEventListener("click", clickProductList);
 
-   
     checkProducts();
     setSearch();
 
-    const inputSearch = document.querySelector(
+    const inputSearch = tsQuerySelector<HTMLInputElement>(
+      document,
       ".products-search__input"
-    ) as HTMLInputElement;
+    );
 
     if (window.location.search && inputSearch.value.length === 0) {
       inputSearch.value = window.location.search.split("=").slice(1).join();
