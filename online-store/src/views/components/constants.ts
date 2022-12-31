@@ -46,3 +46,19 @@ export enum ProductCartChilds {
 }
 
 export const counterChange = 1;
+
+export enum Promo {
+  rs = `
+      <p class="promo">Rolling Scopes School - 10%</p>
+      <button class="promo-add__button rs-add__button">Add</button>`,
+  newYear = `
+      <p class='promo'>Happy New Year - 10%</p>
+      <button class="promo-add__button ny-add__button">Add</button>`,
+  promoCodeNY = "ny",
+  promoCodeRS = "rs",
+}
+
+export enum Discount {
+  RS = 0.1,
+  NY = 0.1,
+}

@@ -1,4 +1,9 @@
-import { markersForNY, markersForRS } from "../components/constants";
+import {
+  Discount,
+  markersForNY,
+  markersForRS,
+  Promo,
+} from "../components/constants";
 import { tsQuerySelector } from "../components/helpers";
 import { state } from "../components/state";
 
@@ -11,17 +16,6 @@ export function checkPromoCode() {
     document,
     ".promo-code__container"
   );
-
-  enum Promo {
-    rs = `
-        <p class="promo">Rolling Scopes School - 10%</p>
-        <button class="promo-add__button rs-add__button">Add</button>`,
-    newYear = `
-        <p class='promo'>Happy New Year - 10%</p>
-        <button class="promo-add__button ny-add__button">Add</button>`,
-    promoCodeNY = "ny",
-    promoCodeRS = "rs",
-  }
 
   if (
     !(summaryDiscountInput.value.toLowerCase() === Promo.promoCodeNY) ||
@@ -50,6 +44,7 @@ export function checkPromoCode() {
       nyAddButton.remove();
     }
   }
+  crossOutTotalPrice() 
 }
 
 export function addApplyCode() {
@@ -72,9 +67,10 @@ export function addApplyCode() {
 
   const nyPromoCode = document.querySelector(".ny-promo-code");
 
-  if (!nyPromoCode && state.promoCodeNY === true) {
+  if (!nyPromoCode && state.promoCodeNY) {
     addApplyPromoCode(markersForNY.promo, markersForNY.button);
   }
+  crossOutTotalPrice();
 }
 
 function addApplyPromoCode(promo: string, button: string) {
@@ -83,6 +79,7 @@ function addApplyPromoCode(promo: string, button: string) {
   div.innerHTML = `<h3 class="aplly-code__text">${promo} - 10%</h3><button class="${button}-drop__button">Drop</button>`;
   const apllyCodeTitle = tsQuerySelector(document, ".aplly-code__title");
   apllyCodeTitle.after(div);
+  crossOutTotalPrice();
 }
 
 export function removePromoCode(button: string) {
@@ -91,5 +88,46 @@ export function removePromoCode(button: string) {
   if (!state.promoCodeNY && !state.promoCodeRS) {
     const applyCode = tsQuerySelector(document, ".apply-code");
     applyCode?.remove();
+    
+  }
+  checkPromoCode();
+  crossOutTotalPrice();
+}
+
+export function crossOutTotalPrice() {
+  const summaryTotalPrice = tsQuerySelector(document, ".summary-total-price");
+  const totalPriceNew = document.querySelector(
+    ".total-price-new"
+  ) 
+
+  if (!totalPriceNew && (state.promoCodeNY || state.promoCodeRS)) {
+    let p = document.createElement("p");
+    p.className = "total-price-new";
+    p.innerHTML = `Total: $<span class="summary-total__span">${getPriceWithPromo()}</span>`;
+    summaryTotalPrice.after(p);
+
+    summaryTotalPrice.style.textDecoration = "line-through";
+  } else if (totalPriceNew && (state.promoCodeNY || state.promoCodeRS)) {
+    (
+      totalPriceNew as HTMLElement
+    ).innerHTML = `Total: $<span class="summary-total__span">${getPriceWithPromo()}</span>`;
+  } else {
+    summaryTotalPrice.style.textDecoration = "";
+    
+    totalPriceNew?.remove();
+  }
+}
+function getPriceWithPromo() {
+  if (state.promoCodeNY && state.promoCodeRS) {
+    return (
+      state.cartTotalPrice - state.cartTotalPrice * (Discount.RS + Discount.NY)
+    );
+  } else if (
+    (!state.promoCodeNY && state.promoCodeRS) ||
+    (state.promoCodeNY && !state.promoCodeRS)
+  ) {
+    return state.cartTotalPrice - state.cartTotalPrice * Discount.RS;
+  } else {
+    state.cartTotalPrice;
   }
 }

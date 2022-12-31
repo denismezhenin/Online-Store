@@ -10,21 +10,21 @@ export let state: IState = {
 
 export function getLocalStorage() {
   if (localStorage.getItem("state")) {
-    const temp = JSON.parse(localStorage.getItem("state") as string);
+    const temp = JSON.parse(String(localStorage.getItem("state")) );
     state = { ...temp };
   }
 }
 window.addEventListener("load", getLocalStorage);
 
 export function setCartTotal() {
-  let resultPrice = state.cartArray.reduce((acc: number, el: IProduct) => {
+  state.cartTotalPrice = state.cartArray.reduce((acc: number, el: IProduct) => {
     el.price && el.count ? (acc = acc + el.price * el.count) : "";
 
     return acc;
   }, 0);
 
   const headerCartTotal = tsQuerySelector(document, ".header-cart-total");
-  headerCartTotal.textContent = String(resultPrice);
+  headerCartTotal.textContent = String(state.cartTotalPrice);
 
   let resultCount = state.cartArray.reduce((acc: number, el: IProduct) => {
     acc = acc + Number(el.count);

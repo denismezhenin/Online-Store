@@ -5,6 +5,7 @@ import Utils from "../../services/Utils";
 import { state } from "../components/state";
 import { tsQuerySelector, tsQuerySelectorAll } from "../components/helpers";
 import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
+import { crossOutTotalPrice } from './summary';
 
 export function getCartHtml() {
   const array = productItems.products;
@@ -223,6 +224,7 @@ export function decrementProduct(e: Event) {
   changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
   changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
   setCartTotal();
+  crossOutTotalPrice()
 }
 
 export function incrementProduct(e: Event) {
@@ -251,6 +253,7 @@ export function incrementProduct(e: Event) {
   changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
   changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
   setCartTotal();
+  crossOutTotalPrice()
 }
 
 export function getEmptyCart() {
