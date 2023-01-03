@@ -44,6 +44,10 @@
   border: orange solid 1px;
   border-radius: 5px;
   overflow: hidden;
+  cursor: pointer;
+  &:hover{
+    transform: scale(1.2);
+  }
 }
 .product-photo__container {
   width: 40%;

@@ -1,28 +1,35 @@
+import { IProduct, IState } from "./constants";
+import { tsQuerySelector } from "./helpers";
 
-export interface IProduct{
-    id?: number,
-    title?: string,
-    description?: string,
-    price?: number,
-    discountPercentage?: number,
-    rating?: number,
-    stock?: number,
-    brand?: string,
-    category?: string,
-    thumbnail?: string,
-    images?: string[]
-}
-export interface IState{
-    cartArray: Array<IProduct>
-}
-export let state:IState={
-    cartArray: []
-}
+export let state: IState = {
+  cartArray: [],
+  cartTotalPrice: 0,
+  promoCodeRS: false,
+  promoCodeNY: false,
+};
 
 export function getLocalStorage() {
-    if (localStorage.getItem("state")) {
-      const temp = JSON.parse(localStorage.getItem("state") as string );
-      state={...temp}
-    }
+  if (localStorage.getItem("state")) {
+    const temp = JSON.parse(String(localStorage.getItem("state")) );
+    state = { ...temp };
   }
+}
 window.addEventListener("load", getLocalStorage);
+
+export function setCartTotal() {
+  state.cartTotalPrice = state.cartArray.reduce((acc: number, el: IProduct) => {
+    el.price && el.count ? (acc = acc + el.price * el.count) : "";
+
+    return acc;
+  }, 0);
+
+  const headerCartTotal = tsQuerySelector(document, ".header-cart-total");
+  headerCartTotal.textContent = String(state.cartTotalPrice);
+
+  let resultCount = state.cartArray.reduce((acc: number, el: IProduct) => {
+    acc = acc + Number(el.count);
+    return acc;
+  }, 0);
+  const headerCartCounter = tsQuerySelector(document, ".header-cart__counter");
+  headerCartCounter.textContent = String(resultCount);
+}
