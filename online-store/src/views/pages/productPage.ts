@@ -1,5 +1,5 @@
 import { setCartTotal } from "./../components/state";
-import { IProduct } from "../components/constants";
+import { IProduct, LocationHref } from "../components/constants";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
@@ -148,7 +148,7 @@ export function quickBuy() {
   }
   checkProduct();
   setCartTotal();
-  location.href = "/#/cart";
+  location.href = LocationHref.cart;
   setTimeout(() => {
     const modal = tsQuerySelector(document, ".modal");
     modal.classList.remove("closed-modal");

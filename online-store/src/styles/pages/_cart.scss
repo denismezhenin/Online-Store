@@ -297,7 +297,8 @@
   align-items: center;
   justify-content: center;
 }
-.modal-content {
+.modal-content,
+.message-order {
   padding: 1%;
   border: 1px solid orange;
   border-radius: 0.5rem;
@@ -305,10 +306,16 @@
   background-color: #181a1c;
   z-index: 99;
   position: absolute;
+  color: orange;
+  text-align: center;
 }
 .card-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+.input__container {
+  display: flex;
   align-items: center;
 }
 .card-form__item {
@@ -322,6 +329,12 @@
   font-size: 90%;
   text-align: center;
   margin: 2% auto;
+  &:invalid {
+    background-color: rgb(233, 233, 202);
+  }
+  &:valid {
+    background-color: #29e8298d;
+  }
 }
 .person-details {
   width: 90%;
@@ -381,6 +394,12 @@
   font-size: 90%;
   color: #000;
   font-weight: 700;
+  &:invalid {
+    background-color: rgb(233, 233, 202);
+  }
+  &:valid {
+    background-color: #29e8298d;
+  }
 }
 .card-data-other {
   display: flex;
@@ -419,6 +438,12 @@
   font-weight: 700;
   width: 60%;
   height: 1rem;
+  &:invalid {
+    background-color: rgb(233, 233, 202);
+  }
+  &:valid {
+    background-color: #29e8298d;
+  }
 }
 .cvv {
   background: rgb(233, 233, 202);
@@ -432,6 +457,15 @@
   font-weight: 700;
   width: 60%;
   height: 1rem;
+  &:invalid {
+    background-color: rgb(233, 233, 202);
+  }
+  &:valid {
+    background-color: #29e8298d;
+  }
+}
+.card-error-message {
+  margin: 0;
 }
 .confirm__button {
   margin: 3% 0 3% 0;
@@ -447,5 +481,8 @@
   color: orange;
 }
 .closed-modal {
+  display: none;
+}
+.hide {
   display: none;
 }

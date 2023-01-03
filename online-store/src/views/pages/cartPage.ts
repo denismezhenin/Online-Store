@@ -1,11 +1,11 @@
-import { ProductCartChilds, counterChange } from './../components/constants';
+import { ProductCartChilds, counterChange } from "./../components/constants";
 import { setCartTotal } from "../components/state";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
 import { state } from "../components/state";
 import { tsQuerySelector, tsQuerySelectorAll } from "../components/helpers";
 import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
-import { crossOutTotalPrice } from './summary';
+import { crossOutTotalPrice } from "./summary";
 
 export function getCartHtml() {
   const array = productItems.products;
@@ -48,26 +48,45 @@ export function getCartHtml() {
           <form class="card-form">
             <div class="person-details">
               <h2 class="person-details__title">Personal details</h2>
+              <div class="input__container">
               <input
                 class="person--name card-form__item"
+                required
+                pattern="[A-Za-zА-Яа-яЁё]{3,}[\\s][A-Za-zА-Яа-яЁё]{3,}"
                 type="text"
                 placeholder="Name"
               />
+             <p class="error-message hide">error</p> 
+              </div>
+              <div class="input__container">
               <input
                 class="perso-phone-number card-form__item"
                 type="text"
+                pattern="[\\+]\\d{9,}"
+                required
                 placeholder="Phone number"
               />
+              <p class="error-message hide">error</p> 
+              </div>
+              <div class="input__container">
               <input
                 class="person-address card-form__item"
                 type="text"
+                pattern="[A-Za-zА-Яа-яЁё0-9]{5,}[\\s][A-Za-zА-Яа-яЁё0-9]{5,}[\\s][A-Za-zА-Яа-яЁё0-9]{5,}"
+                required
                 placeholder="Delivery address"
               />
+              <p class="error-message hide">error</p> 
+              </div>
+              <div class="input__container">
               <input
                 class="person-email card-form__item"
                 type="email"
+                required
                 placeholder="E-mail"
               />
+              <p class="error-message hide">error</p> 
+              </div>
             </div>
             <div class="card-details">
               <h2 class="card-title">Credit card details</h2>
@@ -78,12 +97,13 @@ export function getCartHtml() {
                     alt="img"
                   />
                   <input
-                    class="card-number__input"
+                    class="card-number__input card-validation"
                     type="tеxt"
                     inputmode="numeric"
-                    pattern="[0-9]{4}\\s[0-9]{4}\\s[0-9]{4}\\s[0-9]{4}"
+                    pattern="[0-9]{16}"
+                    required
                     autocomplete="cc-number"
-                    maxlength="19"
+                    maxlength="16"
                     placeholder="xxxx xxxx xxxx xxxx"
                   />
                 </div>
@@ -91,23 +111,25 @@ export function getCartHtml() {
                   <div class="card-valid-data">
                     <label class="card-valid__text" for="card-valid">Valid:</label>
                     <input
-                      class="card-valid"
+                      class="card-valid card-validation"
                       id="card-valid"
                       type="tel"
                       inputmode="numeric"
-                      pattern="[0-9]{2}[\]?[0-9]{2}"
+                      pattern="[0-9]{2}[/]?[0-9]{2}"
+                      required
                       autocomplete="cc-number"
-                      maxlength="4"
+                      maxlength="5"
                       placeholder="xx/xx"
                     />
                   </div>
                   <div class="card-cvv-data">
                     <label class="card-cvv__text" for="ccv">CCV:</label>
                     <input
-                      class="cvv"
+                      class="cvv card-validation"
                       id="ccv"
                       type="tel"
                       inputmode="numeric"
+                      required
                       pattern="[[0-9]{3}"
                       autocomplete="cc-number"
                       maxlength="3"
@@ -117,7 +139,10 @@ export function getCartHtml() {
                 </div>
               </div>
             </div>
-            <button class="confirm__button">CONFIRM</button>
+            <p class="card-error-message number-message hide">Card number - error</p>
+            <p class="card-error-message valid-message hide">Card valid - error</p>
+            <p class="card-error-message cvv-message hide">Card CVV - error</p>
+            <button type="submit" class="confirm__button">CONFIRM</button>
           </form>
         </div>
       </div>
@@ -189,9 +214,12 @@ export function decrementProduct(e: Event) {
   if (!(e.target instanceof HTMLElement)) return;
   const target = e.target;
 
-  const productAmount = target.parentNode?.childNodes[ProductCartChilds.amount] as HTMLElement;
-  const productPrice = target.parentNode?.parentNode?.childNodes[ProductCartChilds.priceParent]
-    .childNodes[ProductCartChilds.price] as HTMLElement;
+  const productAmount = target.parentNode?.childNodes[
+    ProductCartChilds.amount
+  ] as HTMLElement;
+  const productPrice = target.parentNode?.parentNode?.childNodes[
+    ProductCartChilds.priceParent
+  ].childNodes[ProductCartChilds.price] as HTMLElement;
   const cartProductDescription = document.querySelectorAll(
     ".cart-product-description"
   );
@@ -224,17 +252,19 @@ export function decrementProduct(e: Event) {
   changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
   changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
   setCartTotal();
-  crossOutTotalPrice()
+  crossOutTotalPrice();
 }
 
 export function incrementProduct(e: Event) {
   if (!(e.target instanceof HTMLElement)) return;
   const target = e.target;
 
-  const productAmount = target.parentNode
-    ?.childNodes[ProductCartChilds.amount] as HTMLParagraphElement;
-  const productPrice = target.parentNode?.parentNode?.childNodes[ProductCartChilds.priceParent]
-    .childNodes[ProductCartChilds.price] as HTMLElement;
+  const productAmount = target.parentNode?.childNodes[
+    ProductCartChilds.amount
+  ] as HTMLParagraphElement;
+  const productPrice = target.parentNode?.parentNode?.childNodes[
+    ProductCartChilds.priceParent
+  ].childNodes[ProductCartChilds.price] as HTMLElement;
 
   let productCount = state.cartArray.find(
     (item) => item.id === Number(target.id)
@@ -253,7 +283,7 @@ export function incrementProduct(e: Event) {
   changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
   changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
   setCartTotal();
-  crossOutTotalPrice()
+  crossOutTotalPrice();
 }
 
 export function getEmptyCart() {

@@ -11,6 +11,12 @@ import {
   removeModal,
 } from "./cartPage";
 import { changeTotal } from "./cartPage";
+import {
+  inputCardCvv,
+  inputCardNumber,
+  inputCardValid,
+  submitCard,
+} from "./modal";
 import { addApplyCode, checkPromoCode, removePromoCode } from "./summary";
 
 let Cart = {
@@ -95,6 +101,27 @@ let Cart = {
         removePromoCode(".ny-promo-code");
       }
     });
+
+    const cardNumberInput = tsQuerySelector<HTMLInputElement>(
+      document,
+      ".card-number__input"
+    );
+    cardNumberInput.addEventListener("input", inputCardNumber);
+
+    const cardValid = tsQuerySelector<HTMLInputElement>(
+      document,
+      ".card-valid"
+    );
+    cardValid.addEventListener("input", inputCardValid);
+
+    const cvv = tsQuerySelector<HTMLInputElement>(document, ".cvv");
+    cvv.addEventListener("input", inputCardCvv);
+
+    const confirmButton = tsQuerySelector<HTMLButtonElement>(
+      document,
+      ".confirm__button"
+    );
+    confirmButton.addEventListener("click", submitCard);
   },
 };
 
