@@ -17,7 +17,7 @@ import { setFiltersButton } from "./resetAndCopy";
 import { setViewListeners } from "./viewmode";
 
 
-
+tsQuerySelector
 let Home = {
   render: async () => {
     return homePageHtml;

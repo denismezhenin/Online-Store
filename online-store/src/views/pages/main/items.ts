@@ -15,7 +15,7 @@ export const addItems = async (parent: string, data: any) => {
   let quantityMax: number = data[0].stock;
   el.innerHTML = ''
   for (let item of data) {
-    const li = createProductItem(item)
+    const li = await createProductItem(item)
     el.append(li);
     priceMin = Math.min(priceMin, item.price);
     priceMax = Math.max(priceMax, item.price);
@@ -42,7 +42,7 @@ const setRangeValues = (priceMin: number, priceMax: number, quantityMin: number,
   fillSlider(rangeContainer[1], '#C6C6C6', '#25daa5')
 }
 
-const createProductItem = (item: any) => {
+const createProductItem = async (item: any) => {
   const li: HTMLElement = document.createElement('li');
   const itemName: HTMLElement = document.createElement('span');
   const price: HTMLElement = document.createElement('span');
@@ -67,7 +67,8 @@ const createProductItem = (item: any) => {
   detailsButton.textContent = 'Details';
   detailsButton.classList.add('details__button');
   image.classList.add('item__image');
-  image.style.background = `url('${item.thumbnail}')`;
+  const imageUrl = await item.thumbnail;
+  image.style.background = `url('${imageUrl}')`;
   // image.style.background = `url('${item.thumbnail}') center / cover no-repeat`;
   // image.src = `${item.thumbnail}`;
   price.textContent = `${item.price}$`;
