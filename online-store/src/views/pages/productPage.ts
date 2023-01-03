@@ -1,10 +1,13 @@
+import { setCartTotal } from "./../components/state";
+import { IProduct } from "../components/constants";
 import productItems from "../components/productJSON";
 import Utils from "../../services/Utils";
+import { state } from "../components/state";
+import { tsQuerySelector } from "../components/helpers";
 
 export function getProductHtml() {
   const array = productItems.products;
-  let require = Utils.parseRequestURL();
-  const target = require;
+  let target = Utils.parseRequestURL();
 
   const targetObject = array.find((item) => item.id === Number(target.id));
 
@@ -85,11 +88,80 @@ export function getProductHtml() {
           </div>
           <div class="product-price__container">
             <p class="product-price">$${targetObject?.price}</p>
-            <button class="product-price__button add-cart__button">ADD TO CART</button>
-            <button class="product-price__button buy-now__button">BUY NOW</button>
+            <button class="product-price__button product__button add-cart__button">ADD TO CART</button>
+            <button class="product-price__button product__button drop-cart__button hide">DROP FROM CART</button>
+            <button class="product-price__button  buy-now__button" >BUY NOW</button>
           </div>
         </div>
       </div>
     </div>
     `;
+}
+
+export function checkProduct() {
+  const array = productItems.products;
+  let product = Utils.parseRequestURL();
+  const addCartButton = tsQuerySelector<HTMLButtonElement>(
+    document,
+    ".add-cart__button"
+  );
+  const dropCartButton = tsQuerySelector<HTMLButtonElement>(
+    document,
+    ".drop-cart__button"
+  );
+  const productItem = array.find((item) => item.id === Number(product.id));
+
+  if (state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
+    addCartButton.classList.add("hide");
+    dropCartButton.classList.remove("hide");
+  } else {
+    addCartButton.classList.remove("hide");
+    dropCartButton.classList.add("hide");
+  }
+}
+
+export function toggleProduct() {
+  const array = productItems.products;
+  let product = Utils.parseRequestURL();
+  const productItem = array.find((item) => item.id === Number(product.id));
+  if (!state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
+    const cartItem = { ...productItem, count: 1 };
+
+    state.cartArray.push(cartItem as IProduct);
+  } else {
+    state.cartArray = state.cartArray.filter(
+      (item) => item.id !== (productItem as IProduct).id
+    );
+  }
+  checkProduct();
+  setCartTotal();
+}
+
+export function quickBuy() {
+  const array = productItems.products;
+  let product = Utils.parseRequestURL();
+  const productItem = array.find((item) => item.id === Number(product.id));
+  if (!state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
+    const cartItem = { ...productItem, count: 1 };
+
+    state.cartArray.push(cartItem);
+  }
+  checkProduct();
+  setCartTotal();
+  location.href = "/#/cart";
+  setTimeout(() => {
+    const modal = tsQuerySelector(document, ".modal");
+    modal.classList.remove("closed-modal");
+  }, 200);
+}
+
+export function zoomImage(e: Event) {
+  if (!(e.target instanceof HTMLImageElement)) return;
+  let target = e.target;
+  const productLargePhoto = tsQuerySelector(document, ".product-large-photo");
+  productLargePhoto.innerHTML = `<img
+  class="large-photo__img"
+  alt=""
+  src=${target.src}
+/>`;
 }

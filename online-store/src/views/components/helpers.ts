@@ -1,3 +1,5 @@
+import { state } from "./state";
+
 export function tsQuerySelector<T extends HTMLElement>(parent: Element | Document, selector: string): T {
   const element = parent.querySelector<T>(selector);
   if (!element) {
@@ -9,7 +11,16 @@ export function tsQuerySelector<T extends HTMLElement>(parent: Element | Documen
 export function tsQuerySelectorAll(parent: Element | Document, selector: string) {
   const element = parent.querySelectorAll(selector);
   if (!element) {
-      throw new Error('No such element');
+    throw new Error("No such element");
   }
   return element;
 }
+
+function setLocalStorage() {
+  localStorage.setItem("state", JSON.stringify(state));
+}
+window.addEventListener("beforeunload", setLocalStorage);
+
+
+
+

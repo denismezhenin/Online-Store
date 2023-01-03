@@ -1,7 +1,4 @@
-// --------------------------------
-//  Define Data Sources
-// --------------------------------
-
+import { IProduct } from "./../../components/constants";
 import homePageHtml from "./homepage";
 import { rangeContainer, setRange } from "../../components/range";
 import { setOptions } from "./options";
@@ -15,7 +12,9 @@ import { searchItems } from './search'
 import { setSortParam } from "./sort";
 import { setFiltersButton } from "./resetAndCopy";
 import { setViewListeners } from "./viewmode";
-
+import { state } from "../../components/state";
+import { checkProducts } from "./productList";
+import { clickProductList } from "./productList";
 
 tsQuerySelector
 let Home = {
@@ -33,39 +32,20 @@ let Home = {
           productItems
         );
       });
-
     await searchItems(productItems.products);
     setRange(rangeContainer);
     setListeners('category')
     setListeners('brand')
     setParamsFromHash()
-    const productsList = document.querySelector(
-      ".products-list"
-    ) as HTMLElement;
-
-    productsList.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      console.log(target)
-      // console.log(target.parentNode);
-      // console.log((target.parentNode!).classList!)
-      if (target.classList.contains("list-item")) {
-        let link = `/#/product/${target.id}`;
-        location.href = link;
-      }
-      if (
-        (target.parentNode as HTMLElement).classList.contains("list-item") &&
-        target.classList.contains("details__button")
-      ) {
-        let link = `/#/product/${(target.parentNode as HTMLElement).id}`;
-        location.href = link;
-      }
-    });
-
+    const productsList = tsQuerySelector(document, ".products-list");
+    productsList.addEventListener("click", clickProductList);
+    checkProducts();
     setSearch();
 
-    // const inputSearch = document.querySelector(
+    // const inputSearch = tsQuerySelector<HTMLInputElement>(
+    //   document,
     //   ".products-search__input"
-    // ) as HTMLInputElement;
+    // );
 
     // if (window.location.search && inputSearch.value.length === 0) {
     //   inputSearch.value = window.location.search.split("=").slice(1).join();

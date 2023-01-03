@@ -1,7 +1,3 @@
-function OnSearch(input:HTMLInputElement) {
-  const inputSearch=document.querySelector('.products-search__input') as HTMLInputElement
-  console.log("The current value of the search field: " + input.value);
-}
 const homePageHtml = `
 <aside class="filters">
 <div class="filters-buttons">
@@ -63,7 +59,7 @@ const homePageHtml = `
       <span class="products-found__count"></span>
     </div>
     <form class="product-search">
-      <input type="search" class="products-search__input" placeholder="Search product" incremental="incremental"  >
+      <input type="search" class="products-search__input" placeholder="Search product" >
     </form>
     <div class="products-view-mode view">
       <div class="view__list">

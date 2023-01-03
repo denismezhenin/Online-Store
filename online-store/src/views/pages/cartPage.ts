@@ -1,4 +1,17 @@
+import { ProductCartChilds, counterChange } from './../components/constants';
+import { setCartTotal } from "../components/state";
+import productItems from "../components/productJSON";
+import Utils from "../../services/Utils";
+import { state } from "../components/state";
+import { tsQuerySelector, tsQuerySelectorAll } from "../components/helpers";
+import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
+import { crossOutTotalPrice } from './summary';
+
 export function getCartHtml() {
+  const array = productItems.products;
+  let target = Utils.parseRequestURL();
+
+  const targetObject = array.find((item) => item.id === Number(target.id));
   return `
     <div class="cart__container">
     <div class="product-in-cart__container">
@@ -17,38 +30,16 @@ export function getCartHtml() {
           </div>
         </div>
       </div>
-      <div class="cart-product-description">
-        <p class="product-number-items">1</p>
-        <div class="cart-product__image">
-          <img class="product__image" src="https://i.dummyjson.com/data/products/3/thumbnail.jpg" alt="img">
-        </div>
-        <div class="product-description__container">
-          <h3 class="product-description-title">Samsung Universe 9</h3>
-          <span class="line-span"></span>
-          <p class="product-decription-content"> Samsung's new variant which goes beyond Galaxy to the Universe </p>
-          <div class="product-description-other">
-              <p class="product-rating">Rating:4.09</p>
-              <p class="product-discount">Discount: 15.46%</p>
-          </div>
-        </div>
-        <div class="product-control-container">
-          <p class="stock-control">Stock</p>
-          <div class="amount-control">
-            <button class="product-amount__button">-</button>
-            <p class="product-amount">1</p>
-            <button class="product-amount__button">+</button>
-          </div>
-          <p class="amount-price-control">$1000</p>
-        </div>
-      </div>
+      <ul class="cart__ul"></ul>
     </div>
     <div class="summary__container">
       <h2 class="summary-title">Summary</h2>
       <div class="summary-description">
-          <p class="summary-products">Products: <span>1</span></p>
-          <p class="summary-total-price">Total: <span>$1000</span></p>
+          <p class="summary-products">Products: <span class="summary-products__span"></span></p>
+          <p class="summary-total-price">Total: $<span class="summary-total__span"></span></p>
           <input type="text" class="summary-discount__input" placeholder="Enter promo code">
-          <p class="promo-code-example">Promo for test: 'RS', 'EPM'</p>
+          <div class="promo-code__container"></div>
+          <p class="promo-code-example">Promo for test: 'RS', 'NY'</p>
           <button class="summary-buy__button">BUY NOW</button>
       </div>
     </div>
@@ -135,13 +126,137 @@ export function getCartHtml() {
 }
 
 export function getModal(): void {
-  const modal = document.querySelector(".modal") as HTMLElement;
+  const modal = tsQuerySelector(document, ".modal");
   modal.classList.remove("closed-modal");
 }
 export function removeModal(event: Event): void {
-  const modal = document.querySelector(".modal") as HTMLElement;
-  let target = event.target as HTMLElement;
-    if (target.classList.contains("modal")) {
+  const modal = tsQuerySelector(document, ".modal");
+  if (!(event.target instanceof HTMLElement)) return;
+  let target = event.target;
+  if (target.classList.contains("modal")) {
     modal.classList.add("closed-modal");
   }
+}
+export function getProductList() {
+  return state.cartArray
+    .map((item, index) => {
+      return `
+    <li class="cart-product-description" id=${item.id} >
+    <p class="product-number-items">${index + 1}</p>
+    <div class="cart-product__image">
+      <img class="product__image" src=${item?.thumbnail} alt="img">
+    </div>
+    <div class="product-description__container">
+      <h3 class="product-description-title">${item?.title}</h3>
+      <span class="line-span"></span>
+      <p class="product-decription-content">${item?.description}</p>
+      <div class="product-description-other">
+          <p class="product-rating">Rating: ${item?.rating}</p>
+          <p class="product-discount">Discount: ${item?.discountPercentage}</p>
+      </div>
+    </div>
+    <div class="product-control-container">
+      <p class="stock-control">Stock</p>
+      <div class="amount-control">
+        <button class="product-amount__button minus" id=${item.id}>-</button>
+        <p class="product-amount">${item.count}</p></p>
+        <button class="product-amount__button plus" id=${item.id}>+</button>
+      </div>
+      <p class="amount-price-control"><span>$</span><span class="amount-price__span">${
+        item.price && item.count ? item.price * item.count : ""
+      }</span></p>
+    </div>
+  </li>
+    `;
+    })
+    .join();
+}
+
+export function changeTotal(classElement: string, classResult: string) {
+  let counter: number = 0;
+
+  const classList = tsQuerySelectorAll(document, `.${classElement}`);
+  const result = tsQuerySelector(document, `.${classResult}`);
+
+  classList.forEach((item) => {
+    counter = Number(item.textContent) + Number(counter);
+  });
+
+  result.innerHTML = `${counter}`;
+}
+
+export function decrementProduct(e: Event) {
+  if (!(e.target instanceof HTMLElement)) return;
+  const target = e.target;
+
+  const productAmount = target.parentNode?.childNodes[ProductCartChilds.amount] as HTMLElement;
+  const productPrice = target.parentNode?.parentNode?.childNodes[ProductCartChilds.priceParent]
+    .childNodes[ProductCartChilds.price] as HTMLElement;
+  const cartProductDescription = document.querySelectorAll(
+    ".cart-product-description"
+  );
+  let productCount = state.cartArray.find(
+    (item) => item.id === Number(target.id)
+  );
+  let findProductId = Number(
+    state.cartArray.find((item) => item.id === Number(target.id))?.price
+  );
+
+  if (Number(productCount?.count) >= counterChange) {
+    if (productCount?.count) {
+      productCount.count -= counterChange;
+    }
+    productAmount.textContent = String(productCount?.count);
+    productPrice.textContent = `${findProductId * Number(productCount?.count)}`;
+  }
+
+  if (productCount?.count === 0) {
+    state.cartArray = state.cartArray.filter(
+      (item) => item.id !== Number(target.id)
+    );
+
+    cartProductDescription.forEach((el) => {
+      if (el.id === target.id) {
+        el.remove();
+      }
+    });
+  }
+  changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
+  changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
+  setCartTotal();
+  crossOutTotalPrice()
+}
+
+export function incrementProduct(e: Event) {
+  if (!(e.target instanceof HTMLElement)) return;
+  const target = e.target;
+
+  const productAmount = target.parentNode
+    ?.childNodes[ProductCartChilds.amount] as HTMLParagraphElement;
+  const productPrice = target.parentNode?.parentNode?.childNodes[ProductCartChilds.priceParent]
+    .childNodes[ProductCartChilds.price] as HTMLElement;
+
+  let productCount = state.cartArray.find(
+    (item) => item.id === Number(target.id)
+  );
+  let findProductId = Number(
+    state.cartArray.find((item) => item.id === Number(target.id))?.price
+  );
+
+  if (productCount?.count) {
+    productCount.count += counterChange;
+  }
+
+  productAmount.textContent = String(productCount?.count);
+  productPrice.innerHTML = `${findProductId * Number(productCount?.count)}`;
+
+  changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
+  changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
+  setCartTotal();
+  crossOutTotalPrice()
+}
+
+export function getEmptyCart() {
+  const cartContainer = tsQuerySelector(document, ".cart__container");
+  cartContainer.innerHTML = "Cart is empty";
 }

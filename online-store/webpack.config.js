@@ -4,9 +4,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
-const {CleanWebpackPlugin}=require("clean-webpack-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const isProduction = process.env.NODE_ENV == "production";
-
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 
 // const stylesHandler = isProduction
 //   ? MiniCssExtractPlugin.loader
@@ -15,7 +15,7 @@ const isProduction = process.env.NODE_ENV == "production";
 const config = {
   entry: "./src/app.js",
   output: {
-    filename:'[name].[contenthash].js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
@@ -26,8 +26,10 @@ const config = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-    new CleanWebpackPlugin()
-
+    new CleanWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [{ from: path.resolve(__dirname, 'src/assets'), to: '.' }],
+    }),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
@@ -64,9 +66,16 @@ const config = {
           },
         ],
       },
+      {
+        test: /\.(png|svg|jpe?g|gif|ttf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[path][name].[ext]',
+          },
+        },
+      },
 
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
     ],
   },
   resolve: {
@@ -75,7 +84,7 @@ const config = {
 };
 
 module.exports = () => {
-  
+
   if (isProduction) {
     config.mode = "production";
 
@@ -84,7 +93,7 @@ module.exports = () => {
     config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
   } else {
     config.mode = "development";
-    
+
   }
   return config;
 };
