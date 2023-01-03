@@ -47,11 +47,13 @@ const createProductItem = async (item: any) => {
   const itemName: HTMLElement = document.createElement('span');
   const price: HTMLElement = document.createElement('span');
   // const image: HTMLImageElement = document.createElement('img');
-  const image: HTMLElement = document.createElement('div');
+  const imageWrapper: HTMLElement = document.createElement('div');
+  const image: HTMLImageElement = document.createElement('img');
   const informationWrapper: HTMLElement = document.createElement('div');
   const buttonWrapper: HTMLElement = document.createElement('div');
   const cartButton:HTMLButtonElement = document.createElement('button');
   const detailsButton:HTMLButtonElement = document.createElement('button');
+  const dropItemButton:HTMLButtonElement = document.createElement('button');
   const itemCategory: HTMLElement = document.createElement('span');
   const itemBrand: HTMLElement = document.createElement('span');
   const itemPrice: HTMLElement = document.createElement('span');
@@ -63,20 +65,25 @@ const createProductItem = async (item: any) => {
   li.classList.add('list-item');
   li.classList.add(`item`);
   cartButton.textContent = 'Add to card';
-  cartButton.classList.add('cart__button');
+  cartButton.classList.add('cart__button', 'item__button');
   detailsButton.textContent = 'Details';
-  detailsButton.classList.add('details__button');
-  image.classList.add('item__image');
+  detailsButton.classList.add('details__button', 'item__button');
+  dropItemButton.textContent = 'Drop to cart';
+  dropItemButton.classList.add('drop-item__button', 'item__button',)
+  imageWrapper.classList.add('item__image-wrapper', 'image-wrapper');
   const imageUrl = await item.thumbnail;
-  image.style.background = `url('${imageUrl}')`;
+  image.src = imageUrl;
+  image.classList.add('image-wrapper__img')
+  // image.style.background = `url('${imageUrl}')`;
   // image.style.background = `url('${item.thumbnail}') center / cover no-repeat`;
   // image.src = `${item.thumbnail}`;
+  price.classList.add('item__price')
   price.textContent = `${item.price}$`;
   itemName.textContent = item.title;
   itemName.classList.add('item__name');
   buttonWrapper.classList.add('item__buttons-wrapper');
-  buttonWrapper.append(cartButton);
-  buttonWrapper.append(detailsButton);
+  // buttonWrapper.append(cartButton);
+  // buttonWrapper.append(detailsButton);
   informationWrapper.classList.add('item__information')
   itemCategory.textContent = `Category: ${item.category}`
   itemBrand.textContent = `Brand: ${item.brand}`
@@ -84,17 +91,9 @@ const createProductItem = async (item: any) => {
   itemDiscount.textContent = `Discount: ${item.discountPercentage}%`
   itemRating.textContent = `Rating: ${item.rating}`
   itemStock.textContent = `Stock: ${item.stock}`
-  informationWrapper.append(itemCategory)
-  informationWrapper.append(itemBrand)
-  informationWrapper.append(itemPrice)
-  informationWrapper.append(itemDiscount)
-  informationWrapper.append(itemRating)
-  informationWrapper.append(itemStock)
-  li.append(itemName);
-  li.append(price);
-  li.append(buttonWrapper);
-  li.append(image);
-  li.append(informationWrapper);
+  informationWrapper.append(itemCategory, itemBrand, itemPrice, itemDiscount, itemRating, itemStock)
+  imageWrapper.append(image)
+  li.append(itemName, price, buttonWrapper, imageWrapper, informationWrapper, cartButton, dropItemButton, detailsButton);
   return li
 }
 
