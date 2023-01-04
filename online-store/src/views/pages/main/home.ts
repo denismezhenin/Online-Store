@@ -29,7 +29,7 @@ let Home = {
         setOptions(
           filterCategories[index],
           filterCategories[index],
-          productItems
+          productItems.products
         );
       });
     await searchItems(productItems.products);

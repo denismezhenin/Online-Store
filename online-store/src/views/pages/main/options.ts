@@ -1,8 +1,9 @@
+import { IProduct, ProductJSON } from '../../components/constants';
 import { tsQuerySelector, tsQuerySelectorAll } from '../../components/helpers'
 
-export const setOptions = (parent: string, option: string, data: any) => {
+export const setOptions = (parent: string, option: any, data: Array<IProduct>):void => {
   const optionsSet = new Set();
-  const array = data.products;
+  const array = data;
 
   for (let item of array) {
     optionsSet.add(item[option])
@@ -26,6 +27,7 @@ export const setOptions = (parent: string, option: string, data: any) => {
       label.setAttribute('for', value.toLocaleLowerCase());
       label.textContent = value
     }
+    
     // totalCount.textContent = `${b[option]}`
     // console.log(b[option])
     // if(typeof value === 'string') {
@@ -34,13 +36,13 @@ export const setOptions = (parent: string, option: string, data: any) => {
     // console.log(b[value])
     // console.log(option)
     input.type = 'checkbox';
-    li.append(input)
-    li.append(label)
+    li.append(input, label, viewCount)
+    // li.append(label)
     ul.append(li)
     // div.append(viewCount)
     // div.append(totalCount)
     // li.append(div)
-    li.append(viewCount)
+    // li.append(viewCount)
   }
 }
 

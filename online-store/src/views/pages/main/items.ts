@@ -6,7 +6,7 @@ export const addItems = async (parent: string, data: any) => {
   const arrCount = tsQuerySelector(document, `.products-found__count`)
   if (data.length === 0) {
     arrCount.textContent = '0'
-    return el.innerHTML = 'No products found'
+    return el.innerHTML = 'No products found' // enum
   }
   arrCount.textContent = data.length
   let priceMax: number = data[0].price;

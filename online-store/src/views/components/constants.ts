@@ -62,3 +62,26 @@ export enum Discount {
   RS = 0.1,
   NY = 0.1,
 }
+
+export enum Query {
+  brand = 'brand',
+  category = 'category',
+  search = 'search',
+  sort = 'sort',
+  price = 'pirce',
+  stock = 'stock',
+  priceMin = 'price-min',
+  priceMax = 'price-max',
+  stockMin = 'stock-min',
+  stockMax = 'stock-max',
+  view = 'view',
+  default = 'default',
+  priceAcc = 'price-high',
+  priceDesc = 'price-low',
+  ratingAcc = 'rating-high',
+  ratingDesc = 'rating-low'
+}
+
+export interface ProductJSON {
+  'products': Array<IProduct>
+}

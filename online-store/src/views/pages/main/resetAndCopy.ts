@@ -5,14 +5,14 @@ export const setFiltersButton = () => {
   buttonContainer.addEventListener('click', (e: Event) => {
     if (!(e.target instanceof HTMLElement)) return;
     const target = e.target;
-    if (target.classList.contains('button__reset')) {
+    if (target.classList.contains('button__reset')) { 
       location.hash = ''
     }
     if (target.classList.contains('button__copy')) {
       const copyButton = tsQuerySelector(document, '.button__copy');
       navigator.clipboard.writeText(location.href)
       .then(() => {
-        if (copyButton.textContent !== 'Copied!') {
+        if (copyButton.textContent !== 'Copied!') { // enum
           const originalText = copyButton.textContent;
           copyButton.textContent = 'Copied !';
           setTimeout(() => {
@@ -21,7 +21,7 @@ export const setFiltersButton = () => {
         }
       })
       .catch(err => {
-        console.error('Something went wrong');
+        console.error('Something went wrong'); //enum
       })
     }
   })

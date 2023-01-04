@@ -1,40 +1,38 @@
+import { Query } from "../../components/constants";
 import { tsQuerySelectorAll } from "../../components/helpers";
-// import productItems from "../../components/productJSON";
 import { addItems } from "./items";
 import { setViewMode } from "./viewmode";
 
-const searchOptions = ['category', 'brand']
-
 export const searchItems = async (data: any) => {
     let filteredArr = data.slice()
-    const totalOptionCategoryCount = createOptionObject(filteredArr, searchOptions[0], searchOptions[1])
+    const totalOptionCategoryCount = createOptionObject(filteredArr, Query.category, Query.brand)
     const searchParams = new URLSearchParams((`${location.hash}`).slice(1));
 
-    if (searchParams.has('category')) {
-        filteredArr = filterByValue('category', searchParams.getAll('category'), filteredArr)
+    if (searchParams.has(Query.category)) {
+        filteredArr = filterByValue(Query.category, searchParams.getAll(Query.category), filteredArr)
     }
-    if (searchParams.has('brand')) {
-        filteredArr = filterByValue('brand', searchParams.getAll('brand'), filteredArr)
+    if (searchParams.has(Query.brand)) {
+        filteredArr = filterByValue(Query.brand, searchParams.getAll(Query.brand), filteredArr)
     }
-    if (searchParams.has('price-min') && searchParams.has('price-max')) {
-        let filtersArr = [searchParams.get('price-min')!, searchParams.get('price-max')!];
-        filteredArr = filterByRange('price', filtersArr, filteredArr);
+    if (searchParams.has(Query.priceMin) && searchParams.has(Query.priceMax)) {
+        let filtersArr = [searchParams.get(Query.priceMin)!, searchParams.get(Query.priceMax)!];
+        filteredArr = filterByRange(Query.price, filtersArr, filteredArr);
     }
-    if (searchParams.has('stock-min') && searchParams.has('stock-max')) {
-        let filtersArr = [searchParams.get('stock-min')!, searchParams.get('stock-max')!];
-        filteredArr = filterByRange('stock', filtersArr, filteredArr);
+    if (searchParams.has(Query.stockMin) && searchParams.has(Query.stockMax)) {
+        let filtersArr = [searchParams.get(Query.stockMin)!, searchParams.get(Query.stockMax)!];
+        filteredArr = filterByRange(Query.stock, filtersArr, filteredArr);
     }
-    if (searchParams.has('search')) {
-        filteredArr = filterBySearch('brand', searchParams.get('search')!, filteredArr)
+    if (searchParams.has(Query.search)) {
+        filteredArr = filterBySearch(searchParams.get(Query.search)!, filteredArr)
     }
-    if (searchParams.has('sort')) {
-        filteredArr = filterBySort(searchParams.get('sort')!, filteredArr)
+    if (searchParams.has(Query.sort)) {
+        filteredArr = filterBySort(searchParams.get(Query.sort)!, filteredArr)
     }
-    if (searchParams.has('view')) {
-        setViewMode(searchParams.get('view')!)
+    if (searchParams.has(Query.view)) {
+        setViewMode(searchParams.get(Query.view)!)
     }
 
-    const viewOptionCategoryCount = createOptionObject(filteredArr, searchOptions[0], searchOptions[1])
+    const viewOptionCategoryCount = createOptionObject(filteredArr, Query.category, Query.brand)
     setOptionCounts(totalOptionCategoryCount, viewOptionCategoryCount)
     addItems("products-list", filteredArr)
 };
@@ -45,7 +43,7 @@ const filterByValue = (category: string, arrValues: string[], arr: any[]): any =
 const filterByRange = (category: string, arrValues: string[], arr: any[]): any => {
     return arr.filter(item => (arrValues[0] <= item[category]) && (arrValues[1] >= item[category]))
 }
-const filterBySearch = (category: string, str: string, arr: any[]): any => {
+const filterBySearch = (str: string, arr: any[]): any => {
     return arr.filter(item => {
         for (let value of Object.values(item)) {
             if (String(value).toLocaleLowerCase().startsWith(str)) {
@@ -57,19 +55,19 @@ const filterBySearch = (category: string, str: string, arr: any[]): any => {
 
 const filterBySort = (type: string, arr: any[]) => {
     switch(type) {
-        case 'default':
+        case Query.default:
             return arr;
             break;
-        case 'price-high':
+        case Query.priceAcc:
             return arr.sort((a, b) => a.price - b.price);
             break;
-        case 'price-low':
+        case Query.priceDesc:
             return arr.sort((a, b) => b.price - a.price);
             break;
-        case 'rating-high':
+        case Query.ratingAcc:
             return arr.sort((a, b) => a.rating - b.rating);
             break;
-        case 'rating-low':
+        case Query.ratingDesc:
             return arr.sort((a, b) => b.rating - a.rating);
             break;
     }

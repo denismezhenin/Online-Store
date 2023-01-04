@@ -4,10 +4,7 @@ import productItems from "../../components/productJSON";
 import { searchItems } from "./search";
 
 export const setSearch = () => {
-  const inputSearch = tsQuerySelector(
-    document,
-    ".products-search__input"
-  ) as HTMLInputElement;
+  const inputSearch = tsQuerySelector<HTMLInputElement>(document, ".products-search__input");
 
   inputSearch.addEventListener("input", () => {
     // console.log(inputSearch.value)

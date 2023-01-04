@@ -40,8 +40,8 @@ export const deleteQueryParams = (category: string) => {
 export const setParamsFromHash = () => {
   const searchParams = new URLSearchParams((`${location.hash}`).slice(1))
   // console.log(searchParams.toString())
-  if (searchParams.has('category') || searchParams.has('brand')) {
-    const paramsArr = [...searchParams.getAll('category'), ...searchParams.getAll('brand')]
+  if (searchParams.has('category') || searchParams.has('brand')) { // enum
+    const paramsArr = [...searchParams.getAll('category'), ...searchParams.getAll('brand')] // enum
     tsQuerySelectorAll(document, 'input[type="checkbox"]').forEach(item => {
       if (paramsArr.includes(((item).id).toLocaleLowerCase())) {
         (item as HTMLInputElement).checked = true
@@ -57,9 +57,9 @@ export const setParamsFromHash = () => {
   //   (tsQuerySelector(document, '.price__max-value') as HTMLInputElement).value = searchParams.get('price-max')!;
   // }
   if (searchParams.has('search')) {
-    tsQuerySelector<HTMLInputElement>(document, '.products-search__input').value = searchParams.get('search')!;
+    tsQuerySelector<HTMLInputElement>(document, '.products-search__input').value = searchParams.get('search')!; // enum
   }
     if (searchParams.has('sort')) {
-      tsQuerySelector<HTMLSelectElement>(document, '.product-select__options').value = searchParams.get('sort')!
+      tsQuerySelector<HTMLSelectElement>(document, '.product-select__options').value = searchParams.get('sort')! // enum
     }
 }
