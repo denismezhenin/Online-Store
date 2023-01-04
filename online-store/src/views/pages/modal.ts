@@ -24,7 +24,7 @@ export function inputCardNumber(e: InputEventInit) {
   ) {
     img.src = CardLogo.mastercardLogo;
   } else if (
-    cardNumberInput.value[CardLogo.firstNumber] === CardLogo.unionpauNumber
+    cardNumberInput.value[CardLogo.firstNumber] === CardLogo.unionpayNumber
   ) {
     img.src = CardLogo.unionpayLogo;
   } else {

@@ -78,7 +78,7 @@ export enum CardLogo {
   visaLogo = '"https://cdn.visa.com/v2/assets/images/logos/visa/blue/logo.png"',
   mastercardNumber = "5",
   mastercardLogo = "https://www.mastercard.hu/content/dam/public/mastercardcom/eu/hu/images/mc-logo-52.svg",
-  unionpauNumber = "6",
+  unionpayNumber = "6",
   unionpayLogo = "https://m.unionpayintl.com/imp_file/global/wap/en/static/images/logo.png",
   firstNumber = 0,
 }
