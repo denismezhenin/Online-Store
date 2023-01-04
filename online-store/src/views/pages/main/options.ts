@@ -1,12 +1,18 @@
-import { IProduct, ProductJSON } from '../../components/constants';
+import { IProduct, ProductJSON, Query } from '../../components/constants';
 import { tsQuerySelector, tsQuerySelectorAll } from '../../components/helpers'
+import productItems from '../../components/productJSON';
 
-export const setOptions = (parent: string, option: any, data: Array<IProduct>):void => {
+const selections = [Query.category, Query.brand]
+
+export const setOptions = () => {
+  selections.forEach(item => addOptions(item, item, productItems.products))
+}
+
+
+const addOptions = (parent: string, option: string, data: Array<IProduct>):void => {
   const optionsSet = new Set();
-  const array = data;
-
-  for (let item of array) {
-    optionsSet.add(item[option])
+  for (let item of data) {
+    optionsSet.add(item[option as keyof IProduct])
   }
   const el = tsQuerySelector(document, `.${parent}`)
   const ul = tsQuerySelector(el, `.selections-variants`)

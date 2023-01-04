@@ -1,12 +1,14 @@
+import { Messages } from "../../components/constants";
 import { tsQuerySelector, tsQuerySelectorAll } from "../../components/helpers";
-import { rangeContainer, fillSlider, pricesArray, stockArray } from "../../components/range";
+import { rangeContainer, fillSlider, pricesArray, stockArray, setRangeValues } from "../../components/range";
+import { checkProducts } from "./productList";
 
 export const addItems = async (parent: string, data: any) => {
   const el = tsQuerySelector(document, `.${parent}`)
   const arrCount = tsQuerySelector(document, `.products-found__count`)
   if (data.length === 0) {
     arrCount.textContent = '0'
-    return el.innerHTML = 'No products found' // enum
+    return el.innerHTML = Messages.noProducts 
   }
   arrCount.textContent = data.length
   let priceMax: number = data[0].price;
@@ -22,31 +24,14 @@ export const addItems = async (parent: string, data: any) => {
     quantityMin = Math.min(quantityMin, item.stock);
     quantityMax = Math.max(quantityMax, item.stock);
   }
-  setRangeValues(priceMin, priceMax, quantityMin, quantityMax )
-}
-
-const setRangeValues = (priceMin: number, priceMax: number, quantityMin: number, quantityMax: number) => {
-  const minsText = tsQuerySelectorAll(document, '.range-values__min')
-  const maxText = tsQuerySelectorAll(document, '.range-values__max');
-  const minsRange = tsQuerySelectorAll(document, '.min-value')
-  const maxRange = tsQuerySelectorAll(document, '.max-value');
-  if (minsText) {
-    [minsText[0].textContent, minsText[1].textContent] = [`${priceMin}`, `${quantityMin}`];
-    [(minsRange[0] as HTMLInputElement).value, (minsRange[1] as HTMLInputElement).value] = [`${pricesArray.indexOf(priceMin)}`, `${stockArray.indexOf(quantityMin)}`]
-  }
-  if (maxText) {
-  [maxText[0].textContent, maxText[1].textContent] = [`${priceMax}`, `${quantityMax}`];
-  [(maxRange[0] as HTMLInputElement).value, (maxRange[1] as HTMLInputElement).value] = [`${pricesArray.indexOf(priceMax)}`, `${stockArray.indexOf(quantityMax)}`]
-  }
-  fillSlider(rangeContainer[0], '#C6C6C6', '#25daa5')
-  fillSlider(rangeContainer[1], '#C6C6C6', '#25daa5')
+  setRangeValues(priceMin, priceMax, quantityMin, quantityMax)
+  checkProducts()
 }
 
 const createProductItem = async (item: any) => {
   const li: HTMLElement = document.createElement('li');
   const itemName: HTMLElement = document.createElement('span');
   const price: HTMLElement = document.createElement('span');
-  // const image: HTMLImageElement = document.createElement('img');
   const imageWrapper: HTMLElement = document.createElement('div');
   const image: HTMLImageElement = document.createElement('img');
   const informationWrapper: HTMLElement = document.createElement('div');
@@ -61,29 +46,24 @@ const createProductItem = async (item: any) => {
   const itemRating: HTMLElement = document.createElement('span');
   const itemStock: HTMLElement = document.createElement('span');
   li.id = item.id;
-  // li.classList.add(`products-list__item`);
   li.classList.add('list-item');
   li.classList.add(`item`);
   cartButton.textContent = 'Add to card';
-  cartButton.classList.add('cart__button', 'item__button');
+  cartButton.classList.add('cart__button', 'item__button', 'buttons');
   detailsButton.textContent = 'Details';
-  detailsButton.classList.add('details__button', 'item__button');
+  detailsButton.classList.add('details__button', 'item__button', 'buttons');
   dropItemButton.textContent = 'Drop to cart';
-  dropItemButton.classList.add('drop-item__button', 'item__button',)
+  dropItemButton.classList.add('drop-item__button', 'item__button', 'hide', 'buttons')
   imageWrapper.classList.add('item__image-wrapper', 'image-wrapper');
   const imageUrl = await item.thumbnail;
   image.src = imageUrl;
   image.classList.add('image-wrapper__img')
-  // image.style.background = `url('${imageUrl}')`;
-  // image.style.background = `url('${item.thumbnail}') center / cover no-repeat`;
-  // image.src = `${item.thumbnail}`;
   price.classList.add('item__price')
   price.textContent = `${item.price}$`;
   itemName.textContent = item.title;
   itemName.classList.add('item__name');
   buttonWrapper.classList.add('item__buttons-wrapper');
-  // buttonWrapper.append(cartButton);
-  // buttonWrapper.append(detailsButton);
+  buttonWrapper.append(cartButton, dropItemButton, detailsButton);
   informationWrapper.classList.add('item__information')
   itemCategory.textContent = `Category: ${item.category}`
   itemBrand.textContent = `Brand: ${item.brand}`
@@ -93,7 +73,7 @@ const createProductItem = async (item: any) => {
   itemStock.textContent = `Stock: ${item.stock}`
   informationWrapper.append(itemCategory, itemBrand, itemPrice, itemDiscount, itemRating, itemStock)
   imageWrapper.append(image)
-  li.append(itemName, price, buttonWrapper, imageWrapper, informationWrapper, cartButton, dropItemButton, detailsButton);
+  li.append(itemName, price, imageWrapper, informationWrapper, buttonWrapper);
   return li
 }
 

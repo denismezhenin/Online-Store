@@ -48,7 +48,7 @@ const homePageHtml = `
     <div class="products-select">
       <select name="sort" class="product-select__options">
         <option value="default" selected>Sort options</option>
-        <option value="price-high">Price: Low to High"</option>
+        <option value="price-high">Price: Low to High</option>
         <option value="price-low">Price: High to Low</option>
         <option value="rating-high">Rating: Low to High</option>
         <option value="rating-low">Rating: High to Low</option>

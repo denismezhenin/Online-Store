@@ -1,3 +1,4 @@
+import { Messages } from "../../components/constants";
 import { tsQuerySelector } from "../../components/helpers"
 
 export const setFiltersButton = () => {
@@ -12,16 +13,16 @@ export const setFiltersButton = () => {
       const copyButton = tsQuerySelector(document, '.button__copy');
       navigator.clipboard.writeText(location.href)
       .then(() => {
-        if (copyButton.textContent !== 'Copied!') { // enum
+        if (copyButton.textContent !== Messages.copied) { // enum
           const originalText = copyButton.textContent;
-          copyButton.textContent = 'Copied !';
+          copyButton.textContent = Messages.copied;
           setTimeout(() => {
             copyButton.textContent = originalText;
           }, 1000);
         }
       })
       .catch(err => {
-        console.error('Something went wrong'); //enum
+        console.error(Messages.error); //enum
       })
     }
   })

@@ -68,7 +68,7 @@ export enum Query {
   category = 'category',
   search = 'search',
   sort = 'sort',
-  price = 'pirce',
+  price = 'price',
   stock = 'stock',
   priceMin = 'price-min',
   priceMax = 'price-max',
@@ -84,4 +84,10 @@ export enum Query {
 
 export interface ProductJSON {
   'products': Array<IProduct>
+}
+
+export enum Messages {
+  noProducts = 'No products found',
+  error = 'Something went wrong',
+  copied = 'Copied!'
 }

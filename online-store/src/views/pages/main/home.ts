@@ -1,4 +1,4 @@
-import { IProduct } from "./../../components/constants";
+import { IProduct, Query } from "./../../components/constants";
 import homePageHtml from "./homepage";
 import { rangeContainer, setRange } from "../../components/range";
 import { setOptions } from "./options";
@@ -22,37 +22,19 @@ let Home = {
     return homePageHtml;
   },
   after_render: async () => {
-    const filterCategories = ["category", "brand"];
-    document
-      .querySelectorAll(".filters-selections")
-      .forEach((item: any, index: number) => {
-        setOptions(
-          filterCategories[index],
-          filterCategories[index],
-          productItems.products
-        );
-      });
+    setOptions()
     await searchItems(productItems.products);
     setRange(rangeContainer);
-    setListeners('category')
-    setListeners('brand')
+    setListeners(Query.category)
+    setListeners(Query.brand)
     setParamsFromHash()
     const productsList = tsQuerySelector(document, ".products-list");
     productsList.addEventListener("click", clickProductList);
     checkProducts();
     setSearch();
-
-    // const inputSearch = tsQuerySelector<HTMLInputElement>(
-    //   document,
-    //   ".products-search__input"
-    // );
-
-    // if (window.location.search && inputSearch.value.length === 0) {
-    //   inputSearch.value = window.location.search.split("=").slice(1).join();
-    // }
-  setSortParam()
-  setFiltersButton()
-  setViewListeners()
+    setSortParam()
+    setFiltersButton()
+    setViewListeners()
   },
 };
 
