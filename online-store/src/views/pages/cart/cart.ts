@@ -1,6 +1,9 @@
-import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
-import { tsQuerySelector } from "../components/helpers";
-import { setCartTotal, state } from "../components/state";
+import {
+  AmountChangeTotal,
+  PriceChangeTotal,
+} from "../../components/constants";
+import { tsQuerySelector } from "../../components/helpers";
+import { setCartTotal, state } from "../../components/state";
 import {
   decrementProduct,
   getCartHtml,
@@ -16,8 +19,8 @@ import {
   inputCardNumber,
   inputCardValid,
   submitCard,
-} from "./modal";
-import { addApplyCode, checkPromoCode, removePromoCode } from "./summary";
+} from "./helperOrderModal";
+import { addApplyCode, checkPromoCode, removePromoCode } from "./helperSummary";
 
 let Cart = {
   render: async () => {

@@ -4,11 +4,33 @@ import {
   CardNumber,
   CardValid,
   LocationHref,
-} from "../components/constants";
-import { tsQuerySelector } from "../components/helpers";
-import { setCartTotal, state } from "../components/state";
+} from "../../components/constants";
+import { tsQuerySelector } from "../../components/helpers";
+import { setCartTotal, state } from "../../components/state";
 import { getEmptyCart } from "./cartPage";
-import { addApplyCode } from "./summary";
+import { addApplyCode } from "./helperSummary";
+
+function getLogoImage() {
+  const cardNumberInput = tsQuerySelector<HTMLInputElement>(
+    document,
+    ".card-number__input"
+  );
+  let value = cardNumberInput.value;
+  const img = tsQuerySelector<HTMLImageElement>(document, ".card-img");
+  switch (cardNumberInput.value[CardLogo.firstNumber]) {
+    case CardLogo.visaNumber:
+      img.src = CardLogo.visaLogo;
+      break;
+    case CardLogo.mastercardNumber:
+      img.src = CardLogo.mastercardLogo;
+      break;
+    case CardLogo.unionpayNumber:
+      img.src = CardLogo.unionpayLogo;
+      break;
+    default:
+      img.src = CardLogo.noLogo;
+  }
+}
 
 export function inputCardNumber(e: InputEventInit) {
   const cardNumberInput = tsQuerySelector<HTMLInputElement>(
@@ -16,20 +38,8 @@ export function inputCardNumber(e: InputEventInit) {
     ".card-number__input"
   );
   let [numbers, regExp, value] = [/[0-9]/, /[0-9]{4}/, cardNumberInput.value];
-  const img = tsQuerySelector<HTMLImageElement>(document, ".card-img");
-  if (cardNumberInput.value[CardLogo.firstNumber] === CardLogo.visaNumber) {
-    img.src = CardLogo.visaLogo;
-  } else if (
-    cardNumberInput.value[CardLogo.firstNumber] === CardLogo.mastercardNumber
-  ) {
-    img.src = CardLogo.mastercardLogo;
-  } else if (
-    cardNumberInput.value[CardLogo.firstNumber] === CardLogo.unionpayNumber
-  ) {
-    img.src = CardLogo.unionpayLogo;
-  } else {
-    img.src = CardLogo.noLogo;
-  }
+  getLogoImage();
+  
   if (
     (e.inputType === "insertText" && !numbers.test(e.data!)) ||
     cardNumberInput.value.length > CardNumber.maxLength

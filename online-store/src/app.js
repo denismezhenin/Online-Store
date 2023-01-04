@@ -1,9 +1,9 @@
 "use strict";
 import './styles/style.scss';
 import Home from './views/pages/main/home'
-import Cart from './views/pages/cart'
-import Error404 from './views/pages/error404.js'
-import Product from './views/pages/product.ts'
+import Cart from './views/pages/cart/cart'
+import Error404 from './views/pages/error404.ts'
+import Product from './views/pages/product/product.ts'
 import Navbar from './views/components/Navbar.js'
 import Bottombar from './views/components/Bottombar.js'
 import Utils from './services/Utils.ts'
@@ -45,7 +45,7 @@ const router = async () => {
     // if((request.resource).startsWith('?')) {
     //     return
     // }
-        if((request.resource === undefined)) {
+    if ((request.resource === undefined)) {
         return
     }
     let page = routes[parsedURL] ? routes[parsedURL] : Error404

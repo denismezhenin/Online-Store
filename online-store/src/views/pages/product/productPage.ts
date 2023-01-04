@@ -1,9 +1,9 @@
-import { setCartTotal } from "./../components/state";
-import { IProduct, LocationHref } from "../components/constants";
-import productItems from "../components/productJSON";
-import Utils from "../../services/Utils";
-import { state } from "../components/state";
-import { tsQuerySelector } from "../components/helpers";
+import { setCartTotal } from "../../components/state";
+import { IProduct, LocationHref } from "../../components/constants";
+import productItems from "../../components/productJSON";
+import Utils from "../../../services/Utils";
+import { state } from "../../components/state";
+import { tsQuerySelector } from "../../components/helpers";
 
 export function getProductHtml() {
   const array = productItems.products;
