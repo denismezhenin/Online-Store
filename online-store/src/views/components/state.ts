@@ -6,6 +6,8 @@ export let state: IState = {
   cartTotalPrice: 0,
   promoCodeRS: false,
   promoCodeNY: false,
+  items: 1,
+  cartPage:1
 };
 
 export function getLocalStorage() {
