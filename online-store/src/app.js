@@ -1,9 +1,9 @@
 "use strict";
 import './styles/style.scss';
 import Home from './views/pages/main/home'
-import Cart from './views/pages/cart'
-import Error404 from './views/pages/error404.js'
-import Product from './views/pages/product.ts'
+import Cart from './views/pages/cart/cart'
+import Error404 from './views/pages/error404.ts'
+import Product from './views/pages/product/product.ts'
 import Navbar from './views/components/Navbar.js'
 import Bottombar from './views/components/Bottombar.js'
 import Utils from './services/Utils.ts'
@@ -42,12 +42,7 @@ const router = async () => {
     let parsedURL = (request.resource ? '/' + request.resource : '/') + (request.id ? '/:id' : '') + (request.verb ? '/' + request.verb : '')
 
     // Get the page from our hash of supported routes.
-    // If the parsed URL is not in our list of supported routes, select the 404 page instead
-    // console.log(request)
-    // if((request.resource).startsWith('?')) {
-    //     return
-    // }
-    
+    // If the parsed URL is not in our list of supported routes, select the 404 page instead 
     if ((request.resource === undefined) && isLoaded) {
         searchItems(productItems.products)
         return isLoaded = true

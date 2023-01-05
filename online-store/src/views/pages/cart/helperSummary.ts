@@ -3,9 +3,9 @@ import {
   markersForNY,
   markersForRS,
   Promo,
-} from "../components/constants";
-import { tsQuerySelector } from "../components/helpers";
-import { state } from "../components/state";
+} from "../../components/constants";
+import { tsQuerySelector } from "../../components/helpers";
+import { state } from "../../components/state";
 
 export function checkPromoCode() {
   const summaryDiscountInput = tsQuerySelector<HTMLInputElement>(
@@ -44,7 +44,7 @@ export function checkPromoCode() {
       nyAddButton.remove();
     }
   }
-  crossOutTotalPrice() 
+  crossOutTotalPrice();
 }
 
 export function addApplyCode() {
@@ -88,7 +88,6 @@ export function removePromoCode(button: string) {
   if (!state.promoCodeNY && !state.promoCodeRS) {
     const applyCode = tsQuerySelector(document, ".apply-code");
     applyCode?.remove();
-    
   }
   checkPromoCode();
   crossOutTotalPrice();
@@ -96,9 +95,7 @@ export function removePromoCode(button: string) {
 
 export function crossOutTotalPrice() {
   const summaryTotalPrice = tsQuerySelector(document, ".summary-total-price");
-  const totalPriceNew = document.querySelector(
-    ".total-price-new"
-  ) 
+  const totalPriceNew = document.querySelector(".total-price-new");
 
   if (!totalPriceNew && (state.promoCodeNY || state.promoCodeRS)) {
     let p = document.createElement("p");
@@ -113,7 +110,7 @@ export function crossOutTotalPrice() {
     ).innerHTML = `Total: $<span class="summary-total__span">${getPriceWithPromo()}</span>`;
   } else {
     summaryTotalPrice.style.textDecoration = "";
-    
+
     totalPriceNew?.remove();
   }
 }

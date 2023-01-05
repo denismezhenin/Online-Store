@@ -1,8 +1,13 @@
-import { setCartTotal } from "./../components/state";
-import { getProductHtml, quickBuy, toggleProduct } from "./productPage";
-import { checkProduct } from "./productPage";
-import { zoomImage } from "./productPage";
-import { tsQuerySelector, tsQuerySelectorAll } from "../components/helpers";
+import { setCartTotal } from "../../components/state";
+import {
+  getProductHtml,
+  quickBuy,
+  toggleProduct,
+  checkProduct,
+  zoomImage,
+} from "./productPage";
+
+import { tsQuerySelector, tsQuerySelectorAll } from "../../components/helpers";
 let Product = {
   render: async () => {
     let view = getProductHtml();

@@ -1,6 +1,9 @@
-import { AmountChangeTotal, PriceChangeTotal } from "../components/constants";
-import { tsQuerySelector } from "../components/helpers";
-import { setCartTotal, state } from "../components/state";
+import {
+  AmountChangeTotal,
+  PriceChangeTotal,
+} from "../../components/constants";
+import { tsQuerySelector } from "../../components/helpers";
+import { setCartTotal, state } from "../../components/state";
 import {
   decrementProduct,
   getCartHtml,
@@ -11,7 +14,13 @@ import {
   removeModal,
 } from "./cartPage";
 import { changeTotal } from "./cartPage";
-import { addApplyCode, checkPromoCode, removePromoCode } from "./summary";
+import {
+  inputCardCvv,
+  inputCardNumber,
+  inputCardValid,
+  submitCard,
+} from "./helperOrderModal";
+import { addApplyCode, checkPromoCode, removePromoCode } from "./helperSummary";
 
 let Cart = {
   render: async () => {
@@ -95,6 +104,27 @@ let Cart = {
         removePromoCode(".ny-promo-code");
       }
     });
+
+    const cardNumberInput = tsQuerySelector<HTMLInputElement>(
+      document,
+      ".card-number__input"
+    );
+    cardNumberInput.addEventListener("input", inputCardNumber);
+
+    const cardValid = tsQuerySelector<HTMLInputElement>(
+      document,
+      ".card-valid"
+    );
+    cardValid.addEventListener("input", inputCardValid);
+
+    const cvv = tsQuerySelector<HTMLInputElement>(document, ".cvv");
+    cvv.addEventListener("input", inputCardCvv);
+
+    const confirmButton = tsQuerySelector<HTMLButtonElement>(
+      document,
+      ".confirm__button"
+    );
+    confirmButton.addEventListener("click", submitCard);
   },
 };
 
