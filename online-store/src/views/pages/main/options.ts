@@ -2,10 +2,10 @@ import { IProduct, ProductJSON, Query } from '../../components/constants';
 import { tsQuerySelector, tsQuerySelectorAll } from '../../components/helpers'
 import productItems from '../../components/productJSON';
 
-const selections = [Query.category, Query.brand]
+const selections = [Query.category, Query.brand];
 
 export const setOptions = () => {
-  selections.forEach(item => addOptions(item, item, productItems.products))
+  selections.forEach(item => addOptions(item, item, productItems.products));
 }
 
 
@@ -14,8 +14,8 @@ const addOptions = (parent: string, option: string, data: Array<IProduct>):void 
   for (let item of data) {
     optionsSet.add(item[option as keyof IProduct])
   }
-  const el = tsQuerySelector(document, `.${parent}`)
-  const ul = tsQuerySelector(el, `.selections-variants`)
+  const el = tsQuerySelector(document, `.${parent}`);
+  const ul = tsQuerySelector(el, `.selections-variants`);
   for (let value of optionsSet) {
     const li: HTMLElement = document.createElement('li');
     const input: HTMLInputElement = document.createElement('input');
@@ -24,14 +24,14 @@ const addOptions = (parent: string, option: string, data: Array<IProduct>):void 
     const viewCount: HTMLElement = document.createElement('span');
     // const totalCount: HTMLElement = document.createElement('span');
     // div.classList.add('selections-variants__count-block')
-    viewCount.classList.add('selections-variants__count')
+    viewCount.classList.add('selections-variants__count');
     // viewCount.classList.add(`${value}`)
-    li.classList.add('selections-variants__item')
+    li.classList.add('selections-variants__item');
 
     if (typeof value === 'string') {
       input.id = value.toLocaleLowerCase();
       label.setAttribute('for', value.toLocaleLowerCase());
-      label.textContent = value
+      label.textContent = value;
     }
     
     // totalCount.textContent = `${b[option]}`
@@ -42,20 +42,12 @@ const addOptions = (parent: string, option: string, data: Array<IProduct>):void 
     // console.log(b[value])
     // console.log(option)
     input.type = 'checkbox';
-    li.append(input, label, viewCount)
+    li.append(input, label, viewCount);
     // li.append(label)
-    ul.append(li)
+    ul.append(li);
     // div.append(viewCount)
     // div.append(totalCount)
     // li.append(div)
     // li.append(viewCount)
   }
 }
-
-// category.addEventListener('clock', () => {
-//   tsQuerySelectorAll(category, 'input').forEach(item => {
-//     if(item.checked) {
-//       console.log(item.id)
-//     }
-//   })
-// })

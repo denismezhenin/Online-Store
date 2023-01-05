@@ -7,13 +7,13 @@ export const setFiltersButton = () => {
     if (!(e.target instanceof HTMLElement)) return;
     const target = e.target;
     if (target.classList.contains('button__reset')) { 
-      location.hash = ''
+      location.hash = '';
     }
     if (target.classList.contains('button__copy')) {
       const copyButton = tsQuerySelector(document, '.button__copy');
       navigator.clipboard.writeText(location.href)
       .then(() => {
-        if (copyButton.textContent !== Messages.copied) { // enum
+        if (copyButton.textContent !== Messages.copied) {
           const originalText = copyButton.textContent;
           copyButton.textContent = Messages.copied;
           setTimeout(() => {
@@ -22,7 +22,7 @@ export const setFiltersButton = () => {
         }
       })
       .catch(err => {
-        console.error(Messages.error); //enum
+        console.error(Messages.error);
       })
     }
   })

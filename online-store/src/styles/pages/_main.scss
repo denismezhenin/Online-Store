@@ -1,13 +1,16 @@
 #page_container {
-  flex: 1 0 auto;
   position: relative;
   display: flex;
+  flex: 1 0 auto;
 }
 //filter start
 .filters {
-  width: 25%;
+  flex-basis: 25%;
+  flex-shrink: 1;
+  max-width: 320px;
 }
 .selections {
+  flex-grow: 1;
   height: 200px;
   overflow: auto;
 }
@@ -112,37 +115,20 @@ input[type="range"] {
       position: relative;
       display: flex;
       justify-content: center;
-      // top: 0;
-      // left: 0;
-      // height: 100%;
-      // width: 100%;
       width: 291px;
       height: 182px;
-      // overflow: hidden;
-      // z-index: -2;
-      // background-size: cover !important;
-      // background-position: center !important;
-      // background-repeat: no-repeat !important;
 
       .image-wrapper__img {
-        // position: absolute;
-        // top: 0;
-        // left: 0;
         height: 100%;
         width: auto;
         max-width: 90%;
-        // width: auto;
-        // height: 100%;
-        // background-size: cover !important;
-        // background-position: center !important;
-        // background-repeat: no-repeat !important;
       }
     }
 
     &__buttons-wrapper {
       display: flex;
-      width: 100%;
       justify-content: space-around;
+      width: 100%;
     }
 
     &__information {
@@ -152,49 +138,28 @@ input[type="range"] {
       span {
         width: 50%;
       }
-      // position: absolute;
-      // top: 0;
-      // left: 0;
-      // height: 100%;
-      // width: 100%;
-      // transition: transform 0.3s ease 0s;
-      // transform: translate(-100%, 0px);
-      // color: #fff;
-      // background: rgba($color: #000000, $alpha: 0.5);
-      // z-index: -1;
     }
-
-    // &:hover {
-    //   .item__information {
-    //     transform-origin: 0 0;
-    //     transform: translate(0, 0px)
-    //   }
-    // }
   }
 }
 
 .list-mode {
   display: flex;
   flex-wrap: wrap;
-  // justify-content: spa;
 
   .item {
     position: relative;
     display: grid;
     grid-template-columns: auto 1fr auto 1fr;
     grid-template-rows: auto auto;
-    // flex-wrap: wrap;
-    // justify-content: space-between;
     width: 100%;
     height: 200px;
-    // overflow: hidden;
     cursor: pointer;
 
     &__name {
       display: block;
-      height: 40%;
       grid-column: 2 / 3;
       grid-row: 1 / 2;
+      height: 40%;
     }
 
     &__price {
@@ -203,35 +168,17 @@ input[type="range"] {
     }
 
     &__image-wrapper {
-      // position: relative;
       grid-column: 1 / 2;
       grid-row: 1 / 3;
       display: flex;
       justify-content: center;
-      // top: 0;
-      // left: 0;
-      // height: 100%;
-      // width: 100%;
       width: 291px;
       height: 182px;
-      // overflow: hidden;
-      // z-index: -2;
-      // background-size: cover !important;
-      // background-position: center !important;
-      // background-repeat: no-repeat !important;
 
       .image-wrapper__img {
-        // position: absolute;
-        // top: 0;
-        // left: 0;
         height: 100%;
         width: auto;
         max-width: 90%;
-        // width: auto;
-        // height: 100%;
-        // background-size: cover !important;
-        // background-position: center !important;
-        // background-repeat: no-repeat !important;
       }
     }
 
@@ -258,23 +205,16 @@ input[type="range"] {
     }
   }
 }
-//   flex-direction: column;
-//   justify-content: space-between;
-//   width: 25%;
-//   height: 200px;
-//   background-size: cover;
-//   background-position: 0% 0%;
-  
-// }
+
 .item__button {
   // display: block;
   width: 20%;
-  background-color: #181a1c;
-  border: 1px solid orange;
-  border-radius: 0.3rem;
   margin: 0 auto;
   padding-left: 2%;
   padding-right: 2%;
+  background-color: #181a1c;
+  border: 1px solid orange;
+  border-radius: 0.3rem;
   color: orange;
   font-size: 80%;
   cursor: pointer;
@@ -311,13 +251,11 @@ input[type="range"] {
 
 .products-view-mode {
   display: flex;
-  // flex-wrap: nowrap;
   align-items: center;
 }
 
 .view__list {
   position: relative;
-  // display: none;
   width: 18px;
   height: 18px;
 
@@ -343,13 +281,13 @@ input[type="range"] {
   }
 
   &:before {
-    background-color: #000;
     position: absolute;
     content: "";
     top: calc(50% - 1px);
     left: 0;
     width: 100%;
     height: 2px;
+    background-color: #000;
     border-radius: 2px;
   }
 

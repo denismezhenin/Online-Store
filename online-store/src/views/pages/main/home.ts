@@ -22,15 +22,14 @@ let Home = {
     return homePageHtml;
   },
   after_render: async () => {
-    setOptions()
+    setOptions();
     await searchItems(productItems.products);
     setRange(rangeContainer);
-    setListeners(Query.category)
-    setListeners(Query.brand)
-    setParamsFromHash()
+    setListeners(Query.category);
+    setListeners(Query.brand);
+    setParamsFromHash();
     const productsList = tsQuerySelector(document, ".products-list");
     productsList.addEventListener("click", clickProductList);
-    checkProducts();
     setSearch();
     setSortParam()
     setFiltersButton()

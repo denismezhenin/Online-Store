@@ -15,7 +15,7 @@ const getRangeValues = (data: ProductJSON, category: string) => {
   }
   let arr = Array.from(set)
   let sortArr = arr.sort((a, b) => Number(a) - Number(b))
-  return sortArr
+  return sortArr;
 }
 
 export const setRangeValues = (priceMin: number, priceMax: number, quantityMin: number, quantityMax: number) => {
@@ -40,52 +40,40 @@ export const stockArray = getRangeValues(productItems, 'stock')
 
 export const setRange = (parent: HTMLCollectionOf<Element>) => {
   [...parent].forEach((item, index) => {
-    const element = item.querySelector(".range-sliders");
+    const element = tsQuerySelector(item, ".range-sliders");
     rangeAbs([...parent][index], element, rangeAttribute[index], productItems)
   })
 };
 
-const rangeAbs = (parent: Element, item: any, rangeAtt: string, data: any) => {
-  console.log(parent)
-  let arr: any;
-  if (rangeAtt == 'price') {
-    arr = pricesArray
-  } if (rangeAtt === 'stock') {
-    arr = stockArray
-  }
+const rangeAbs = (parent: Element, element:HTMLElement, rangeAtt: string, data: ProductJSON) => {
   const rangeValuesArray = getRangeValues(data, rangeAtt)
   const rangeInputs = parent.querySelectorAll('.range-sliders__input');
-  // const [ left, right ] = rangeInputs;
-  const left = rangeInputs[0] as HTMLInputElement
-  const right = rangeInputs[1] as HTMLInputElement
-  console.log(left.min)
-  console.log(right)
-  left.min = '0'
-  console.log(left.min)
-  // [left.min, left.max] = ([0, arr.length - 1]);
-  // [right.min, right.max] = ([0, arr.length - 1]);
-  // right.max = String(rangeValuesArray.length - 1);
-  // fillSlider(parent, '#C6C6C6', '#25daa5')
-  // item.addEventListener('input', (e: Event) => {  
-  //   if (!(e.target instanceof HTMLInputElement)) return;
-  //   const target = e.target;
-  //   if (target == right) {
-  //     left.value = String(Math.min(+right.value -1, +left.value));
-  //   } else {
-  //     right.value = String(Math.max(+left.value +1, +right.value));
-  //   }
-  //   setQueryParam(`${rangeAtt}-min`, `${arr[(Number(left.value))]}`)
-  //   setQueryParam(`${rangeAtt}-max`, `${arr[(Number(right.value))]}`)
-  //   fillSlider(parent, '#C6C6C6', '#25daa5')
-  // });
+  const left:HTMLInputElement = rangeInputs[0] as HTMLInputElement;
+  const right = rangeInputs[1] as HTMLInputElement;
+  [left.min, left.max] = (['0', (String(rangeValuesArray.length - 1))]);
+  [right.min, right.max] = (['0', (String(rangeValuesArray.length - 1))]);
+  fillSlider(parent, '#C6C6C6', '#25daa5');
+  element.addEventListener('input', (e: Event) => {  
+    if (!(e.target instanceof HTMLInputElement)) return;
+    const target = e.target;
+    if (target == right) {
+      left.value = String(Math.min(+right.value -1, +left.value));
+    } else {
+      right.value = String(Math.max(+left.value +1, +right.value));
+    }
+    setQueryParam(`${rangeAtt}-min`, `${rangeValuesArray[(Number(left.value))]}`);
+    setQueryParam(`${rangeAtt}-max`, `${rangeValuesArray[(Number(right.value))]}`);
+    fillSlider(parent, '#C6C6C6', '#25daa5');
+  });
 };
 
-export const fillSlider = (parent: any, sliderColor: string, rangeColor: string) => {
+export const fillSlider = (parent: Element, sliderColor: string, rangeColor: string) => {
   const rangeInputs = parent.querySelectorAll('.range-sliders__input');
-  const [ left, right ] = rangeInputs;
-  const rangeDistance = right.max-right.min;
-  const fromPosition = left.value - right.min;
-  const toPosition = right.value - right.min;
+  const left = rangeInputs[0] as HTMLInputElement;
+  const right = rangeInputs[1] as HTMLInputElement;
+  const rangeDistance = Number(right.max) - Number(right.min);
+  const fromPosition = Number(left.value) - Number(right.min);
+  const toPosition = Number(right.value) - Number(right.min);
   right.style.background = `linear-gradient(
     to right,
     ${sliderColor} 0%,

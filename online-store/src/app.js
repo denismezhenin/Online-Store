@@ -49,8 +49,6 @@ const router = async () => {
     // }
     
     if ((request.resource === undefined) && isLoaded) {
-        // content.innerHTML = await Home.render()
-        // await Home.after_render()
         searchItems(productItems.products)
         return isLoaded = true
     } 
@@ -60,8 +58,6 @@ const router = async () => {
         return isLoaded = true
     }
     let page = routes[parsedURL] ? routes[parsedURL] : Error404
-    // console.log(page)
-    // if ()
     content.innerHTML = await page.render();
     await page.after_render();
     if(request.resource === 'cart' || request.resource === 'product') {

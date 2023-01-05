@@ -4,12 +4,12 @@ import productItems from "../../components/productJSON";
 import { Query } from '../../components/constants';
 
 export const setListeners = (category: string):void => {
-  const list = tsQuerySelector(document, `.${category}`)
+  const list = tsQuerySelector(document, `.${category}`);
   list.addEventListener('click', () => {
     deleteQueryParams(category);
     tsQuerySelectorAll(list, 'input').forEach((item: any)=> {
       if(item.checked) {
-        setQueryMultiParams(`${category}`, (item.id).toLowerCase())
+        setQueryMultiParams(`${category}`, (item.id).toLowerCase());
       }
     })
   })
