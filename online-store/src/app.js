@@ -51,6 +51,7 @@ const router = async () => {
         content.innerHTML = await Home.render()
         await Home.after_render()
         return isLoaded = true
+
     }
     let page = routes[parsedURL] ? routes[parsedURL] : Error404
     content.innerHTML = await page.render();
