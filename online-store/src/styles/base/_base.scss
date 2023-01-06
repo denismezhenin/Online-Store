@@ -1,10 +1,10 @@
 
  body {
     position: relative;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    min-height: 100vh;
     // background-image: url('../images/base.jpg');
     // background-repeat: no-repeat;
     // background-size: cover;
@@ -16,9 +16,9 @@
 }
 
 .wrapper {
-    // max-width: $wrapper-width;
-    width: 100%;
-    margin: 0 auto;
+    max-width: $max-width;
+    // width: 100%;
+    // margin: 0 auto;
     padding: 0 40px;
 
 

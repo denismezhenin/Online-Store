@@ -64,6 +64,35 @@ export enum Discount {
   RS = 0.1,
   NY = 0.1,
 }
+
+export enum Query {
+  brand = 'brand',
+  category = 'category',
+  search = 'search',
+  sort = 'sort',
+  price = 'price',
+  stock = 'stock',
+  priceMin = 'price-min',
+  priceMax = 'price-max',
+  stockMin = 'stock-min',
+  stockMax = 'stock-max',
+  view = 'view',
+  default = 'default',
+  priceAcc = 'price-high',
+  priceDesc = 'price-low',
+  ratingAcc = 'rating-high',
+  ratingDesc = 'rating-low'
+}
+export interface ProductJSON {
+  'products': Array<IProduct>
+}
+
+export enum Messages {
+  noProducts = 'No products found',
+  error = 'Something went wrong',
+  copied = 'Copied!'
+}
+
 export enum CardNumber {
   maxLength = 16,
 }
@@ -91,3 +120,6 @@ export enum LocationHref {
   home = "/",
   cart = "/#/cart",
 }
+
+export const allQueryParams = [Query.brand, Query.category, Query.sort, Query.search, Query.priceMax, Query.priceMin, Query.stockMax, Query.stockMin, Query.view]
+

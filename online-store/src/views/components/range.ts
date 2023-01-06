@@ -1,41 +1,85 @@
 import { tsQuerySelector, tsQuerySelectorAll } from "./helpers";
-import { setQueryRangeParams } from '../pages/main/queryParams';
+import { setQueryParam } from '../pages/main/queryParams';
 import productItems from "./productJSON";
-import { searchItems } from "../pages/main/search";
+import { IProduct, Query } from "./constants";
+import { ProductJSON } from "./constants";
+
 
 export const rangeContainer = document.getElementsByClassName('range');
-const rangeAttribute = ['price', 'stock']
+const rangeAttribute = [Query.price, Query.stock]
+const getRangeValues = (data: ProductJSON, category: string) => {
+  const set = new Set();
+  const array: Array<IProduct> = data.products; 
+  for (let item of array) {
+    set.add(item[category as keyof IProduct])
+  }
+  let arr = Array.from(set)
+  let sortArr = arr.sort((a, b) => Number(a) - Number(b))
+  return sortArr;
+}
 
+export const setRangeValues = (priceMin: number, priceMax: number, quantityMin: number, quantityMax: number) => {
+  const minsText = tsQuerySelectorAll(document, '.range-values__min')
+  const maxText = tsQuerySelectorAll(document, '.range-values__max');
+  const minsRange = tsQuerySelectorAll(document, '.min-value')
+  const maxRange = tsQuerySelectorAll(document, '.max-value');
+  if (minsText) {
+    [minsText[0].textContent, minsText[1].textContent] = [`${priceMin}`, `${quantityMin}`];
+    [(minsRange[0] as HTMLInputElement).value, (minsRange[1] as HTMLInputElement).value] = [`${pricesArray.indexOf(priceMin)}`, `${stockArray.indexOf(quantityMin)}`]
+  }
+  if (maxText) {
+  [maxText[0].textContent, maxText[1].textContent] = [`${priceMax}`, `${quantityMax}`];
+  [(maxRange[0] as HTMLInputElement).value, (maxRange[1] as HTMLInputElement).value] = [`${pricesArray.indexOf(priceMax)}`, `${stockArray.indexOf(quantityMax)}`]
+  }
+  fillSlider(rangeContainer[0], '#C6C6C6', '#25daa5')
+  fillSlider(rangeContainer[1], '#C6C6C6', '#25daa5')
+}
 
-export const setRange = (parent: any) => {
+export const pricesArray = getRangeValues(productItems, 'price')
+export const stockArray = getRangeValues(productItems, 'stock')
+
+export const setRange = (parent: HTMLCollectionOf<Element>) => {
   [...parent].forEach((item, index) => {
-    const element = item.querySelector(".range-sliders");
-    rangeAbs([...parent][index], element, rangeAttribute[index])
+    const element = tsQuerySelector(item, ".range-sliders");
+    rangeAbs([...parent][index], element, rangeAttribute[index], productItems)
   })
-  // console.log('com')
 };
 
-const rangeAbs = (parent: any, item: any, rangeAtt: string) => {
-  const rangeInputs = item.querySelectorAll('.range-sliders__input');
-  item.addEventListener('input', ({ target }: any) => {
-    const [ left, right ] = rangeInputs;
-    tsQuerySelector(parent, '.range-values__min').textContent = left.value
-    tsQuerySelector(parent, '.range-values__max').textContent = right.value
-    if (rangeAtt === 'price') {
-      setQueryRangeParams('price-min', left.value)
-      setQueryRangeParams('price-max', right.value)
-    } else if (rangeAtt === 'stock') {
-      setQueryRangeParams('stock-min', left.value)
-      setQueryRangeParams('stock-max', right.value)
-    }
+const rangeAbs = (parent: Element, element:HTMLElement, rangeAtt: string, data: ProductJSON) => {
+  const rangeValuesArray = getRangeValues(data, rangeAtt)
+  const rangeInputs = parent.querySelectorAll('.range-sliders__input');
+  const left:HTMLInputElement = rangeInputs[0] as HTMLInputElement;
+  const right = rangeInputs[1] as HTMLInputElement;
+  [left.min, left.max] = (['0', (String(rangeValuesArray.length - 1))]);
+  [right.min, right.max] = (['0', (String(rangeValuesArray.length - 1))]);
+  fillSlider(parent, '#C6C6C6', '#25daa5');
+  element.addEventListener('input', (e: Event) => {  
+    if (!(e.target instanceof HTMLInputElement)) return;
+    const target = e.target;
     if (target == right) {
-      left.value = Math.min(+right.value -1, +left.value);
+      left.value = String(Math.min(+right.value -1, +left.value));
     } else {
-      right.value = Math.max(+left.value +1, +right.value);
+      right.value = String(Math.max(+left.value +1, +right.value));
     }
-    searchItems(productItems.products)
+    setQueryParam(`${rangeAtt}-min`, `${rangeValuesArray[(Number(left.value))]}`);
+    setQueryParam(`${rangeAtt}-max`, `${rangeValuesArray[(Number(right.value))]}`);
+    fillSlider(parent, '#C6C6C6', '#25daa5');
   });
-
 };
 
-// init(rangeContainer)
+export const fillSlider = (parent: Element, sliderColor: string, rangeColor: string) => {
+  const rangeInputs = parent.querySelectorAll('.range-sliders__input');
+  const left = rangeInputs[0] as HTMLInputElement;
+  const right = rangeInputs[1] as HTMLInputElement;
+  const rangeDistance = Number(right.max) - Number(right.min);
+  const fromPosition = Number(left.value) - Number(right.min);
+  const toPosition = Number(right.value) - Number(right.min);
+  right.style.background = `linear-gradient(
+    to right,
+    ${sliderColor} 0%,
+    ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
+    ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
+    ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
+    ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
+    ${sliderColor} 100%)`;
+}

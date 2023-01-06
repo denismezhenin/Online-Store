@@ -6,7 +6,7 @@ let Navbar = {
                 <div class="header__wrapper">
                      <div class="navbar-menu " >
                         <div class="navbar-start">
-                            <a class="navbar-item" href="/">
+                            <a class="navbar-item" href="/#">
                                 Home
                             </a>
                             

@@ -1,12 +1,14 @@
 const homePageHtml = `
 <aside class="filters">
-<button>Reset Filters</button>
-<button>Copy Link</button>
+<div class="filters-buttons">
+<button class="button__reset">Reset Filters</button>
+<button class="button__copy">Copy Link</button>
+</div>
 <div class="filters-selections selections category">
   <div class="selections-name">
     <span class="">Category</span>
   </div>
-  <ul class="selections-variants"></г>
+  <ul class="selections-variants"></ul>
 </div>
 <div class="filters-selections selections brand">
   <div class="selections-name">
@@ -23,21 +25,21 @@ const homePageHtml = `
     <span class="range-values__max"></span>
   </div>
   <div class="range-sliders">
-    <input class="min-value range-sliders__input" value="10" step="1" type="range" min="10" max="1749">
-    <input class="max-value range-sliders__input" value="1749" step="1" type="range" min="10" max="1749">
+    <input class="min-value price__min-value range-sliders__input" type="range">
+    <input class="max-value price__max-value range-sliders__input" type="range">
   </div>
 </div>
 <div class="filters-range range stock">
   <div class="selections-name">
-    <span class="">Price</span>
+    <span class="">Stock</span>
   </div>
   <div class="range-values">
     <span class="range-values__min"></span>
     <span class="range-values__max"></span>
   </div>
   <div class="range-sliders">
-    <input class="min-value range-sliders__input" value="2" step="1" type="range" min="2" max="150">
-    <input class="max-value range-sliders__input" value="150" step="1" type="range" min="2" max="150">
+    <input class="min-value stock__min-value range-sliders__input" type="range">
+    <input class="max-value stock__max-value range-sliders__input" type="range">
   </div>
 </div>
 </aside>
@@ -46,7 +48,7 @@ const homePageHtml = `
     <div class="products-select">
       <select name="sort" class="product-select__options">
         <option value="default" selected>Sort options</option>
-        <option value="price-high">Price: Low to High"</option>
+        <option value="price-high">Price: Low to High</option>
         <option value="price-low">Price: High to Low</option>
         <option value="rating-high">Rating: Low to High</option>
         <option value="rating-low">Rating: High to Low</option>
@@ -59,9 +61,21 @@ const homePageHtml = `
     <form class="product-search">
       <input type="search" class="products-search__input" placeholder="Search product" >
     </form>
-    <div class="view-mode"></div>
+    <div class="products-view-mode view">
+      <div class="view__list">
+      <span class="view__list-line"></span>
+      </div>
+      <div class="view__card">
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+        <span class="view__card-dot">.</span>
+      </div>
+    </div>
   </div>
-  <ul class="products-list list"></ul>
+  <ul class="products-list list card-mode"></ul>
 </section>
 `;
 export default homePageHtml;

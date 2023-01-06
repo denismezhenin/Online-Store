@@ -7,8 +7,10 @@ import Product from './views/pages/product/product.ts'
 import Navbar from './views/components/Navbar.js'
 import Bottombar from './views/components/Bottombar.js'
 import Utils from './services/Utils.ts'
+import { searchItems } from './views/pages/main/search';
+import productItems from './views/components/productJSON'
 
-
+let isLoaded = false
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
     '/': Home
@@ -40,18 +42,24 @@ const router = async () => {
     let parsedURL = (request.resource ? '/' + request.resource : '/') + (request.id ? '/:id' : '') + (request.verb ? '/' + request.verb : '')
 
     // Get the page from our hash of supported routes.
-    // If the parsed URL is not in our list of supported routes, select the 404 page instead
-    // console.log(request)
-    // if((request.resource).startsWith('?')) {
-    //     return
-    // }
-    if ((request.resource === undefined)) {
-        return
+    // If the parsed URL is not in our list of supported routes, select the 404 page instead 
+    if ((request.resource === undefined) && isLoaded) {
+        searchItems(productItems.products)
+        return isLoaded = true
+    } 
+    else if ((request.resource === undefined) && !isLoaded) {
+        content.innerHTML = await Home.render()
+        await Home.after_render()
+        return isLoaded = true
+
     }
     let page = routes[parsedURL] ? routes[parsedURL] : Error404
     content.innerHTML = await page.render();
     await page.after_render();
-
+    if(request.resource === 'cart' || request.resource === 'product') {
+        return isLoaded = false
+    }
+    isLoaded = true
 }
 
 // Listen on hash change:
