@@ -121,3 +121,5 @@ export enum LocationHref {
   cart = "/#/cart",
 }
 
+export const allQueryParams = [Query.brand, Query.category, Query.sort, Query.search, Query.priceMax, Query.priceMin, Query.stockMax, Query.stockMin, Query.view]
+
