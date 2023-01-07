@@ -7,7 +7,8 @@ export let state: IState = {
   promoCodeRS: false,
   promoCodeNY: false,
   items: 1,
-  cartPage:1
+  cartPage:1,
+  maxCartPage:1
 };
 
 export function getLocalStorage() {
