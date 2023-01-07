@@ -19,6 +19,7 @@ export interface IState {
   promoCodeNY: boolean;
   items: number;
   cartPage: number;
+  maxCartPage: number;
 }
 export enum AmountChangeTotal {
   classElement = "product-amount",
