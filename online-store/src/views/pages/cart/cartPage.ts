@@ -1,4 +1,4 @@
-import { CardLogo } from './../../components/constants';
+import { CardLogo, Query } from "./../../components/constants";
 import { ProductCartChilds, counterChange } from "../../components/constants";
 import { setCartTotal } from "../../components/state";
 import productItems from "../../components/productJSON";
@@ -10,6 +10,7 @@ import {
   PriceChangeTotal,
 } from "../../components/constants";
 import { crossOutTotalPrice } from "./helperSummary";
+import { getCurrentPage, getMaxPage, searchCartParam } from "./pagination";
 
 export function getCartHtml() {
   const array = productItems.products;
@@ -24,13 +25,13 @@ export function getCartHtml() {
         <div class="product-title__controls">
           <div class="title-items">
             <p>Items</p>
-            <input type="text" class="title-items__input" value="1" />
+            <input type="text" class="title-items__input" value="${state.items}" />
           </div>
           <div class="title-page">
             <p>Page</p>
-            <button class="product-page__button"><</button>
-            <p class="product-num-page">1</p>
-            <button class="product-page__button">></button>
+            <button class="product-page__button prev-page"><</button>
+            <p class="product-num-page">${state.cartPage}</p>
+            <button class="product-page__button next-page">></button>
           </div>
         </div>
       </div>
@@ -167,11 +168,36 @@ export function removeModal(event: Event): void {
   }
 }
 export function getProductList() {
-  return state.cartArray
+  let items: number = 0;
+  let page: number;
+  if(searchCartParam(Query.limit) !== null) {
+    state.items = Number(searchCartParam(Query.limit));
+    getMaxPage();
+    getCurrentPage();
+    items = Number(searchCartParam(Query.limit))
+  } else {
+    items = state.items
+  }
+  let copy = state.cartArray;
+  if (items > 0 && !searchCartParam(Query.page)) {
+    copy = copy.slice(
+      (items) * (state.cartPage - 1),
+      (items) * state.cartPage
+    );
+  }
+  if (searchCartParam(Query.page) && items > 0) {
+    copy = copy.slice(
+      (items) * (Number(searchCartParam(Query.page)) - 1),
+      (items) * Number(searchCartParam(Query.page))
+    );
+  };
+  return copy
     .map((item, index) => {
       return `
     <li class="cart-product-description" id=${item.id} >
-    <p class="product-number-items">${index + 1}</p>
+    <p class="product-number-items">${
+      state.cartArray.findIndex((el) => el.id === item.id) + 1
+    }</p>
     <div class="cart-product__image">
       <img class="product__image" src=${item?.thumbnail} alt="img">
     </div>
@@ -185,7 +211,7 @@ export function getProductList() {
       </div>
     </div>
     <div class="product-control-container">
-      <p class="stock-control">Stock</p>
+      <p class="stock-control">Stock: ${item?.stock}</p>
       <div class="amount-control">
         <button class="product-amount__button minus" id=${item.id}>-</button>
         <p class="product-amount">${item.count}</p></p>
@@ -200,18 +226,35 @@ export function getProductList() {
     })
     .join();
 }
+export function renderProductList() {
 
-export function changeTotal(classElement: string, classResult: string) {
-  let counter: number = 0;
-
-  const classList = tsQuerySelectorAll(document, `.${classElement}`);
-  const result = tsQuerySelector(document, `.${classResult}`);
-
-  classList.forEach((item) => {
-    counter = Number(item.textContent) + Number(counter);
-  });
-
-  result.innerHTML = `${counter}`;
+  let productList = getProductList();
+  if (state.cartArray.length > 0) {
+    const cartUl = tsQuerySelector<HTMLUListElement>(document, ".cart__ul");
+    cartUl.innerHTML = productList;
+  } else {
+    getEmptyCart();
+  }
+  searchCartParam(Query.page)
+}
+export function totalCountProduct() {
+  const summaryProductsSpan = tsQuerySelector(
+    document,
+    ".summary-products__span"
+  );
+  let counter = state.cartArray.reduce(
+    (acc: number, item) => acc + Number(item.count),
+    0
+  );
+  summaryProductsSpan.innerHTML = `${counter}`;
+}
+export function totalPrice() {
+  const summaryTotalSpan = tsQuerySelector(document, ".summary-total__span");
+  let counter = state.cartArray.reduce(
+    (acc: number, item) => acc + Number(item.count! * item.price!),
+    0
+  );
+  summaryTotalSpan.innerHTML = `${counter}`;
 }
 
 export function decrementProduct(e: Event) {
@@ -253,10 +296,13 @@ export function decrementProduct(e: Event) {
       }
     });
   }
-  changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
-  changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
+  totalPrice();
+  totalCountProduct();
   setCartTotal();
   crossOutTotalPrice();
+  getMaxPage();
+  getCurrentPage();
+  renderProductList();
 }
 
 export function incrementProduct(e: Event) {
@@ -277,15 +323,15 @@ export function incrementProduct(e: Event) {
     state.cartArray.find((item) => item.id === Number(target.id))?.price
   );
 
-  if (productCount?.count) {
+  if (productCount?.count && productCount?.count < productCount.stock!) {
     productCount.count += counterChange;
   }
 
   productAmount.textContent = String(productCount?.count);
   productPrice.innerHTML = `${findProductId * Number(productCount?.count)}`;
 
-  changeTotal(AmountChangeTotal.classElement, AmountChangeTotal.classResult);
-  changeTotal(PriceChangeTotal.classElement, PriceChangeTotal.classResult);
+  totalPrice();
+  totalCountProduct();
   setCartTotal();
   crossOutTotalPrice();
 }

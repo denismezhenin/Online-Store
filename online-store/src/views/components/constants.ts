@@ -19,6 +19,7 @@ export interface IState {
   promoCodeNY: boolean;
   items: number;
   cartPage: number;
+  maxCartPage: number;
 }
 export enum AmountChangeTotal {
   classElement = "product-amount",
@@ -81,7 +82,9 @@ export enum Query {
   priceAcc = 'price-high',
   priceDesc = 'price-low',
   ratingAcc = 'rating-high',
-  ratingDesc = 'rating-low'
+  ratingDesc = 'rating-low',
+  limit = 'limit',
+  page = 'page'
 }
 export interface ProductJSON {
   'products': Array<IProduct>
