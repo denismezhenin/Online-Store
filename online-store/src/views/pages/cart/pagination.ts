@@ -1,6 +1,7 @@
 import { Query } from "../../components/constants";
 import { tsQuerySelector } from "../../components/helpers";
 import { setQueryParam } from "../main/queryParams";
+
 import { state } from "./../../components/state";
 import { renderProductList } from "./cartPage";
 
@@ -29,7 +30,6 @@ export function setInputPage(e: InputEventInit) {
     }
   }
   state.items = Number(titleItemsInput.value);
-  // console.log(state.items)
   state.cartPage = 1;
   getMaxPage();
   getCurrentPage();
@@ -60,7 +60,6 @@ export function getProductNumPage(e: Event) {
   setCatQueryParams('page', String(state.cartPage))
   getCurrentPage();
   renderProductList()
-    // searchCartParam(Query.page)
 
 }
 
@@ -76,8 +75,6 @@ export function getCurrentPage() {
   } else {
     productNumPage.innerText = String(state.cartPage);
   }
-  // searchCartParam(Query.page)
-  // console.log(searchCartParam(Query.page))
 }
 
 const setCatQueryParams = (category: string, value: string):void => {
