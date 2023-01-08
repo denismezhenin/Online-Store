@@ -6,10 +6,9 @@ let Navbar = {
                 <div class="header__wrapper">
                      <div class="navbar-menu " >
                         <div class="navbar-start">
-                            <a class="navbar-item" href="/#">
-                                Home
+                            <a class="navbar" href="/#">
+                            🛍 Online Store
                             </a>
-                            
                         </div>
                     </div>
                     <p class="header-total-price">

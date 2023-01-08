@@ -1,5 +1,35 @@
-#footer_container {
-flex: 0 0 auto;
-display: flex;
-justify-content: center;
+.footer {
+  min-height: 5vh;
+  width: 100%;
+  background-color: #181a1c;
+  color: orange;
+  border-top: 2px solid orange;
+  border-radius: 1.5rem 1.5rem 0 0;
+  font-size: 70%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+.container__footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+}
+.github-link {
+  font-size: 1.5vw;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: orange;
+}
+.year {
+  font-size: 2vw;
+}
+.logo-img {
+  width: 10vw;
+  object-fit: contain;
 }
