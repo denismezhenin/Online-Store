@@ -1,4 +1,7 @@
+import { Query } from "../../components/constants";
 import { tsQuerySelector } from "../../components/helpers";
+import { setQueryParam } from "../main/queryParams";
+
 import { state } from "./../../components/state";
 import { renderProductList } from "./cartPage";
 
@@ -30,6 +33,12 @@ export function setInputPage(e: InputEventInit) {
   state.cartPage = 1;
   getMaxPage();
   getCurrentPage();
+  if (titleItemsInput.value === "") {
+    setCatQueryParams('limit', '0');
+  } else {
+    setCatQueryParams('limit', titleItemsInput.value);
+  }
+  renderProductList()
 }
 
 export function getProductNumPage(e: Event) {
@@ -48,7 +57,10 @@ export function getProductNumPage(e: Event) {
     state.cartPage++;
   }
   getMaxPage();
+  setCatQueryParams('page', String(state.cartPage))
   getCurrentPage();
+  renderProductList()
+
 }
 
 export function getCurrentPage() {
@@ -63,5 +75,16 @@ export function getCurrentPage() {
   } else {
     productNumPage.innerText = String(state.cartPage);
   }
-  renderProductList();
+}
+
+const setCatQueryParams = (category: string, value: string):void => {
+  const searchParams = new URLSearchParams((`${location.hash}`).slice(6));
+  searchParams.set(category, value);
+  location.hash = '/cart?' + searchParams.toString();
+}
+
+export const searchCartParam = (value: string) => {
+  const searchParams = new URLSearchParams((`${location.hash}`).slice(6));
+  // console.log(searchParams.get('page'))
+return searchParams.get(value)
 }

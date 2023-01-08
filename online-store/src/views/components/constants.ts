@@ -82,7 +82,9 @@ export enum Query {
   priceAcc = 'price-high',
   priceDesc = 'price-low',
   ratingAcc = 'rating-high',
-  ratingDesc = 'rating-low'
+  ratingDesc = 'rating-low',
+  limit = 'limit',
+  page = 'page'
 }
 export interface ProductJSON {
   'products': Array<IProduct>

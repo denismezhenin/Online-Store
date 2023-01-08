@@ -1,4 +1,4 @@
-import { CardLogo } from "./../../components/constants";
+import { CardLogo, Query } from "./../../components/constants";
 import { ProductCartChilds, counterChange } from "../../components/constants";
 import { setCartTotal } from "../../components/state";
 import productItems from "../../components/productJSON";
@@ -10,7 +10,8 @@ import {
   PriceChangeTotal,
 } from "../../components/constants";
 import { crossOutTotalPrice } from "./helperSummary";
-import { getCurrentPage, getMaxPage } from "./pagination";
+import { getCurrentPage, getMaxPage, searchCartParam } from "./pagination";
+
 
 export function getCartHtml() {
   const array = productItems.products;
@@ -168,13 +169,29 @@ export function removeModal(event: Event): void {
   }
 }
 export function getProductList() {
+  let items: number = 0;
+  let page: number;
+  if(searchCartParam(Query.limit) !== null) {
+    state.items = Number(searchCartParam(Query.limit));
+    getMaxPage();
+    getCurrentPage();
+    items = Number(searchCartParam(Query.limit))
+  } else {
+    items = state.items
+  }
   let copy = state.cartArray;
-  if (state.items > 0) {
+  if (items > 0 && !searchCartParam(Query.page)) {
     copy = copy.slice(
-      state.items * (state.cartPage - 1),
-      state.items * state.cartPage
+      (items) * (state.cartPage - 1),
+      (items) * state.cartPage
     );
   }
+  if (searchCartParam(Query.page) && items > 0) {
+    copy = copy.slice(
+      (items) * (Number(searchCartParam(Query.page)) - 1),
+      (items) * Number(searchCartParam(Query.page))
+    );
+  };
   return copy
     .map((item, index) => {
       return `
@@ -211,7 +228,6 @@ export function getProductList() {
     .join();
 }
 export function renderProductList() {
-  
   let productList = getProductList();
   if (state.cartArray.length > 0) {
     const cartUl = tsQuerySelector<HTMLUListElement>(document, ".cart__ul");
@@ -219,6 +235,7 @@ export function renderProductList() {
   } else {
     getEmptyCart();
   }
+  searchCartParam(Query.page)
 }
 export function totalCountProduct() {
   const summaryProductsSpan = tsQuerySelector(
