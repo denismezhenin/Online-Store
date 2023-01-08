@@ -225,7 +225,7 @@ export function getProductList() {
   </li>
     `;
     })
-    .join();
+    .join('');
 }
 export function renderProductList() {
   let productList = getProductList();
