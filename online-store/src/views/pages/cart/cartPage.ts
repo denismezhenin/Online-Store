@@ -12,6 +12,7 @@ import {
 import { crossOutTotalPrice } from "./helperSummary";
 import { getCurrentPage, getMaxPage, searchCartParam } from "./pagination";
 
+
 export function getCartHtml() {
   const array = productItems.products;
   let target = Utils.parseRequestURL();
@@ -227,7 +228,6 @@ export function getProductList() {
     .join();
 }
 export function renderProductList() {
-
   let productList = getProductList();
   if (state.cartArray.length > 0) {
     const cartUl = tsQuerySelector<HTMLUListElement>(document, ".cart__ul");
