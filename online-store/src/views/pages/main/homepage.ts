@@ -1,8 +1,9 @@
 const homePageHtml = `
 <aside class="filters">
+<div class="filters-wrapper">
 <div class="filters-buttons">
-<button class="button__reset">Reset Filters</button>
-<button class="button__copy">Copy Link</button>
+<button class="button__reset button button-transpired">Reset Filters</button>
+<button class="button__copy button button-transpired">Copy Link</button>
 </div>
 <div class="filters-selections selections category">
   <div class="selections-name">
@@ -20,26 +21,31 @@ const homePageHtml = `
   <div class="selections-name">
     <span class="">Price</span>
   </div>
-  <div class="range-values">
-    <span class="range-values__min"></span>
-    <span class="range-values__max"></span>
-  </div>
-  <div class="range-sliders">
-    <input class="min-value price__min-value range-sliders__input" type="range">
-    <input class="max-value price__max-value range-sliders__input" type="range">
+  <div class="range-wrapper">
+    <div class="range-values">
+      <span class="range-values__min"></span>
+      <span class="range-values__max"></span>
+    </div>
+    <div class="range-sliders">
+      <input class="min-value price__min-value range-sliders__input" type="range">
+      <input class="max-value price__max-value range-sliders__input" type="range">
+    </div>
   </div>
 </div>
 <div class="filters-range range stock">
   <div class="selections-name">
     <span class="">Stock</span>
   </div>
-  <div class="range-values">
-    <span class="range-values__min"></span>
-    <span class="range-values__max"></span>
-  </div>
-  <div class="range-sliders">
-    <input class="min-value stock__min-value range-sliders__input" type="range">
-    <input class="max-value stock__max-value range-sliders__input" type="range">
+  <div class="range-wrapper">
+    <div class="range-values">
+      <span class="range-values__min"></span>
+      <span class="range-values__max"></span>
+    </div>
+    <div class="range-sliders">
+      <input class="min-value stock__min-value range-sliders__input" type="range">
+      <input class="max-value stock__max-value range-sliders__input" type="range">
+    </div>
+    </div>
   </div>
 </div>
 </aside>

@@ -1,5 +1,10 @@
 #header_container {
   flex: 0 0 auto;
+  width: 100%;
+  margin-bottom: 40px;
+  background: #A54336;
+  box-shadow: 5px 16px 36px #3A1E17;
+  border-radius: 0px 0px 0px 262px;
 }
 
 .header__wrapper {
@@ -7,8 +12,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 25px 0;
-
   // @include mobile {
   //   margin: 5px 0px;
   // }
