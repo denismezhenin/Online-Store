@@ -1,23 +1,17 @@
-import { CardLogo, Query } from "./../../components/constants";
-import { ProductCartChilds, counterChange } from "../../components/constants";
-import { setCartTotal } from "../../components/state";
-import productItems from "../../components/productJSON";
-import Utils from "../../../services/Utils";
-import { state } from "../../components/state";
-import { tsQuerySelector, tsQuerySelectorAll } from "../../components/helpers";
+/* eslint-disable import/no-cycle */
 import {
-  AmountChangeTotal,
-  PriceChangeTotal,
-} from "../../components/constants";
-import { crossOutTotalPrice } from "./helperSummary";
-import { getCurrentPage, getMaxPage, searchCartParam } from "./pagination";
+  CardLogo,
+  Query,
+  ProductCartChilds,
+  counterChange,
+} from '../../components/constants';
+import { setCartTotal, state } from '../../components/state';
 
+import { tsQuerySelector } from '../../components/helpers';
+import { crossOutTotalPrice } from './helperSummary';
+import { getCurrentPage, getMaxPage, searchCartParam } from './pagination';
 
 export function getCartHtml() {
-  const array = productItems.products;
-  let target = Utils.parseRequestURL();
-
-  const targetObject = array.find((item) => item.id === Number(target.id));
   return `
     <div class="cart__container">
     <div class="product-in-cart__container">
@@ -155,46 +149,46 @@ export function getCartHtml() {
   </div>
     `;
 }
-
+export function getEmptyCart() {
+  const cartContainer = tsQuerySelector(document, '.cart__container');
+  cartContainer.innerHTML = 'Cart is empty';
+}
 export function getModal(): void {
-  const modal = tsQuerySelector(document, ".modal");
-  modal.classList.remove("closed-modal");
+  const modal = tsQuerySelector(document, '.modal');
+  modal.classList.remove('closed-modal');
 }
 export function removeModal(event: Event): void {
-  const modal = tsQuerySelector(document, ".modal");
+  const modal = tsQuerySelector(document, '.modal');
   if (!(event.target instanceof HTMLElement)) return;
-  let target = event.target;
-  if (target.classList.contains("modal")) {
-    modal.classList.add("closed-modal");
+  const { target } = event;
+  if (target.classList.contains('modal')) {
+    modal.classList.add('closed-modal');
   }
 }
 export function getProductList() {
-  let items: number = 0;
-  let page: number;
-  if(searchCartParam(Query.limit) !== null) {
+  let items = 0;
+
+  if (searchCartParam(Query.limit) !== null) {
     state.items = Number(searchCartParam(Query.limit));
     getMaxPage();
     getCurrentPage();
-    items = Number(searchCartParam(Query.limit))
+    items = Number(searchCartParam(Query.limit));
   } else {
-    items = state.items
+    items = state.items;
   }
   let copy = state.cartArray;
   if (items > 0 && !searchCartParam(Query.page)) {
-    copy = copy.slice(
-      (items) * (state.cartPage - 1),
-      (items) * state.cartPage
-    );
+    copy = copy.slice(items * (state.cartPage - 1), items * state.cartPage);
   }
   if (searchCartParam(Query.page) && items > 0) {
     copy = copy.slice(
-      (items) * (Number(searchCartParam(Query.page)) - 1),
-      (items) * Number(searchCartParam(Query.page))
+      items * (Number(searchCartParam(Query.page)) - 1),
+      items * Number(searchCartParam(Query.page))
     );
-  };
+  }
   return copy
-    .map((item, index) => {
-      return `
+    .map(
+      (item) => `
     <li class="cart-product-description" id=${item.id} >
     <p class="product-number-items">${
       state.cartArray.findIndex((el) => el.id === item.id) + 1
@@ -219,38 +213,38 @@ export function getProductList() {
         <button class="product-amount__button plus" id=${item.id}>+</button>
       </div>
       <p class="amount-price-control"><span>$</span><span class="amount-price__span">${
-        item.price && item.count ? item.price * item.count : ""
+        item.price && item.count ? item.price * item.count : ''
       }</span></p>
     </div>
   </li>
-    `;
-    })
+    `
+    )
     .join('');
 }
 export function renderProductList() {
-  let productList = getProductList();
+  const productList = getProductList();
   if (state.cartArray.length > 0) {
-    const cartUl = tsQuerySelector<HTMLUListElement>(document, ".cart__ul");
+    const cartUl = tsQuerySelector<HTMLUListElement>(document, '.cart__ul');
     cartUl.innerHTML = productList;
   } else {
     getEmptyCart();
   }
-  searchCartParam(Query.page)
+  searchCartParam(Query.page);
 }
 export function totalCountProduct() {
   const summaryProductsSpan = tsQuerySelector(
     document,
-    ".summary-products__span"
+    '.summary-products__span'
   );
-  let counter = state.cartArray.reduce(
+  const counter = state.cartArray.reduce(
     (acc: number, item) => acc + Number(item.count),
     0
   );
   summaryProductsSpan.innerHTML = `${counter}`;
 }
 export function totalPrice() {
-  const summaryTotalSpan = tsQuerySelector(document, ".summary-total__span");
-  let counter = state.cartArray.reduce(
+  const summaryTotalSpan = tsQuerySelector(document, '.summary-total__span');
+  const counter = state.cartArray.reduce(
     (acc: number, item) => acc + Number(item.count! * item.price!),
     0
   );
@@ -259,7 +253,7 @@ export function totalPrice() {
 
 export function decrementProduct(e: Event) {
   if (!(e.target instanceof HTMLElement)) return;
-  const target = e.target;
+  const { target } = e;
 
   const productAmount = target.parentNode?.childNodes[
     ProductCartChilds.amount
@@ -268,12 +262,12 @@ export function decrementProduct(e: Event) {
     ProductCartChilds.priceParent
   ].childNodes[ProductCartChilds.price] as HTMLElement;
   const cartProductDescription = document.querySelectorAll(
-    ".cart-product-description"
+    '.cart-product-description'
   );
-  let productCount = state.cartArray.find(
+  const productCount = state.cartArray.find(
     (item) => item.id === Number(target.id)
   );
-  let findProductId = Number(
+  const findProductId = Number(
     state.cartArray.find((item) => item.id === Number(target.id))?.price
   );
 
@@ -307,7 +301,7 @@ export function decrementProduct(e: Event) {
 
 export function incrementProduct(e: Event) {
   if (!(e.target instanceof HTMLElement)) return;
-  const target = e.target;
+  const { target } = e;
 
   const productAmount = target.parentNode?.childNodes[
     ProductCartChilds.amount
@@ -316,10 +310,10 @@ export function incrementProduct(e: Event) {
     ProductCartChilds.priceParent
   ].childNodes[ProductCartChilds.price] as HTMLElement;
 
-  let productCount = state.cartArray.find(
+  const productCount = state.cartArray.find(
     (item) => item.id === Number(target.id)
   );
-  let findProductId = Number(
+  const findProductId = Number(
     state.cartArray.find((item) => item.id === Number(target.id))?.price
   );
 
@@ -334,9 +328,4 @@ export function incrementProduct(e: Event) {
   totalCountProduct();
   setCartTotal();
   crossOutTotalPrice();
-}
-
-export function getEmptyCart() {
-  const cartContainer = tsQuerySelector(document, ".cart__container");
-  cartContainer.innerHTML = "Cart is empty";
 }

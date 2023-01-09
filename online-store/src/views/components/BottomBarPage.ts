@@ -1,5 +1,5 @@
-export function getBottomBarHtml(){
-    return `
+function getBottomBarHtml() {
+  return `
     <footer class="footer">
         <ul class="container__footer">
           <li class="github">
@@ -13,12 +13,13 @@ export function getBottomBarHtml(){
           <li>
             <p class="year">2023</p>
           </li>
-          <li class="logo-rs">
+          <li class="logo">
             <a href="https://rs.school/"
               ><img class="logo-img" src="logo-rs.svg" alt="logo" 
             /></a>
           </li>
         </ul>
       </footer>
-    `
+    `;
 }
+export default getBottomBarHtml 
