@@ -29,15 +29,28 @@ const createProductItem = async (item: IProduct) => {
   li.classList.add('list-item');
   li.classList.add(`item`);
   cartButton.textContent = 'Add to card';
-  cartButton.classList.add('cart__button', 'item__button', 'buttons', 'button', 'button-light');
+  cartButton.classList.add(
+    'cart__button',
+    'item__button',
+    'buttons',
+    'button',
+    'button-light'
+  );
   detailsButton.textContent = 'Details';
-  detailsButton.classList.add('details__button', 'item__button', 'buttons', 'button', 'button-light');
+  detailsButton.classList.add(
+    'details__button',
+    'item__button',
+    'buttons',
+    'button',
+    'button-light'
+  );
   dropItemButton.textContent = 'Drop to cart';
   dropItemButton.classList.add(
     'drop-item__button',
     'item__button',
     'hide',
-    'buttons'
+    'buttons',
+    'button-light'
   );
   imageWrapper.classList.add('item__image-wrapper', 'image-wrapper');
   const imageUrl = await item.thumbnail;
