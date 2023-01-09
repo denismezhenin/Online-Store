@@ -8,9 +8,9 @@ const Utils = {
   //  Parse a url and break it into resource, id and verb
   // --------------------------------
   parseRequestURL: () => {
-    let url = location.hash.slice(1).toLowerCase() || "/";
-    let r = url.split("/");
-    let request: Irequest = {
+    const url = location.hash.slice(1).toLowerCase() || "/";
+    const r = url.split("/");
+    const request: Irequest = {
       resource: null,
       id: null,
       verb: null,
@@ -25,9 +25,7 @@ const Utils = {
   // --------------------------------
   //  Simple sleep implementation
   // --------------------------------
-  sleep: (ms:any) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  },
+  sleep: (ms:any) => new Promise((resolve) => setTimeout(resolve, ms)),
 };
 
 export default Utils;

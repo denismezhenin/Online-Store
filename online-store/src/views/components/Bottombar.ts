@@ -1,14 +1,11 @@
-import { getBottomBarHtml } from "./BottomBarPage";
+import getBottomBarHtml from './BottomBarPage';
 
-let Bottombar = {
-    render: async () => {
-        let view =  getBottomBarHtml()
-        return view
-    },
-    after_render: async () => { 
-        
-    }
-
-}
+const Bottombar = {
+  render: async () => {
+    const view = getBottomBarHtml();
+    return view;
+  },
+     after_render: async () => {},
+};
 
 export default Bottombar;

@@ -1,40 +1,34 @@
-import { stat } from "fs";
-import {
-  AmountChangeTotal,
-  PriceChangeTotal,
-} from "../../components/constants";
-import { tsQuerySelector } from "../../components/helpers";
-import { setCartTotal, state } from "../../components/state";
+import { tsQuerySelector } from '../../components/helpers';
+import { setCartTotal, state } from '../../components/state';
 import {
   decrementProduct,
   getCartHtml,
   getEmptyCart,
   getModal,
-  getProductList,
   incrementProduct,
   removeModal,
   renderProductList,
   totalCountProduct,
   totalPrice,
-} from "./cartPage";
+} from './cartPage';
 
 import {
   inputCardCvv,
   inputCardNumber,
   inputCardValid,
   submitCard,
-} from "./helperOrderModal";
-import { addApplyCode, checkPromoCode, removePromoCode } from "./helperSummary";
+} from './helperOrderModal';
+import { addApplyCode, checkPromoCode, removePromoCode } from './helperSummary';
 import {
   getCurrentPage,
   getMaxPage,
   getProductNumPage,
   setInputPage,
-} from "./pagination";
+} from './pagination';
 
-let Cart = {
+const Cart = {
   render: async () => {
-    let view = getCartHtml();
+    const view = getCartHtml();
     return view;
   },
 
@@ -47,21 +41,21 @@ let Cart = {
     if (state.cartArray.length > 0) {
       const summaryBuyButton = tsQuerySelector(
         document,
-        ".summary-buy__button"
+        '.summary-buy__button'
       );
-      summaryBuyButton.addEventListener("click", getModal);
-      const modal = tsQuerySelector(document, ".modal");
-      modal.addEventListener("click", removeModal);
-      const cartUl = tsQuerySelector<HTMLUListElement>(document, ".cart__ul");
+      summaryBuyButton.addEventListener('click', getModal);
+      const modal = tsQuerySelector(document, '.modal');
+      modal.addEventListener('click', removeModal);
+      const cartUl = tsQuerySelector<HTMLUListElement>(document, '.cart__ul');
 
-      cartUl.addEventListener("click", (e) => {
+      cartUl.addEventListener('click', (e) => {
         if (!(e.target instanceof HTMLElement)) return;
-        const target = e.target;
+        const { target } = e;
 
-        if (target.classList.contains("minus")) {
+        if (target.classList.contains('minus')) {
           decrementProduct(e);
         }
-        if (target.classList.contains("plus")) {
+        if (target.classList.contains('plus')) {
           incrementProduct(e);
         }
         if (state.cartArray.length === 0) {
@@ -72,75 +66,75 @@ let Cart = {
       totalCountProduct();
       const summaryDiscountInput = tsQuerySelector<HTMLInputElement>(
         document,
-        ".summary-discount__input"
+        '.summary-discount__input'
       );
 
-      summaryDiscountInput.addEventListener("input", checkPromoCode);
+      summaryDiscountInput.addEventListener('input', checkPromoCode);
 
       const promoCodeContainer = tsQuerySelector(
         document,
-        ".promo-code__container"
+        '.promo-code__container'
       );
 
-      promoCodeContainer?.addEventListener("click", (e) => {
+      promoCodeContainer?.addEventListener('click', (e) => {
         if (!(e.target instanceof HTMLElement)) return;
-        let target = e.target;
-        if (target.classList.contains("rs-add__button")) {
+        const { target } = e;
+        if (target.classList.contains('rs-add__button')) {
           state.promoCodeRS = true;
         }
-        if (target.classList.contains("ny-add__button")) {
+        if (target.classList.contains('ny-add__button')) {
           state.promoCodeNY = true;
         }
         addApplyCode();
         checkPromoCode();
       });
-      const apllyCode = tsQuerySelector(document, ".summary__container");
+      const apllyCode = tsQuerySelector(document, '.summary__container');
 
-      apllyCode?.addEventListener("click", (e) => {
+      apllyCode?.addEventListener('click', (e) => {
         if (!(e.target instanceof HTMLElement)) return;
-        let target = e.target;
+        const { target } = e;
 
-        if (target.classList.contains("rs-drop__button")) {
+        if (target.classList.contains('rs-drop__button')) {
           state.promoCodeRS = false;
-          removePromoCode(".rs-promo-code");
+          removePromoCode('.rs-promo-code');
         }
-        if (target.classList.contains("ny-drop__button")) {
+        if (target.classList.contains('ny-drop__button')) {
           state.promoCodeNY = false;
-          removePromoCode(".ny-promo-code");
+          removePromoCode('.ny-promo-code');
         }
       });
       const cardNumberInput = tsQuerySelector<HTMLInputElement>(
         document,
-        ".card-number__input"
+        '.card-number__input'
       );
-      cardNumberInput.addEventListener("input", inputCardNumber);
+      cardNumberInput.addEventListener('input', inputCardNumber);
 
       const cardValid = tsQuerySelector<HTMLInputElement>(
         document,
-        ".card-valid"
+        '.card-valid'
       );
-      cardValid.addEventListener("input", inputCardValid);
+      cardValid.addEventListener('input', inputCardValid);
 
-      const cvv = tsQuerySelector<HTMLInputElement>(document, ".cvv");
-      cvv.addEventListener("input", inputCardCvv);
+      const cvv = tsQuerySelector<HTMLInputElement>(document, '.cvv');
+      cvv.addEventListener('input', inputCardCvv);
 
       const confirmButton = tsQuerySelector<HTMLButtonElement>(
         document,
-        ".confirm__button"
+        '.confirm__button'
       );
-      confirmButton.addEventListener("click", submitCard);
+      confirmButton.addEventListener('click', submitCard);
 
       const titleItemsInput = tsQuerySelector<HTMLInputElement>(
         document,
-        ".title-items__input"
+        '.title-items__input'
       );
-      titleItemsInput.addEventListener("input", setInputPage);
+      titleItemsInput.addEventListener('input', setInputPage);
 
       const titlePage = tsQuerySelector<HTMLButtonElement>(
         document,
-        ".title-page"
+        '.title-page'
       );
-      titlePage.addEventListener("click", getProductNumPage);
+      titlePage.addEventListener('click', getProductNumPage);
     }
     renderProductList();
   },
