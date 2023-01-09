@@ -19,8 +19,7 @@
   padding: 0.3rem;
   align-items: center;
   justify-content: space-between;
-  background-color: #A54336;
-
+  background-color: #a54336;
 }
 .product-title__h2 {
   margin: 0;
@@ -37,7 +36,7 @@
   gap: 5px;
   p {
     margin: 0;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .title-items__input {
@@ -56,7 +55,7 @@
   gap: 5px;
   p {
     margin: 0;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .product-page__button {
@@ -76,11 +75,14 @@
   align-items: center;
 }
 .product-number-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
   width: 3%;
   height: auto;
   border-radius: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: $second-color-lighter;
 }
 .cart-product__image {
@@ -120,7 +122,7 @@
 }
 .product-description-title {
   margin: 0;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .line-span {
   width: 100%;
@@ -129,7 +131,7 @@
 }
 .product-decription-content {
   margin: 0;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 80%;
 }
 .stock-control,
@@ -157,7 +159,7 @@
   border: none;
   cursor: pointer;
   // border: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .summary__container {
   width: 29%;
@@ -175,7 +177,7 @@
   background-color: $second-color;
   padding: 0.3rem;
   // border-bottom: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .summary-description {
   display: flex;
@@ -184,18 +186,18 @@
 }
 .summary-products {
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 0;
   span {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .summary-total-price,
 .total-price-new {
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   span {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .summary-discount__input {
@@ -206,11 +208,11 @@
   background-color: $second-color-lighter;
   text-align: center;
   outline: none;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 100%;
 
   &::placeholder {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .promo-code {
@@ -219,11 +221,11 @@
 }
 .promo {
   font-size: 0.8rem;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .promo-add__button {
   height: 1.5em;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: $second-color-lighter;
   // border: 1px solid #FFFFFF;
   border-radius: 0.3rem;
@@ -244,7 +246,7 @@
 }
 .aplly-code__title {
   margin: 0;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   background-color: $second-color-lighter;
   // border-bottom: 1px solid #FFFFFF;
@@ -265,9 +267,10 @@
 .rs-drop__button {
   height: fit-content;
   padding: 0.5%;
-  color: #FFFFFF;
-  background: #B3564A;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px -9px 16px rgba(159, 40, 24, 0.52);
+  color: #ffffff;
+  background: #b3564a;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    inset 0px -9px 16px rgba(159, 40, 24, 0.52);
   border-radius: 50px;
 
   cursor: pointer;
@@ -305,7 +308,7 @@
   background-color: $second-color-lighter;
   z-index: 99;
   position: absolute;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
 }
 .card-form {
@@ -338,7 +341,13 @@
   &::placeholder {
     color: $second-color;
   }
-
+}
+.error-message {
+  font-size: 70%;
+  color: rgb(246, 241, 241);
+  width: 50%;
+  background-color: rgba(229, 53, 53, 0.711);
+  border-radius: 5%;
 }
 .person-details {
   width: 90%;
@@ -347,7 +356,7 @@
     text-align: center;
     margin: 0 auto;
     font-size: 90%;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .card-details {
@@ -358,7 +367,7 @@
 }
 .card-title {
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 90%;
 }
 .card-data {
@@ -408,7 +417,6 @@
   &::placeholder {
     color: $second-color;
   }
-
 }
 .card-data-other {
   display: flex;
@@ -422,7 +430,7 @@
   justify-content: center;
   align-items: center;
   font-size: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .card-cvv-data {
   display: flex;
@@ -433,7 +441,7 @@
   justify-content: center;
   align-items: center;
   font-size: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .card-valid {
   background: rgb(233, 233, 202);
@@ -457,7 +465,6 @@
   &::placeholder {
     color: $second-color;
   }
-  
 }
 .cvv {
   background: rgb(233, 233, 202);
@@ -496,7 +503,7 @@
   cursor: pointer;
   display: block;
   margin: 5% auto;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .closed-modal {
   display: none;
