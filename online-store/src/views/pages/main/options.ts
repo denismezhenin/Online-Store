@@ -22,9 +22,8 @@ const addOptions = (
     const input: HTMLInputElement = document.createElement('input');
     const label: HTMLLabelElement = document.createElement('label');
     const viewCount: HTMLElement = document.createElement('span');
-    viewCount.classList.add('selections-variants__count');
+    label.classList.add('selections-variants__name')
     li.classList.add('selections-variants__item');
-
     if (typeof value === 'string') {
       input.id = value.toLocaleLowerCase();
       label.setAttribute('for', value.toLocaleLowerCase());
