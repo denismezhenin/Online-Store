@@ -20,7 +20,6 @@
   padding: 0.3rem;
   align-items: center;
   background-color: #A54336;
-
 }
 .product-title__h2 {
   margin: 0;
@@ -37,7 +36,7 @@
   gap: 5px;
   p {
     margin: 0;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .title-items__input {
@@ -56,7 +55,7 @@
   gap: 5px;
   p {
     margin: 0;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .product-page__button {
@@ -81,7 +80,7 @@
   width: 3%;
   height: auto;
   border-radius: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: $second-color-lighter;
 }
 .cart-product__image {
@@ -121,7 +120,7 @@
 }
 .product-description-title {
   margin: 0;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .line-span {
   width: 100%;
@@ -157,7 +156,6 @@
   font-size: 150%;
   border: none;
   cursor: pointer;
-  color: #FFFFFF;
 }
 .summary__container {
   width: 29%;
@@ -182,18 +180,18 @@
 }
 .summary-products {
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   margin-bottom: 0;
   span {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .summary-total-price,
 .total-price-new {
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   span {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .summary-discount__input {
@@ -203,11 +201,11 @@
   background-color: $second-color-lighter;
   text-align: center;
   outline: none;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 100%;
 
   &::placeholder {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .promo-code {
@@ -216,11 +214,11 @@
 }
 .promo {
   font-size: 0.8rem;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .promo-add__button {
   height: 1.5em;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: $second-color-lighter;
   border-radius: 0.3rem;
   cursor: pointer;
@@ -240,7 +238,7 @@
 }
 .aplly-code__title {
   margin: 0;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   background-color: $second-color-lighter;
 }
@@ -259,9 +257,10 @@
 .rs-drop__button {
   height: fit-content;
   padding: 0.5%;
-  color: #FFFFFF;
-  background: #B3564A;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px -9px 16px rgba(159, 40, 24, 0.52);
+  color: #ffffff;
+  background: #b3564a;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    inset 0px -9px 16px rgba(159, 40, 24, 0.52);
   border-radius: 50px;
   cursor: pointer;
 }
@@ -324,7 +323,13 @@
   &::placeholder {
     color: $second-color;
   }
-
+}
+.error-message {
+  font-size: 70%;
+  color: rgb(246, 241, 241);
+  width: 50%;
+  background-color: rgba(229, 53, 53, 0.711);
+  border-radius: 5%;
 }
 .person-details {
   width: 90%;
@@ -333,7 +338,7 @@
     margin: 0 auto;
     text-align: center;
     font-size: 90%;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 .card-details {
@@ -344,7 +349,7 @@
 }
 .card-title {
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 90%;
 }
 .card-data {
@@ -392,7 +397,6 @@
   &::placeholder {
     color: $second-color;
   }
-
 }
 .card-data-other {
   display: flex;
@@ -406,7 +410,7 @@
   justify-content: center;
   align-items: center;
   font-size: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .card-cvv-data {
   display: flex;
@@ -417,7 +421,7 @@
   justify-content: center;
   align-items: center;
   font-size: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .card-valid {
   width: 60%;
@@ -440,7 +444,6 @@
   &::placeholder {
     color: $second-color;
   }
-  
 }
 .cvv {
   width: 60%;

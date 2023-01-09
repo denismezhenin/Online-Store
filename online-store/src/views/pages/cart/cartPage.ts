@@ -6,7 +6,6 @@ import {
   counterChange,
 } from '../../components/constants';
 import { setCartTotal, state } from '../../components/state';
-
 import { tsQuerySelector } from '../../components/helpers';
 import { crossOutTotalPrice } from './helperSummary';
 import { getCurrentPage, getMaxPage, searchCartParam } from './pagination';
@@ -56,7 +55,7 @@ export function getCartHtml() {
                 type="text"
                 placeholder="Name"
               />
-             <p class="error-message hide">error</p> 
+             <p class="error-message hide">Error: Enter 2 words min 3 letters</p> 
               </div>
               <div class="input__container">
               <input
@@ -66,7 +65,7 @@ export function getCartHtml() {
                 required
                 placeholder="Phone number"
               />
-              <p class="error-message hide">error</p> 
+              <p class="error-message hide">Error:Enter "+" and min 9 numbers</p> 
               </div>
               <div class="input__container">
               <input
@@ -76,7 +75,7 @@ export function getCartHtml() {
                 required
                 placeholder="Delivery address"
               />
-              <p class="error-message hide">error</p> 
+              <p class="error-message hide">Error: Enter 3 words min 5 letters</p> 
               </div>
               <div class="input__container">
               <input
@@ -85,7 +84,7 @@ export function getCartHtml() {
                 required
                 placeholder="E-mail"
               />
-              <p class="error-message hide">error</p> 
+              <p class="error-message hide">Error: Enter email</p> 
               </div>
             </div>
             <div class="card-details">
