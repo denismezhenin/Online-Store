@@ -3,7 +3,7 @@ let Error404 = {
     render : async () => {
         let view =  `
             <section class="section">
-                <h1> 404 Error </h1>
+                <h1> 404 Error. No such page</h1>
             </section>
         `
         return view

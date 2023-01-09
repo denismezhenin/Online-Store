@@ -22,10 +22,7 @@ const addOptions = (parent: string, option: string, data: Array<IProduct>):void 
     const label: HTMLLabelElement = document.createElement('label');
     const div: HTMLElement = document.createElement('div');
     const viewCount: HTMLElement = document.createElement('span');
-    // const totalCount: HTMLElement = document.createElement('span');
-    // div.classList.add('selections-variants__count-block')
     viewCount.classList.add('selections-variants__count');
-    // viewCount.classList.add(`${value}`)
     label.classList.add('selections-variants__name')
     li.classList.add('selections-variants__item');
 
@@ -34,21 +31,8 @@ const addOptions = (parent: string, option: string, data: Array<IProduct>):void 
       label.setAttribute('for', value.toLocaleLowerCase());
       label.textContent = value;
     }
-    
-    // totalCount.textContent = `${b[option]}`
-    // console.log(b[option])
-    // if(typeof value === 'string') {
-    //   totalCount.textContent = `${b[value]}`
-    // }
-    // console.log(b[value])
-    // console.log(option)
     input.type = 'checkbox';
     li.append(input, label, viewCount);
-    // li.append(label)
     ul.append(li);
-    // div.append(viewCount)
-    // div.append(totalCount)
-    // li.append(div)
-    // li.append(viewCount)
   }
 }
