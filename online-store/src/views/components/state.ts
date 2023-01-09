@@ -11,6 +11,7 @@ export let state: IState = {
   maxCartPage: 1
 }
 
+
 export function getLocalStorage() {
   if (localStorage.getItem("state")) {
     const temp = JSON.parse(String(localStorage.getItem("state")));
