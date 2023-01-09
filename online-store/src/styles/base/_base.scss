@@ -8,32 +8,11 @@
     max-width: $max-width;
     min-height: 100vh;
     margin: 0 auto;
-    background: #524340;
-    // background-image: url('../images/base.jpg');
-    // background-repeat: no-repeat;
-    // background-size: cover;
-    
-    // @include mobile {
-    //   // background-image: url('../images/mobile.jpg');
-    // }
-    
+    background: #524340;    
 }
 
 .wrapper {
     max-width: $max-width;
-    // width: 100%;
-    // margin: 0 auto;
     padding: 20px 40px;
-
-
-    // @include small-desktop {
-    //   padding: 0 30px;
-    // }
-    // @include tablet {
-    //   padding: 0 20px;
-    // }
-    // @include mobile {
-    //   padding: 0 10px;
-    // }
 }
 

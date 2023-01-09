@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex: 1 0 auto;
+  width: 100%;
   gap: 50px;
 }
 //filter start
@@ -14,7 +15,6 @@
   &-wrapper {
     padding: 5px 0 0;
     background: $second-color;
-    box-shadow: 5px 30px 36px #3A1E17;
     border-radius: 35px 35px 22px 22px;
   }
 
@@ -22,7 +22,6 @@
     display: flex;
     justify-content: space-evenly;
     padding: 5px;
-
   }
 }
 .selections {
@@ -38,11 +37,9 @@
   }
 
   &-variants {
-    padding: 10px 5px;
     margin: 0;
-    // display: flex;
+    padding: 10px 5px;
     list-style: none;
-    // flex-direction: column;
     background: $second-color-lighter;
     box-shadow: 0px -9px 22px rgba(159, 40, 24, 0.56);
     border-radius: 0px 22px;
@@ -58,9 +55,9 @@
     }
   
     &__count {
-      margin-left: auto;
       display: inline-block;
       justify-self: end;
+      margin-left: auto;
     }
   
   }
@@ -122,11 +119,11 @@ input[type="range"]::-webkit-slider-thumb:active {
 }
 
 input[type="range"] {
+  position: absolute;
   -webkit-appearance: none;
   appearance: none;
   height: 2px;
   width: 100%;
-  position: absolute;
   background-color: $second-color-darker;
   pointer-events: none;
 }
@@ -140,9 +137,6 @@ input[type="range"] {
 
 //product start
 .products {
-  // flex-basis: 50%;
-  // flex-shrink: 1;
-  // width: 100%;
   width: 75%;
   background-color: $second-color;
   border-radius: 35px 35px 35px 35px;
@@ -151,7 +145,6 @@ input[type="range"] {
     display: flex;
     justify-content: space-between;
     padding: 10px 20px 10px;
-
   }
 
   &-found {
@@ -192,11 +185,8 @@ input[type="range"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    // width: 25%;
-    // height: 200px;
     flex: 0 0 calc(50% - 20px);
     max-width: 320px;
-    // padding: 0px 5px 5px;
     overflow: hidden;
     background: $second-color-lighter;    
     box-shadow: 5px 8px 36px #3A1E17;
@@ -266,12 +256,12 @@ input[type="range"] {
     grid-template-rows: auto auto;
     width: 100%;
     height: 200px;
-    cursor: pointer;
     padding: 10px 5px;
     margin: 10px 0;
     background: $second-color-lighter;    
     box-shadow: 5px 8px 36px #3A1E17;
     border-radius: 35px 0px 35px 0px;
+    cursor: pointer;
 
     &__name {
       display: block;
@@ -334,17 +324,7 @@ input[type="range"] {
   border: 1px solid rgb(243, 242, 242);
 }
 
-// Keep always in the end
-.hide {
-  display: none;
-}
-
 //product ends
-
-//selections start
-
-
-//selections end
 
 //view modes
 
@@ -371,12 +351,12 @@ input[type="range"] {
 
   &:after {
     content: "";
-    background-color: #FFFFFF;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 2px;
+    background-color: #FFFFFF;
     border-radius: 2px;
   }
 
@@ -390,7 +370,6 @@ input[type="range"] {
     background-color: #FFFFFF;
     border-radius: 2px;
   }
-
 }
 
 .view__card {
@@ -417,3 +396,6 @@ input[type="range"] {
   }
 }
 
+.hide {
+  display: none;
+}
