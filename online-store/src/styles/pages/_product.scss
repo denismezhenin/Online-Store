@@ -1,19 +1,25 @@
 .product__container {
-  width: 80%;
+  width: 100%;
   height: fit-content;
+  background: $main-color
 }
 .product-path {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+
+  &__link {
+    color: #FFF;
+  }
+
   span {
-    color: orange;
+    color: $second-color;
   }
 }
 .product-about__container {
   width: 100%;
-  border: 2px solid orange;
+  // border: 2px solid orange;
   border-radius: 1rem;
   background: rgba(24, 26, 28, 0.5);
   overflow: hidden;
@@ -21,11 +27,11 @@
 .product-about__title {
   width: 100%;
   text-align: center;
-  background: #181a1c;
-  border-bottom: 1px solid orange;
+  background: #B2564A;
+  // border-bottom: 1px solid orange;
 }
 .about-product__title {
-  color: orange;
+  color: #FFF;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,13 +41,14 @@
 .description__container {
   display: flex;
   gap: 0.5rem;
+  padding: 10px;
 }
 .product-photo__container {
   display: flex;
 }
 .small-photo__img {
   width: 90%;
-  border: orange solid 1px;
+  // border: orange solid 1px;
   border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
@@ -77,20 +84,22 @@
 .info__container {
   width: 100%;
   margin: 1% auto;
-  border: 1px solid orange;
-  border-radius: 0.3rem;
+  background: #B2564A;
+  border-radius: 33px 33px 33px 33px;
   overflow: hidden;
   text-align: center;
 }
 .product-info__title {
   text-align: center;
   margin: 0;
-  background-color: #181a1c;
   padding: 0.7%;
-  color: orange;
+  color: #FFF;
+  background: #A54336;
 }
 .product-info__content {
   margin: 0;
+  padding: 3px;
+  color: #d2b06f;
 }
 .product-price__container {
   width: 20%;
@@ -101,16 +110,10 @@
   text-align: center;
 }
 .product-price__button {
-  font-size: 40%;
-  // display: block;
-  padding: 7% 0;
-  background: #9a3535;
-  color: wheat;
-  border: 2px solid orange;
-  border-radius: 0.3rem;
-  cursor: pointer;
   width: 100%;
+  padding: 7% 0;
   margin: 0.5rem auto;
+  font-size: 60%;
 }
 .product-price {
   width: 90%;

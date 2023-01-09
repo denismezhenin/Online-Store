@@ -31,8 +31,8 @@ export const setRangeValues = (priceMin: number, priceMax: number, quantityMin: 
   [maxText[0].textContent, maxText[1].textContent] = [`${priceMax}`, `${quantityMax}`];
   [(maxRange[0] as HTMLInputElement).value, (maxRange[1] as HTMLInputElement).value] = [`${pricesArray.indexOf(priceMax)}`, `${stockArray.indexOf(quantityMax)}`]
   }
-  fillSlider(rangeContainer[0], '#C6C6C6', '#25daa5')
-  fillSlider(rangeContainer[1], '#C6C6C6', '#25daa5')
+  fillSlider(rangeContainer[0], '#8C3024', '#FFFFFF')
+  fillSlider(rangeContainer[1], '#8C3024', '#FFFFFF')
 }
 
 export const pricesArray = getRangeValues(productItems, 'price')
@@ -52,7 +52,7 @@ const rangeAbs = (parent: Element, element:HTMLElement, rangeAtt: string, data: 
   const right = rangeInputs[1] as HTMLInputElement;
   [left.min, left.max] = (['0', (String(rangeValuesArray.length - 1))]);
   [right.min, right.max] = (['0', (String(rangeValuesArray.length - 1))]);
-  fillSlider(parent, '#C6C6C6', '#25daa5');
+  fillSlider(parent, '#8C3024', '#FFFFFF');
   element.addEventListener('input', (e: Event) => {  
     if (!(e.target instanceof HTMLInputElement)) return;
     const target = e.target;
@@ -63,7 +63,7 @@ const rangeAbs = (parent: Element, element:HTMLElement, rangeAtt: string, data: 
     }
     setQueryParam(`${rangeAtt}-min`, `${rangeValuesArray[(Number(left.value))]}`);
     setQueryParam(`${rangeAtt}-max`, `${rangeValuesArray[(Number(right.value))]}`);
-    fillSlider(parent, '#C6C6C6', '#25daa5');
+    fillSlider(parent, '#8C3024', '#FFFFFF');
   });
 };
 

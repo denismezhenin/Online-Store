@@ -26,6 +26,7 @@ const addOptions = (parent: string, option: string, data: Array<IProduct>):void 
     // div.classList.add('selections-variants__count-block')
     viewCount.classList.add('selections-variants__count');
     // viewCount.classList.add(`${value}`)
+    label.classList.add('selections-variants__name')
     li.classList.add('selections-variants__item');
 
     if (typeof value === 'string') {

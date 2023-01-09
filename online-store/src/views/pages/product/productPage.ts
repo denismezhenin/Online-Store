@@ -88,9 +88,9 @@ export function getProductHtml() {
           </div>
           <div class="product-price__container">
             <p class="product-price">$${targetObject?.price}</p>
-            <button class="product-price__button product__button add-cart__button">ADD TO CART</button>
-            <button class="product-price__button product__button drop-cart__button hide">DROP FROM CART</button>
-            <button class="product-price__button  buy-now__button" >BUY NOW</button>
+            <button class="product-price__button product__button add-cart__button button-second-colored button">ADD TO CART</button>
+            <button class="product-price__button product__button drop-cart__button hide button-second-colored button">DROP FROM CART</button>
+            <button class="product-price__button  buy-now__button button-second-colored button">BUY NOW</button>
           </div>
         </div>
       </div>

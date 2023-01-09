@@ -2,33 +2,92 @@
   position: relative;
   display: flex;
   flex: 1 0 auto;
+  gap: 50px;
 }
 //filter start
+
 .filters {
   flex-basis: 25%;
-  flex-shrink: 1;
+  flex-shrink: 2;
   max-width: 320px;
+
+  &-wrapper {
+    padding: 5px 0 0;
+    background: $second-color;
+    box-shadow: 5px 30px 36px #3A1E17;
+    border-radius: 35px 35px 22px 22px;
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
+
+  }
 }
 .selections {
   flex-grow: 1;
-  height: 200px;
+  height: 195px;
+  margin-bottom: 10px;
   overflow: auto;
+
+  &-name {
+    margin: 5px 0;
+    text-align: center;
+    color: #FFFFFF;
+  }
+
+  &-variants {
+    padding: 10px 5px;
+    margin: 0;
+    // display: flex;
+    list-style: none;
+    // flex-direction: column;
+    background: $second-color-lighter;
+    box-shadow: 0px -9px 22px rgba(159, 40, 24, 0.56);
+    border-radius: 0px 22px;
+
+    &__item {
+    display: flex;
+    justify-content: start;
+    color: #211f1f;
+    }
+
+    &__name {
+      margin-left: 5px;
+    }
+  
+    &__count {
+      margin-left: auto;
+      display: inline-block;
+      justify-self: end;
+    }
+  
+  }
 }
 
 .range {
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
+
+  &-wrapper {
+    padding: 4px 10px 16px;
+    background: $second-color-lighter;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px -9px 16px rgba(159, 40, 24, 0.52);
+    border-radius: 106px;
+  }
 }
 
-.sliders {
+.range-sliders {
   position: relative;
-  min-height: 50px;
 }
 
 .range-values {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 5px;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -68,7 +127,7 @@ input[type="range"] {
   height: 2px;
   width: 100%;
   position: absolute;
-  background-color: #c6c6c6;
+  background-color: $second-color-darker;
   pointer-events: none;
 }
 
@@ -81,13 +140,46 @@ input[type="range"] {
 
 //product start
 .products {
+  // flex-basis: 50%;
+  // flex-shrink: 1;
+  // width: 100%;
   width: 75%;
+  background-color: $second-color;
+  border-radius: 35px 35px 35px 35px;
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px 10px;
+
+  }
+
+  &-found {
+    color: #FFFFFF;
+  }
+
+  &-list {
+    margin: 0;
+    padding: 30px 0;
+    background: $main-lighter;
+    border-radius: 35px 0px 35px 35px;
+  }
 }
 
-.products-header {
-  display: flex;
-  justify-content: space-between;
+.product-select__options, .products-search__input {
+  color: #FFFFFF;
+  background: #BD6054;
+  box-shadow: 0px 4px 9px rgba(129, 41, 25, 0.6);
+  border-radius: 55px;
+  cursor: pointer;
+
+  &::placeholder {
+    text-align: center;
+    color: #FFFFFF;
+  }
 }
+
+
 
 .card-mode {
   display: flex;
@@ -99,17 +191,34 @@ input[type="range"] {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     // width: 25%;
     // height: 200px;
     flex: 0 0 calc(50% - 20px);
     max-width: 320px;
-    padding: 5px;
+    // padding: 0px 5px 5px;
     overflow: hidden;
-    border: 0.0625rem solid #dee1e7;
-    border-radius: 0.0625rem;
+    background: $second-color-lighter;    
+    box-shadow: 5px 8px 36px #3A1E17;
+    border-radius: 35px 0px 35px 0px;
     cursor: pointer;
+
+    &__name {
+      display: block;
+      width: 100%;
+      padding-top: 5px;
+      color: #FFFFFF;
+      text-align: center;
+      background: $second-color;
+    }
+    &__price {
+      display: block;
+      width: 100%;
+      color: #FFFFFF;
+      padding-bottom: 5px;
+      text-align: center;
+      background: $second-color;
+    }
 
     &__image-wrapper {
       position: relative;
@@ -129,11 +238,15 @@ input[type="range"] {
       display: flex;
       justify-content: space-around;
       width: 100%;
+      padding-bottom: 10px;
     }
 
     &__information {
       display: flex;
       flex-wrap: wrap;
+      padding: 5px;
+      height: 84px;
+      color: #211f1f;
       
       span {
         width: 50%;
@@ -154,17 +267,24 @@ input[type="range"] {
     width: 100%;
     height: 200px;
     cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 0;
+    background: $second-color-lighter;    
+    box-shadow: 5px 8px 36px #3A1E17;
+    border-radius: 35px 0px 35px 0px;
 
     &__name {
       display: block;
       grid-column: 2 / 3;
       grid-row: 1 / 2;
       height: 40%;
+      color: #FFFFFF;
     }
 
     &__price {
       grid-row: 1 / 3;
       grid-column: 3 / 4;
+      color: #FFFFFF;
     }
 
     &__image-wrapper {
@@ -200,29 +320,18 @@ input[type="range"] {
       
       .item__button {
         width: 100%;
+        margin: 0 auto;
+        padding-left: 2%;
+        padding-right: 2%;
+        font-size: 80%;
         white-space: nowrap;
       }
     }
   }
 }
 
-.item__button {
-  // display: block;
-  width: 20%;
-  margin: 0 auto;
-  padding-left: 2%;
-  padding-right: 2%;
-  background-color: #181a1c;
-  border: 1px solid orange;
-  border-radius: 0.3rem;
-  color: orange;
-  font-size: 80%;
-  cursor: pointer;
-  
-}
 .red-border {
-  box-shadow: 0 0 5px 2px #c45f07;
-  border: 1px solid rgb(235, 68, 68);
+  border: 1px solid rgb(243, 242, 242);
 }
 
 // Keep always in the end
@@ -233,17 +342,7 @@ input[type="range"] {
 //product ends
 
 //selections start
-.selections-variants {
 
-  // display: flex;
-  list-style: none;
-  // flex-direction: column;
-
-  &__count {
-    display: inline-block
-  }
-
-}
 
 //selections end
 
@@ -258,6 +357,7 @@ input[type="range"] {
   position: relative;
   width: 18px;
   height: 18px;
+  cursor: pointer;
 
   .view__list-line {
     position: absolute;
@@ -265,13 +365,13 @@ input[type="range"] {
     top: 0;
     width: 100%;
     height: 2px;
-    background-color: #000;	
+    background-color: #FFFFFF;	
     border-radius: 2px;
   }
 
   &:after {
     content: "";
-    background-color: #000;
+    background-color: #FFFFFF;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -287,7 +387,7 @@ input[type="range"] {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #000;
+    background-color: #FFFFFF;
     border-radius: 2px;
   }
 
@@ -301,6 +401,7 @@ input[type="range"] {
   width: 18px;
   height: 18px;
   font-size: 16px;
+  cursor: pointer;
 
   &-dot {
     display: inline-block;
@@ -311,8 +412,8 @@ input[type="range"] {
     font-size: 50%;
     border-radius: 100%;
     overflow: hidden;
-    color: #000;
-    background-color: #000;
+    color: #FFFFFF;
+    background-color: #FFFFFF;
   }
 }
 
