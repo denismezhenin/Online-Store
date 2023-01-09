@@ -46,7 +46,7 @@ export function getCartHtml() {
           <input type="text" class="summary-discount__input" placeholder="Enter promo code">
           <div class="promo-code__container"></div>
           <p class="promo-code-example">Promo for test: 'RS', 'NY'</p>
-          <button class="summary-buy__button">BUY NOW</button>
+          <button class="summary-buy__button button-second-colored">BUY NOW</button>
       </div>
     </div>
     <div class="modal closed-modal">
@@ -148,7 +148,7 @@ export function getCartHtml() {
             <p class="card-error-message number-message hide">Card number - error</p>
             <p class="card-error-message valid-message hide">Card valid - error</p>
             <p class="card-error-message cvv-message hide">Card CVV - error</p>
-            <button type="submit" class="confirm__button">CONFIRM</button>
+            <button type="submit" class="confirm__button button-second-colored">CONFIRM</button>
           </form>
         </div>
       </div>
