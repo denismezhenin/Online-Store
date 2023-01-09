@@ -13,7 +13,7 @@ export let state: IState = {
 
 export function getLocalStorage() {
   if (localStorage.getItem("state")) {
-    const temp = JSON.parse(String(localStorage.getItem("state")) );
+    const temp = JSON.parse(String(localStorage.getItem("state")));
     state = { ...temp };
   }
 }

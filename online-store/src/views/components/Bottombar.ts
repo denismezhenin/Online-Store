@@ -1,11 +1,8 @@
+import { getBottomBarHtml } from "./BottomBarPage";
+
 let Bottombar = {
     render: async () => {
-        let view =  /*html*/`
-        <footer class="footer">
-            footer
-        </footer>
-        
-        `
+        let view =  getBottomBarHtml()
         return view
     },
     after_render: async () => { 
