@@ -40,13 +40,13 @@
   }
 }
 .title-items__input {
-  width: 15px;
+  width: 40px;
   padding: 0.1rem;
   font-size: 140%;
   color: $second-color;
   background-color: $button-light;
   text-align: center;
-  border-radius: 0.2rem;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 .title-page {
@@ -64,6 +64,7 @@
   color: $second-color;
   background-color: $button-light;
   border-radius: 0.2rem;
+  border: 1px solid $second-color ;
   cursor: pointer;
 }
 
@@ -75,7 +76,9 @@
   align-items: center;
 }
 .product-number-items {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
   width: 3%;
   height: auto;
