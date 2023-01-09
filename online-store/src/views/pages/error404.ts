@@ -1,7 +1,7 @@
-let Error404 = {
+const Error404 = {
 
     render : async () => {
-        let view =  `
+        const view =  `
             <section class="section">
                 <h1> 404 Error. No such page</h1>
             </section>

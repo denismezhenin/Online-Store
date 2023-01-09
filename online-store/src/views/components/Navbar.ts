@@ -1,8 +1,6 @@
-import { state } from "./state";
-
-let Navbar = {
-    render: async () => {
-        let view = `
+const Navbar = {
+  render: async () => {
+    const view = `
                 <div class="header__wrapper">
                      <div class="navbar-menu " >
                         <div class="navbar-start">
@@ -22,9 +20,9 @@ let Navbar = {
                     </div>
                 </div>     
         `;
-        return view;
-    },
-    after_render: async () => { },
+    return view;
+  },
+  after_render: async () => {},
 };
 
 export default Navbar;

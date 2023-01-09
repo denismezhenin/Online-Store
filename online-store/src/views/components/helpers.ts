@@ -1,4 +1,4 @@
-import { state } from "./state";
+
 
 export function tsQuerySelector<T extends HTMLElement>(parent: Element | Document, selector: string): T {
   const element = parent.querySelector<T>(selector);
@@ -16,10 +16,7 @@ export function tsQuerySelectorAll(parent: Element | Document, selector: string)
   return element;
 }
 
-function setLocalStorage() {
-  localStorage.setItem("state", JSON.stringify(state));
-}
-window.addEventListener("beforeunload", setLocalStorage);
+
 
 
 

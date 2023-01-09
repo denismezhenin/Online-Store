@@ -1,18 +1,23 @@
-import { tsQuerySelector } from "../../components/helpers";
+/* eslint-disable consistent-return */
+/* eslint-disable no-return-assign */
+import { tsQuerySelector } from '../../components/helpers';
 import { setQueryParam } from './queryParams';
-import productItems from "../../components/productJSON";
-import { searchItems } from "./search";
-import { Query } from "../../components/constants";
 
-export const setSearch = () => {
-  const inputSearch = tsQuerySelector<HTMLInputElement>(document, ".products-search__input");
+import { Query } from '../../components/constants';
 
-  inputSearch.addEventListener("input", () => {
+ const setSearch = () => {
+  const inputSearch = tsQuerySelector<HTMLInputElement>(
+    document,
+    '.products-search__input'
+  );
+
+  inputSearch.addEventListener('input', () => {
     if (inputSearch.value === '') {
-      const searchParams = new URLSearchParams((`${location.hash}`).slice(1));
+      const searchParams = new URLSearchParams(`${window.location.hash}`.slice(1));
       searchParams.delete(Query.search);
-      return location.hash = '' + searchParams.toString();
+      return (window.location.hash = `${searchParams.toString()}`);
     }
-    setQueryParam('search', (inputSearch.value).toLocaleLowerCase());
+    setQueryParam('search', inputSearch.value.toLocaleLowerCase());
   });
 };
+export default setSearch
