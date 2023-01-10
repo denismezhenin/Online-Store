@@ -58,7 +58,7 @@ export const filterByRange = (
 export const filterBySearch = (str: string, arr: Array<IProduct>): Array<IProduct> =>
   arr.filter((item) => {
     for (const value of Object.values(item)) {
-      if (String(value).toLocaleLowerCase().startsWith(str.toLocaleLowerCase())) {
+      if (String(value).toLocaleLowerCase().includes(str.toLocaleLowerCase())) {
         return true;
       }
     }
