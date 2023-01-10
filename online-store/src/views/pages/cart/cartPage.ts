@@ -8,7 +8,8 @@ import {
 import { setCartTotal, state } from '../../components/state';
 import { tsQuerySelector } from '../../components/helpers';
 import { crossOutTotalPrice } from './helperSummary';
-import { getCurrentPage, getMaxPage, searchCartParam } from './pagination';
+import { getCurrentPage, getMaxPage, searchCartParam, setCartQueryParams } from './pagination';
+import { setQueryParam } from '../main/queryParams';
 
 export function getCartHtml() {
   return `
@@ -184,6 +185,10 @@ export function getProductList() {
       items * (Number(searchCartParam(Query.page)) - 1),
       items * Number(searchCartParam(Query.page))
     );
+
+  if (items > 0 && copy.length === 0 && searchCartParam(Query.page)) {
+        setCartQueryParams('page', String(Number(state.cartPage)));
+    }
   }
   return copy
     .map(
@@ -228,7 +233,7 @@ export function renderProductList() {
   } else {
     getEmptyCart();
   }
-  searchCartParam(Query.page);
+  // searchCartParam(Query.page);
 }
 export function totalCountProduct() {
   const summaryProductsSpan = tsQuerySelector(

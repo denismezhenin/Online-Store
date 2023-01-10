@@ -36,7 +36,6 @@ const router = async () => {
     (request.resource ? `/${request.resource}` : '/') +
     (request.id ? '/:id' : '') +
     (request.verb ? `/${request.verb}` : '');
-    console.log(request.resource)
   if (request.resource === undefined && isLoaded) {
     searchItems(productItems.products);
     return (isLoaded = true);

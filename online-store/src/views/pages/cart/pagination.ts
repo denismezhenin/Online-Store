@@ -18,7 +18,7 @@ export function getCurrentPage() {
   }
 }
 
-const setCatQueryParams = (category: string, value: string): void => {
+export const setCartQueryParams = (category: string, value: string): void => {
   const searchParams = new URLSearchParams(`${window.location.hash}`.slice(6));
   searchParams.set(category, value);
   window.location.hash = `/cart?${searchParams.toString()}`;
@@ -58,9 +58,9 @@ export function setInputPage(e: InputEventInit) {
   getMaxPage();
   getCurrentPage();
   if (titleItemsInput.value === '') {
-    setCatQueryParams('limit', '0');
+    setCartQueryParams('limit', '0');
   } else {
-    setCatQueryParams('limit', titleItemsInput.value);
+    setCartQueryParams('limit', titleItemsInput.value);
   }
   renderProductList();
 }
@@ -81,7 +81,7 @@ export function getProductNumPage(e: Event) {
     state.cartPage+=1;
   }
   getMaxPage();
-  setCatQueryParams('page', String(state.cartPage));
+  setCartQueryParams('page', String(state.cartPage));
   getCurrentPage();
   renderProductList();
 }
