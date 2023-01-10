@@ -6,7 +6,7 @@ import { setQueryParam } from "./queryParams";
 export const setViewListeners = () => {
   tsQuerySelector(document, '.products-view-mode').addEventListener('click', (e: Event) => {
     if (!(e.target instanceof HTMLElement)) return;
-    const target = e.target;
+    const {target} = e;
     if (target.classList.contains('view__card')) {
       setQueryParam('view', 'card');
     }

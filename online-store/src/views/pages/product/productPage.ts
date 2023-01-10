@@ -1,13 +1,12 @@
-import { setCartTotal } from "../../components/state";
-import { IProduct, LocationHref } from "../../components/constants";
-import productItems from "../../components/productJSON";
-import Utils from "../../../services/Utils";
-import { state } from "../../components/state";
-import { tsQuerySelector } from "../../components/helpers";
+import { setCartTotal, state } from '../../components/state';
+import { IProduct, LocationHref } from '../../components/constants';
+import {productItems} from '../../components/productItems';
+import Utils from '../../../services/Utils';
+import { tsQuerySelector } from '../../components/helpers';
 
 export function getProductHtml() {
   const array = productItems.products;
-  let target = Utils.parseRequestURL();
+  const target = Utils.parseRequestURL();
 
   const targetObject = array.find((item) => item.id === Number(target.id));
 
@@ -29,15 +28,15 @@ export function getProductHtml() {
         <div class="description__container">
           <div class="product-photo__container">
             <div class="product-small-photo">
-            ${targetObject?.images.map((el) => {
-              return `
+            ${targetObject?.images.map(
+              (el) => `
               <img
                 class="small-photo__img"
                 alt="Slide"
                 src=${el}
               />
-              `;
-            })}
+              `
+            )}
              
             </div>
             <div class="product-large-photo">
@@ -88,9 +87,9 @@ export function getProductHtml() {
           </div>
           <div class="product-price__container">
             <p class="product-price">$${targetObject?.price}</p>
-            <button class="product-price__button product__button add-cart__button">ADD TO CART</button>
-            <button class="product-price__button product__button drop-cart__button hide">DROP FROM CART</button>
-            <button class="product-price__button  buy-now__button" >BUY NOW</button>
+            <button class="product-price__button product__button add-cart__button button-second-colored button">ADD TO CART</button>
+            <button class="product-price__button product__button drop-cart__button hide button-second-colored button">DROP FROM CART</button>
+            <button class="product-price__button  buy-now__button button-second-colored button">BUY NOW</button>
           </div>
         </div>
       </div>
@@ -100,29 +99,29 @@ export function getProductHtml() {
 
 export function checkProduct() {
   const array = productItems.products;
-  let product = Utils.parseRequestURL();
+  const product = Utils.parseRequestURL();
   const addCartButton = tsQuerySelector<HTMLButtonElement>(
     document,
-    ".add-cart__button"
+    '.add-cart__button'
   );
   const dropCartButton = tsQuerySelector<HTMLButtonElement>(
     document,
-    ".drop-cart__button"
+    '.drop-cart__button'
   );
   const productItem = array.find((item) => item.id === Number(product.id));
 
   if (state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
-    addCartButton.classList.add("hide");
-    dropCartButton.classList.remove("hide");
+    addCartButton.classList.add('hide');
+    dropCartButton.classList.remove('hide');
   } else {
-    addCartButton.classList.remove("hide");
-    dropCartButton.classList.add("hide");
+    addCartButton.classList.remove('hide');
+    dropCartButton.classList.add('hide');
   }
 }
 
 export function toggleProduct() {
   const array = productItems.products;
-  let product = Utils.parseRequestURL();
+  const product = Utils.parseRequestURL();
   const productItem = array.find((item) => item.id === Number(product.id));
   if (!state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
     const cartItem = { ...productItem, count: 1 };
@@ -139,7 +138,7 @@ export function toggleProduct() {
 
 export function quickBuy() {
   const array = productItems.products;
-  let product = Utils.parseRequestURL();
+  const product = Utils.parseRequestURL();
   const productItem = array.find((item) => item.id === Number(product.id));
   if (!state.cartArray.find((el) => el.id === (productItem as IProduct).id)) {
     const cartItem = { ...productItem, count: 1 };
@@ -148,17 +147,18 @@ export function quickBuy() {
   }
   checkProduct();
   setCartTotal();
-  location.href = LocationHref.cart;
+
+  window.location.href = LocationHref.cart;
   setTimeout(() => {
-    const modal = tsQuerySelector(document, ".modal");
-    modal.classList.remove("closed-modal");
+    const modal = tsQuerySelector(document, '.modal');
+    modal.classList.remove('closed-modal');
   }, 200);
 }
 
 export function zoomImage(e: Event) {
   if (!(e.target instanceof HTMLImageElement)) return;
-  let target = e.target;
-  const productLargePhoto = tsQuerySelector(document, ".product-large-photo");
+  const { target } = e;
+  const productLargePhoto = tsQuerySelector(document, '.product-large-photo');
   productLargePhoto.innerHTML = `<img
   class="large-photo__img"
   alt=""

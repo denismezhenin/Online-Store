@@ -15,7 +15,7 @@ function getLogoImage() {
     document,
     ".card-number__input"
   );
-  let value = cardNumberInput.value;
+  const {value} = cardNumberInput;
   const img = tsQuerySelector<HTMLImageElement>(document, ".card-img");
   switch (cardNumberInput.value[CardLogo.firstNumber]) {
     case CardLogo.visaNumber:
@@ -37,7 +37,7 @@ export function inputCardNumber(e: InputEventInit) {
     document,
     ".card-number__input"
   );
-  let [numbers, regExp, value] = [/[0-9]/, /[0-9]{4}/, cardNumberInput.value];
+  const [numbers, regExp, value] = [/[0-9]/, /[0-9]{4}/, cardNumberInput.value];
   getLogoImage();
   
   if (
@@ -56,13 +56,13 @@ export function inputCardNumber(e: InputEventInit) {
       0,
       cardNumberInput.value.length - 1
     );
-    return;
+    
   }
 }
 
 export function inputCardValid(e: InputEventInit) {
   const cardValid = tsQuerySelector<HTMLInputElement>(document, ".card-valid");
-  let [numbers, regExp, value] = [/[0-9]/, /[0-9]{2}/, cardValid.value];
+  const [numbers, regExp, value] = [/[0-9]/, /[0-9]{2}/, cardValid.value];
 
   if (
     (e.inputType === "insertText" && !numbers.test(e.data!)) ||
@@ -98,7 +98,7 @@ export function inputCardValid(e: InputEventInit) {
 
 export function inputCardCvv(e: InputEventInit) {
   const cvv = tsQuerySelector<HTMLInputElement>(document, ".cvv");
-  let [numbers, regExp, value] = [/[0-9]/, /[0-9]{2}/, cvv.value];
+  const [numbers, regExp, value] = [/[0-9]/, /[0-9]{2}/, cvv.value];
 
   if (
     (e.inputType === "insertText" && !numbers.test(e.data!)) ||
@@ -110,7 +110,7 @@ export function inputCardCvv(e: InputEventInit) {
 
   if (e.inputType === "deleteContentBackward" && regExp.test(value.slice(-1))) {
     cvv.value = cvv.value.slice(0, cvv.value.length - 1);
-    return;
+    
   }
 }
 
@@ -176,8 +176,8 @@ export function submitCard() {
       <div class="modal">
         <p class='message-order'>Thank you for order <span class='order-timer'>5</span></p>
       </div>`;
-    let interval = setInterval(orderTimer, 1000);
-    let redirect = setTimeout(() => {
+    const interval = setInterval(orderTimer, 1000);
+    const redirect = setTimeout(() => {
       location.href = LocationHref.home;
     }, 5000);
   }
