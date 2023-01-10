@@ -36,7 +36,7 @@ const setOptionCounts = (totalObj: {}, viewObj: {}): void => {
   });
 };
 
-const filterByValue = (
+export const filterByValue = (
   category: string,
   arrValues: string[],
   arr: Array<IProduct>
@@ -45,7 +45,7 @@ const filterByValue = (
     arrValues.includes(String(item[category as keyof IProduct]!).toLowerCase())
   );
 
-const filterByRange = (
+export const filterByRange = (
   category: string,
   arrValues: string[],
   arr: Array<IProduct>
@@ -55,16 +55,16 @@ const filterByRange = (
       arrValues[0] <= item[category as keyof IProduct]! &&
       arrValues[1] >= item[category as keyof IProduct]!
   );
-const filterBySearch = (str: string, arr: Array<IProduct>): Array<IProduct> =>
+export const filterBySearch = (str: string, arr: Array<IProduct>): Array<IProduct> =>
   arr.filter((item) => {
     for (const value of Object.values(item)) {
-      if (String(value).toLocaleLowerCase().startsWith(str)) {
+      if (String(value).toLocaleLowerCase().includes(str.toLocaleLowerCase())) {
         return true;
       }
     }
   });
 
-const filterBySort = (type: string, arr: Array<IProduct>) => {
+export const filterBySort = (type: string, arr: Array<IProduct>) => {
   switch (type) {
     case Query.default:
       return arr;

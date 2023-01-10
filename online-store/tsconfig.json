@@ -7,6 +7,6 @@
     "target": "ES2016",
     "allowJs": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/tests/sum.js"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
