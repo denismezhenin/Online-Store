@@ -13,6 +13,7 @@ import Utils from './services/Utils';
 import searchItems from './views/pages/main/search';
 import { productItems } from './views/components/productItems';
 import { renderProductList } from './views/pages/cart/cartPage';
+import { tsQuerySelector } from './views/components/helpers';
 
 let isLoaded = false;
 let cartLoaded = false;
@@ -25,12 +26,9 @@ const routes = {
 };
 
 const router = async () => {
-  const header =
-    null || (document.getElementById('header_container'));
-  const content =
-    null || (document.getElementById('page_container'));
-  const footer =
-    null || (document.getElementById('footer_container'));
+  const header = tsQuerySelector(document, '#header_container')
+  const content = tsQuerySelector(document, '#page_container')
+  const footer = tsQuerySelector(document, '#footer_container')
 
   const request = Utils.parseRequestURL();
 
@@ -71,7 +69,7 @@ const router = async () => {
   footer.innerHTML = await Bottombar.render();
   await Bottombar.after_render();
 
-  const page = routes[parsedURL] ? routes[parsedURL] : Error404;
+  const page = routes[parsedURL as keyof object] ? routes[parsedURL as keyof object] : Error404;
   content.innerHTML = await page.render();
   await page.after_render();
   if (request.resource === 'cart' || request.resource === 'product') {

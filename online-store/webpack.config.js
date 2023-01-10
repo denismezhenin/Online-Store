@@ -14,7 +14,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin")
 //   : "style-loader";
 
 const config = {
-  entry: "./src/app.js",
+  entry: "./src/app.ts",
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, "dist"),
