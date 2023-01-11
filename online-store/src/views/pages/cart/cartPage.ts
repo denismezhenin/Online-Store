@@ -52,7 +52,7 @@ export function getCartHtml() {
               <input
                 class="person--name card-form__item"
                 required
-                pattern="[A-Za-zА-Яа-яЁё]{3,}[\\s][A-Za-zА-Яа-яЁё]{3,}"
+                pattern="(([a-zA-Z]+){3,}\\s){1,}([a-zA-Z]+){3,}"
                 type="text"
                 placeholder="Name"
               />
@@ -72,7 +72,7 @@ export function getCartHtml() {
               <input
                 class="person-address card-form__item"
                 type="text"
-                pattern="[A-Za-zА-Яа-яЁё0-9]{5,}[\\s][A-Za-zА-Яа-яЁё0-9]{5,}[\\s][A-Za-zА-Яа-яЁё0-9]{5,}"
+                pattern="(([a-zA-Z\\d]+){5,}\\s){2,}([a-zA-Z\\d]+){5,}"
                 required
                 placeholder="Delivery address"
               />
