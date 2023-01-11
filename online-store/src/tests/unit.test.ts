@@ -112,15 +112,15 @@ describe('When sort by price descending first product', () => {
 })
 
 describe('When sort by rating descending first product', () => {
-  it('equal product with the heightest rating', () => {
+  it('equal product with the highest rating', () => {
     const result = filterBySort(Query.ratingDesc, productItems.products)![0]
     const expected = productItems.products.sort((a, b) => b.rating - a.rating)[0]
     expect(result).toEqual(expected)
   })
 })
 
-describe('When given 2 numbers', () => {
-  it('returns the sum of those 2 numbers', () => {
+describe('When sort by default product', () => {
+  it('expected to be equal to default products array', () => {
     const result = filterBySort(Query.default, productItems.products)
     const expected = productItems.products
     expect(result).toEqual(expected)
@@ -129,8 +129,8 @@ describe('When given 2 numbers', () => {
 
 
 
-describe('When given 2 numbers', () => {
-  it('returns the sum of those 2 numbers', () => {
+describe('When search by string "Microsoft Surface Laptop 4"', () => {
+  it('returns Microsoft Surface Laptop 4 product', () => {
     const result = filterBySearch('Microsoft Surface Laptop 4', productItems.products)
     const expected = [
       {
@@ -156,16 +156,16 @@ describe('When given 2 numbers', () => {
   })
 })
 
-describe('When given 2 numbers', () => {
-  it('returns the sum of those 2 numbers', () => {
+describe('When search by string keyword "fragrances"', () => {
+  it('returns the same as filter by same category "fragrances"', () => {
     const result = filterBySearch('fragrances', productItems.products)
     const expected = filterByValue(Query.category, ['fragrances'], productItems.products)
     expect(result).toEqual(expected)
   })
 })
 
-describe('When given 2 numbers', () => {
-  it('returns the sum of those 2 numbers', () => {
+describe('When filter by price between 10 and 12', () => {
+  it('returns 2 particular products', () => {
     const result = filterByRange(Query.price, ['10', '12'], productItems.products)
     const expected = [
       {
@@ -209,8 +209,8 @@ describe('When given 2 numbers', () => {
   })
 })
 
-describe('When given 2 numbers', () => {
-  it('returns the sum of those 2 numbers', () => {
+describe('When filter availability by stock between 101 and 105', () => {
+  it('returns 2 particular products', () => {
     const result = filterByRange(Query.stock, ['101', '105'], productItems.products)
     const expected = [
       {

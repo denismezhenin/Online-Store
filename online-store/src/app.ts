@@ -31,7 +31,7 @@ const router = async () => {
   const footer = tsQuerySelector(document, '#footer_container')
 
   const request = Utils.parseRequestURL();
-
+//  console.log(request.id > 100)
   const parsedURL =
     (request.resource ? `/${request.resource}` : '/') +
     (request.id ? '/:id' : '') +
@@ -40,6 +40,8 @@ const router = async () => {
     searchItems(productItems.products);
     return (isLoaded = true);
   }
+
+
   if (request.resource === undefined && !isLoaded) {
     header.innerHTML = await Navbar.render();
     await Navbar.after_render();
@@ -63,11 +65,17 @@ const router = async () => {
     await Cart.after_render();
     return (cartLoaded = true);
   }
-
+  
   header.innerHTML = await Navbar.render();
   await Navbar.after_render();
   footer.innerHTML = await Bottombar.render();
   await Bottombar.after_render();
+  
+  if (request.resource === 'product' && ((Number(request.id) > 1000) || (Number(request.id) < 0) || isNaN(Number(request.id)))) {
+    content.innerHTML = await Error404.render();
+    await Error404.after_render();
+    return
+  }
 
   const page = routes[parsedURL as keyof object] ? routes[parsedURL as keyof object] : Error404;
   content.innerHTML = await page.render();
