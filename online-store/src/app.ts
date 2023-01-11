@@ -71,7 +71,7 @@ const router = async () => {
   footer.innerHTML = await Bottombar.render();
   await Bottombar.after_render();
   
-  if (request.resource === 'product' && ((Number(request.id) > 1000) || (Number(request.id) < 0) || isNaN(Number(request.id)))) {
+  if (request.resource === 'product' && ((Number(request.id) > 100) || (Number(request.id) < 0) || isNaN(Number(request.id)))) {
     content.innerHTML = await Error404.render();
     await Error404.after_render();
     return
