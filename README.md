@@ -9,12 +9,12 @@ Deploy [link](https://online-store-ds.netlify.app/#)
 
 ## Key features:
 - Filtering, sorting, search (it is possible to combine all types of filters)
-- filters/search params write to query string and can page can be reload with the same result of filtering/search
+- Filters/search params write to the query string and can page can be reloaded with the same result of filtering/search
 - View products change
 - Add products to the cart
 - Cart has full-fledged functionality(add/remove items, use promocode, pagination)
 - Checkout modal with credit card, phone, address, name validations
-- Save filter combination / cart pagination in query string 
+- Save filter combination / cart pagination in the query string 
 - SPA with custom routing system (move between pages without reload)
 - Cart data saved in local storage
 - Product description page
